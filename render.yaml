@@ -3,13 +3,18 @@ services:
     name: whiteout-survival-bot
     env: python
     plan: starter
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      python -m pip install --upgrade pip
+      pip install --upgrade setuptools wheel
+      pip install -r requirements.txt
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
+      - key: PIP_DISABLE_PIP_VERSION_CHECK
+        value: "1"
     autoDeploy: false
-    # The following settings help with the pip build issues
     buildConfig:
       pythonEnvOptions:
         setuptools: true
+      pythonVersion: 3.10.13
