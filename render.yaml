@@ -4,17 +4,22 @@ services:
     env: python
     plan: starter
     buildCommand: |
+      # Force Python 3.10.13
+      pyenv install 3.10.13
+      pyenv global 3.10.13
+      
+      # Update pip and core build tools
       python -m pip install --upgrade pip
-      pip install --upgrade setuptools wheel
-      pip install -r requirements.txt
+      pip install --upgrade setuptools wheel build
+      
+      # Install the project in development mode
+      pip install -e .
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.13
+        value: "3.10.13"
       - key: PIP_DISABLE_PIP_VERSION_CHECK
         value: "1"
+      - key: PYTHONPATH
+        value: "/opt/render/project/src"
     autoDeploy: false
-    buildConfig:
-      pythonEnvOptions:
-        setuptools: true
-      pythonVersion: 3.10.13
