@@ -4,16 +4,11 @@ services:
     env: python
     plan: starter
     buildCommand: |
-      # Force Python 3.10.13
-      pyenv install 3.10.13
-      pyenv global 3.10.13
+      # Make prebuild script executable
+      chmod +x prebuild.sh
       
-      # Update pip and core build tools
-      python -m pip install --upgrade pip
-      pip install --upgrade setuptools wheel build
-      
-      # Install the project in development mode
-      pip install -e .
+      # Run prebuild script
+      ./prebuild.sh
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
@@ -22,4 +17,8 @@ services:
         value: "1"
       - key: PYTHONPATH
         value: "/opt/render/project/src"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PIP_NO_CACHE_DIR
+        value: "1"
     autoDeploy: false
