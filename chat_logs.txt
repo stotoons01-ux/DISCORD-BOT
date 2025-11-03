@@ -832,3 +832,15 @@ discord.errors.LoginFailure: Improper token has been passed.
 2025-11-02 02:48:52,788 - Music cog loaded successfully
 2025-11-02 02:48:53,565 - Successfully synced global commands
 2025-11-02 02:49:53,535 - Synced commands globally
+2025-11-03 14:52:32,593 - Halloween#3946 has connected to Discord!
+2025-11-03 14:52:32,594 - Health server task started on port 8080
+2025-11-03 14:52:32,594 - Uptime checker task started
+2025-11-03 14:52:32,843 - Music cog loaded successfully
+2025-11-03 14:52:33,530 - Successfully synced global commands
+2025-11-03 14:53:33,601 - Synced commands globally
+2025-11-03 15:08:22,695 - Halloween#3946 has connected to Discord!
+2025-11-03 15:08:22,696 - Health server task started on port 8080
+2025-11-03 15:08:22,696 - Uptime checker task started
+2025-11-03 15:08:23,127 - Music cog loaded successfully
+2025-11-03 15:08:23,795 - Successfully synced global commands
+2025-11-03 15:09:23,776 - Synced commands globally

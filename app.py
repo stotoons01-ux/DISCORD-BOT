@@ -523,30 +523,128 @@ async def giftcode(interaction: discord.Interaction):
         if not codes:
             await interaction.followup.send("No active gift codes available right now. Check back later! 🎁", ephemeral=False)
             return
-        
-        embed = discord.Embed(
-            title="✨ Active Whiteout Survival Gift Codes ✨",
-            color=0xffd700,
-            description=f"Last updated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}"
-        )
-        embed.set_thumbnail(url="https://i.postimg.cc/s2xHV7N7/Groovy-gift.gif")
+        # Helper to build the embed from a codes list
+        def build_codes_embed(codes_list):
+            embed = discord.Embed(
+                title="✨ Active Whiteout Survival Gift Codes ✨",
+                color=0xffd700,
+                description=f"Last updated: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}"
+            )
+            embed.set_thumbnail(url="https://i.postimg.cc/s2xHV7N7/Groovy-gift.gif")
 
-        for code in codes[:10]:  # Limit to 10 codes
-            name = f"🎟️ Code:"
-            value = f"```{code['code']}```\n*Rewards:* {code['rewards'] if 'rewards' in code else 'Rewards not specified'}\n*Expires:* {code.get('expiry', 'Unknown')}"
-            embed.add_field(name=name, value=value, inline=False)
+            for code in (codes_list or [])[:10]:  # Limit to 10 codes
+                name = f"🎟️ Code:"
+                value = f"```{code.get('code','')}```\n*Rewards:* {code.get('rewards','Rewards not specified')}\n*Expires:* {code.get('expiry','Unknown')}"
+                embed.add_field(name=name, value=value, inline=False)
 
-        if len(codes) > 10:
-            embed.set_footer(text=f"And {len(codes) - 10} more codes...")
-        else:
-            embed.set_footer(text="Use /giftcode to see all active codes!")
+            if codes_list and len(codes_list) > 10:
+                embed.set_footer(text=f"And {len(codes_list) - 10} more codes...")
+            else:
+                embed.set_footer(text="Use /giftcode to see all active codes!")
 
-        # Stop the animation and edit the message with the gift codes
+            return embed
+
+        # View with Copy and Refresh buttons
+        class GiftCodeView(discord.ui.View):
+            def __init__(self, codes_list):
+                super().__init__(timeout=300)
+                self.codes = codes_list or []
+                self.message = None
+
+            @discord.ui.button(label="Copy Code", style=discord.ButtonStyle.primary, custom_id="giftcode_copy")
+            async def copy_button(self, interaction_button: discord.Interaction, button: discord.ui.Button):
+                # Send all active gift codes in a simple plain-text DM (one code per line).
+                # If DMs are closed, fall back to an ephemeral message with the same plain text.
+                if not self.codes:
+                    try:
+                        await interaction_button.response.send_message("No gift codes available to copy.", ephemeral=True)
+                    except Exception:
+                        logger.debug("Failed to send ephemeral no-codes message")
+                    return
+
+                # Build a simple plain-text list of codes (only the code strings)
+                code_list = [c.get('code', '').strip() for c in self.codes if c.get('code')]
+                if not code_list:
+                    try:
+                        await interaction_button.response.send_message("Couldn't find any codes to copy.", ephemeral=True)
+                    except Exception:
+                        logger.debug("Failed to send ephemeral no-code-found message")
+                    return
+
+                plain_text = "\n".join(code_list)
+                # Append the signature line requested by user
+                plain_text += "\n\nGift Code :gift:  STATE #3063"
+
+                # Acknowledge the interaction and attempt to DM the user
+                try:
+                    await interaction_button.response.defer(ephemeral=True)
+                except Exception:
+                    pass
+
+                user = interaction_button.user
+                dm_sent = False
+                try:
+                    await user.send(plain_text)
+                    dm_sent = True
+                except Exception as dm_err:
+                    logger.info(f"Could not send DM to user {getattr(user, 'id', 'unknown')}: {dm_err}")
+
+                try:
+                    if dm_sent:
+                        await interaction_button.followup.send("I've sent all active gift codes to your DMs. Check your messages!", ephemeral=True)
+                    else:
+                        # Fallback: show the full plain text in an ephemeral followup
+                        await interaction_button.followup.send(f"Couldn't DM you. Here are the codes:\n\n{plain_text}", ephemeral=True)
+                except Exception:
+                    logger.debug("Failed to send followup after DM attempt")
+
+            @discord.ui.button(label="Refresh Codes", style=discord.ButtonStyle.secondary, custom_id="giftcode_refresh")
+            async def refresh_button(self, interaction_button: discord.Interaction, button: discord.ui.Button):
+                # Defer to give us time to fetch and edit
+                await interaction_button.response.defer(ephemeral=True)
+                try:
+                    new_codes = await get_active_gift_codes()
+                    if not new_codes:
+                        await interaction_button.followup.send("No active gift codes available right now.", ephemeral=True)
+                        return
+
+                    self.codes = new_codes
+                    new_embed = build_codes_embed(self.codes)
+
+                    # Edit the original message that contains the embed
+                    if self.message:
+                        try:
+                            await self.message.edit(embed=new_embed)
+                            await interaction_button.followup.send("Gift codes refreshed.", ephemeral=True)
+                        except Exception as edit_err:
+                            logger.error(f"Failed to edit gift code message: {edit_err}")
+                            await interaction_button.followup.send("Failed to update the gift codes message.", ephemeral=True)
+                    else:
+                        # If we don't have the message reference, just send a new followup
+                        await interaction_button.followup.send(embed=new_embed, ephemeral=False)
+
+                except Exception as e:
+                    logger.error(f"Error refreshing gift codes via button: {e}")
+                    await interaction_button.followup.send("Error while refreshing gift codes.", ephemeral=True)
+
+        embed = build_codes_embed(codes)
+
+        # Stop the animation and send the embed with the interactive view
         await thinking_animation.stop_thinking(interaction, delete_message=True)
-        await interaction.followup.send(
+        view = GiftCodeView(codes)
+        sent = await interaction.followup.send(
             content=f"{interaction.user.display_name} requested gift codes",
-            embed=embed
+            embed=embed,
+            view=view,
+            wait=True
         )
+
+        # Save reference to the sent message so the view can edit it later
+        try:
+            view.message = sent
+        except Exception:
+            # In some cases the followup send returns None; attempt to fetch the last message in channel
+            logger.debug("Could not attach message reference to GiftCodeView")
     except Exception as e:
         logger.error(f"Error in giftcode command: {e}")
         await thinking_animation.stop_thinking(interaction, delete_message=True)
