@@ -844,3 +844,37 @@ discord.errors.LoginFailure: Improper token has been passed.
 2025-11-03 15:08:23,127 - Music cog loaded successfully
 2025-11-03 15:08:23,795 - Successfully synced global commands
 2025-11-03 15:09:23,776 - Synced commands globally
+2025-11-03 15:41:48,343 - Halloween#3946 has connected to Discord!
+2025-11-03 15:41:48,344 - Health server task started on port 8080
+2025-11-03 15:41:48,345 - Uptime checker task started
+2025-11-03 15:41:48,345 - Giftcode poster task started
+2025-11-03 15:41:48,929 - Music cog loaded successfully
+2025-11-03 15:41:49,994 - Successfully synced global commands
+2025-11-03 15:42:49,639 - Synced commands globally
+2025-11-03 15:47:11,679 - Gift code channel set for guild 1147956569271697518 -> channel 1147956569271697521 by 850786361572720661
+2025-11-03 15:52:46,809 - Halloween#3946 has connected to Discord!
+2025-11-03 15:52:46,811 - Health server task started on port 8080
+2025-11-03 15:52:46,811 - Uptime checker task started
+2025-11-03 15:52:46,812 - Giftcode poster task started
+2025-11-03 15:52:47,066 - Music cog loaded successfully
+2025-11-03 15:52:47,672 - Successfully synced global commands
+2025-11-03 15:53:31,401 - Halloween#3946 has connected to Discord!
+2025-11-03 15:53:31,403 - Health server task started on port 8080
+2025-11-03 15:53:31,405 - Uptime checker task started
+2025-11-03 15:53:31,406 - Giftcode poster task started
+2025-11-03 15:53:31,898 - Music cog loaded successfully
+2025-11-03 15:54:17,772 - Successfully synced global commands
+2025-11-03 15:54:18,625 - Synced commands globally
+2025-11-03 15:54:59,116 - Gift code channel set for guild 1147956569271697518 -> channel 1147956569271697521 by 850786361572720661
+2025-11-03 15:55:11,109 - Gift code channel set for guild 1147956569271697518 -> channel 1147956569271697521 by 850786361572720661
+2025-11-03 15:58:40,088 - Gift code channel set for guild 1147956569271697518 -> channel 1147956569271697525 by 850786361572720661
+2025-11-03 15:59:17,810 - Gift code channel unset for guild 1147956569271697518 by 850786361572720661
+2025-11-03 15:59:44,754 - Gift code channel set for guild 1147956569271697518 -> channel 1147956569724694608 by 850786361572720661
+2025-11-03 16:01:41,358 - Halloween#3946 has connected to Discord!
+2025-11-03 16:01:41,359 - Health server task started on port 8080
+2025-11-03 16:01:41,359 - Uptime checker task started
+2025-11-03 16:01:41,360 - Giftcode poster task started
+2025-11-03 16:01:41,563 - Music cog loaded successfully
+2025-11-03 16:01:42,368 - Successfully synced global commands
+2025-11-03 16:02:42,334 - Synced commands globally
+2025-11-03 16:11:03,009 - Error in add_trait command: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.

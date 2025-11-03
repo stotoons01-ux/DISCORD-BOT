@@ -22,6 +22,7 @@ from matplotlib.dates import DateFormatter
 import io
 import health_server
 import uptime_checker
+import giftcode_poster
 
 
 load_dotenv()
@@ -113,6 +114,13 @@ async def on_ready():
                 logger.info('Uptime checker task started')
             except Exception as uc_err:
                 logger.error(f'Failed to start uptime checker: {uc_err}')
+
+            # Start giftcode poster task (periodically checks wosgiftcodes and posts new codes)
+            try:
+                bot.loop.create_task(giftcode_poster.start_poster(bot))
+                logger.info('Giftcode poster task started')
+            except Exception as gp_err:
+                logger.error(f'Failed to start giftcode poster: {gp_err}')
         
         # Load music cog
         try:
@@ -759,6 +767,72 @@ async def reminder(interaction: discord.Interaction, time: str, message: str, ch
             await interaction.followup.send("❌ **Error**\n\nSorry, there was an error setting your reminder. Please try again.", ephemeral=True)
         except:
             logger.error("Failed to send error message")
+
+
+@bot.tree.command(name="giftchannel", description="Set or disable this server's gift code posting channel. Provide a channel to set; omit to disable.")
+@app_commands.describe(channel="Text channel to post gift codes in (omit to disable)")
+@app_commands.default_permissions(administrator=True)
+async def giftchannel(interaction: discord.Interaction, channel: discord.TextChannel = None):
+    await interaction.response.defer(ephemeral=True)
+    try:
+        guild_id = interaction.guild.id if interaction.guild else None
+        if not guild_id:
+            await interaction.followup.send("This command must be used in a server (guild).", ephemeral=True)
+            return
+
+        if channel is None:
+            # Disable posting
+            giftcode_poster.poster.unset_channel(guild_id)
+            await interaction.followup.send("✅ Gift code posting disabled for this server.", ephemeral=True)
+            logger.info(f"Gift code channel unset for guild {guild_id} by {interaction.user.id}")
+        else:
+            giftcode_poster.poster.set_channel(guild_id, channel.id)
+            await interaction.followup.send(f"✅ Gift code channel set to {channel.mention}", ephemeral=True)
+            logger.info(f"Gift code channel set for guild {guild_id} -> channel {channel.id} by {interaction.user.id}")
+
+    except Exception as e:
+        logger.error(f"Failed to set/unset gift code channel: {e}")
+        await interaction.followup.send("Failed to set or unset gift code channel. Check bot permissions and try again.", ephemeral=True)
+
+
+@bot.tree.command(name="list_gift_channel", description="Show the currently configured gift code channel for this server")
+async def list_gift_channel(interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=True)
+    try:
+        guild_id = interaction.guild.id if interaction.guild else None
+        if not guild_id:
+            await interaction.followup.send("This command must be used in a server (guild).", ephemeral=True)
+            return
+
+        channel_id = giftcode_poster.poster.get_channel(guild_id)
+        if not channel_id:
+            await interaction.followup.send("No gift code channel configured for this server.", ephemeral=True)
+            return
+
+        channel = interaction.guild.get_channel(channel_id) if interaction.guild else None
+        if not channel:
+            # channel may have been deleted or inaccessible
+            await interaction.followup.send(f"Configured channel (ID: {channel_id}) not found. It may have been deleted or I lack access.", ephemeral=True)
+            return
+
+        await interaction.followup.send(f"Current gift code channel is {channel.mention}", ephemeral=True)
+    except Exception as e:
+        logger.error(f"Failed to list gift code channel: {e}")
+        await interaction.followup.send("Failed to retrieve gift code channel.", ephemeral=True)
+
+
+@bot.tree.command(name="giftcode_check", description="Force-check wosgiftcodes.com now and post new codes to configured channels")
+@app_commands.default_permissions(administrator=True)
+async def giftcode_check(interaction: discord.Interaction):
+    await interaction.response.defer(ephemeral=True)
+    try:
+        result = await giftcode_poster.run_now_and_report(bot)
+        posted = result.get('posted', 0)
+        errors = result.get('errors', 0)
+        await interaction.followup.send(f"Giftcode check completed. Posted {posted} new codes across configured servers. Errors: {errors}", ephemeral=True)
+    except Exception as e:
+        logger.error(f"Error running giftcode check: {e}")
+        await interaction.followup.send("Error running giftcode check. See logs.", ephemeral=True)
 
 @bot.tree.command(name="delete_reminder", description="Delete a specific reminder")
 @app_commands.describe(reminder_id="The ID of the reminder to delete (use /listreminder to see IDs)")
