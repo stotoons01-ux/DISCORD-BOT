@@ -95,7 +95,7 @@ async def on_ready():
         logger.info(f'{bot.user} has connected to Discord!')
         # Start lightweight health server so Render sees an open port (for uptime pings)
         global health_server_started
-    if not health_server_started:
+        if not health_server_started:
             try:
                 port = int(os.getenv('PORT', 8080))
             except Exception:
@@ -106,6 +106,7 @@ async def on_ready():
                 logger.info(f'Health server task started on port {port}')
             except Exception as hs_err:
                 logger.error(f'Failed to start health server: {hs_err}')
+
             # Start uptime checker task (monitors health URL and posts to channel on changes)
             try:
                 bot.loop.create_task(uptime_checker.start_uptime_checker(bot))
