@@ -2086,3 +2086,516 @@ discord.ext.commands.errors.ExtensionAlreadyLoaded: Extension 'music_cog' is alr
 2025-11-05 21:36:42,456 - Removed music command 'show_timezone' (maintenance)
 2025-11-05 21:36:43,135 - Synced command removals to Discord (music commands hidden)
 2025-11-05 21:36:43,136 - Error in on_ready: Task is already launched and is not completed.
+2025-11-05 21:47:12,058 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 21:47:12,059 - Health server task started on port 8080
+2025-11-05 21:47:12,059 - Uptime checker task started
+2025-11-05 21:47:12,059 - Giftcode poster task started
+2025-11-05 21:47:12,059 - Skipping music cog load (file removed)
+2025-11-05 21:47:12,679 - Successfully synced global commands
+2025-11-05 21:48:12,644 - Synced commands globally
+2025-11-05 21:48:12,645 - Removed music command 'play' (maintenance)
+2025-11-05 21:48:12,646 - Removed music command 'pause' (maintenance)
+2025-11-05 21:48:12,646 - Removed music command 'resume' (maintenance)
+2025-11-05 21:48:12,646 - Removed music command 'skip' (maintenance)
+2025-11-05 21:48:12,647 - Removed music command 'stop' (maintenance)
+2025-11-05 21:48:12,648 - Removed music command 'queue' (maintenance)
+2025-11-05 21:48:12,648 - Removed music command 'leave' (maintenance)
+2025-11-05 21:48:12,650 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 21:48:12,658 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 21:48:12,661 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 21:48:12,666 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 21:48:13,688 - Synced command removals to Discord (music commands hidden)
+2025-11-05 22:12:41,890 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 22:12:41,891 - Health server task started on port 8080
+2025-11-05 22:12:41,891 - Uptime checker task started
+2025-11-05 22:12:41,892 - Giftcode poster task started
+2025-11-05 22:12:41,892 - Skipping music cog load (file removed)
+2025-11-05 22:12:42,548 - Successfully synced global commands
+2025-11-05 22:13:42,577 - Synced commands globally
+2025-11-05 22:13:42,578 - Removed music command 'play' (maintenance)
+2025-11-05 22:13:42,578 - Removed music command 'pause' (maintenance)
+2025-11-05 22:13:42,578 - Removed music command 'resume' (maintenance)
+2025-11-05 22:13:42,579 - Removed music command 'skip' (maintenance)
+2025-11-05 22:13:42,579 - Removed music command 'stop' (maintenance)
+2025-11-05 22:13:42,580 - Removed music command 'queue' (maintenance)
+2025-11-05 22:13:42,581 - Removed music command 'leave' (maintenance)
+2025-11-05 22:13:42,582 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 22:13:42,582 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 22:13:42,583 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 22:13:42,584 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 22:13:43,678 - Synced command removals to Discord (music commands hidden)
+2025-11-05 22:18:44,390 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 22:18:44,392 - Health server task started on port 8080
+2025-11-05 22:18:44,393 - Uptime checker task started
+2025-11-05 22:18:44,394 - Giftcode poster task started
+2025-11-05 22:18:44,394 - Skipping music cog load (file removed)
+2025-11-05 22:18:45,176 - Successfully synced global commands
+2025-11-05 22:19:03,025 - Error in /dicebattle command: 404 Not Found (error code: 10062): Unknown interaction
+2025-11-05 22:19:45,094 - Synced commands globally
+2025-11-05 22:19:45,094 - Removed music command 'play' (maintenance)
+2025-11-05 22:19:45,095 - Removed music command 'pause' (maintenance)
+2025-11-05 22:19:45,096 - Removed music command 'resume' (maintenance)
+2025-11-05 22:19:45,100 - Removed music command 'skip' (maintenance)
+2025-11-05 22:19:45,102 - Removed music command 'stop' (maintenance)
+2025-11-05 22:19:45,115 - Removed music command 'queue' (maintenance)
+2025-11-05 22:19:45,117 - Removed music command 'leave' (maintenance)
+2025-11-05 22:19:45,127 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 22:19:45,129 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 22:19:45,129 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 22:19:45,130 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 22:19:45,834 - Synced command removals to Discord (music commands hidden)
+2025-11-05 22:26:56,902 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 22:26:56,902 - Skipping music cog load (file removed)
+2025-11-05 22:26:57,772 - Successfully synced global commands
+2025-11-05 22:27:57,807 - Synced commands globally
+2025-11-05 22:27:57,821 - Removed music command 'play' (maintenance)
+2025-11-05 22:27:57,835 - Removed music command 'pause' (maintenance)
+2025-11-05 22:27:57,845 - Removed music command 'resume' (maintenance)
+2025-11-05 22:27:57,848 - Removed music command 'skip' (maintenance)
+2025-11-05 22:27:57,849 - Removed music command 'stop' (maintenance)
+2025-11-05 22:27:57,849 - Removed music command 'queue' (maintenance)
+2025-11-05 22:27:57,851 - Removed music command 'leave' (maintenance)
+2025-11-05 22:27:57,853 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 22:27:57,856 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 22:27:57,857 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 22:27:57,857 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 22:27:58,473 - Synced command removals to Discord (music commands hidden)
+2025-11-05 22:27:58,474 - Error in on_ready: Task is already launched and is not completed.
+2025-11-05 22:36:25,673 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 22:36:25,673 - Health server task started on port 8080
+2025-11-05 22:36:25,673 - Uptime checker task started
+2025-11-05 22:36:25,674 - Giftcode poster task started
+2025-11-05 22:36:25,674 - Skipping music cog load (file removed)
+2025-11-05 22:36:26,243 - Successfully synced global commands
+2025-11-05 22:37:26,251 - Synced commands globally
+2025-11-05 22:37:26,253 - Removed music command 'play' (maintenance)
+2025-11-05 22:37:26,254 - Removed music command 'pause' (maintenance)
+2025-11-05 22:37:26,256 - Removed music command 'resume' (maintenance)
+2025-11-05 22:37:26,257 - Removed music command 'skip' (maintenance)
+2025-11-05 22:37:26,260 - Removed music command 'stop' (maintenance)
+2025-11-05 22:37:26,267 - Removed music command 'queue' (maintenance)
+2025-11-05 22:37:26,274 - Removed music command 'leave' (maintenance)
+2025-11-05 22:37:26,277 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 22:37:26,291 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 22:37:26,297 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 22:37:26,301 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 22:37:27,134 - Synced command removals to Discord (music commands hidden)
+2025-11-05 22:51:30,057 - Error handling DM message: All API requests failed after 3 attempts
+2025-11-05 22:54:04,599 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 22:54:04,600 - Health server task started on port 8080
+2025-11-05 22:54:04,601 - Uptime checker task started
+2025-11-05 22:54:04,601 - Giftcode poster task started
+2025-11-05 22:54:04,601 - Skipping music cog load (file removed)
+2025-11-05 22:54:05,242 - Successfully synced global commands
+2025-11-05 22:55:05,324 - Synced commands globally
+2025-11-05 22:55:05,324 - Removed music command 'play' (maintenance)
+2025-11-05 22:55:05,324 - Removed music command 'pause' (maintenance)
+2025-11-05 22:55:05,325 - Removed music command 'resume' (maintenance)
+2025-11-05 22:55:05,329 - Removed music command 'skip' (maintenance)
+2025-11-05 22:55:05,330 - Removed music command 'stop' (maintenance)
+2025-11-05 22:55:05,337 - Removed music command 'queue' (maintenance)
+2025-11-05 22:55:05,351 - Removed music command 'leave' (maintenance)
+2025-11-05 22:55:05,352 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 22:55:05,356 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 22:55:05,357 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 22:55:05,358 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 22:55:06,474 - Synced command removals to Discord (music commands hidden)
+2025-11-05 22:55:16,416 - Error in /dicebattle command: 404 Not Found (error code: 10062): Unknown interaction
+2025-11-05 22:55:49,327 - Error in /dicebattle command: 404 Not Found (error code: 10062): Unknown interaction
+2025-11-05 22:57:42,085 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 22:57:42,086 - Health server task started on port 8080
+2025-11-05 22:57:42,087 - Uptime checker task started
+2025-11-05 22:57:42,087 - Giftcode poster task started
+2025-11-05 22:57:42,087 - Skipping music cog load (file removed)
+2025-11-05 22:57:42,684 - Successfully synced global commands
+2025-11-05 22:58:42,691 - Synced commands globally
+2025-11-05 22:58:42,692 - Removed music command 'play' (maintenance)
+2025-11-05 22:58:42,692 - Removed music command 'pause' (maintenance)
+2025-11-05 22:58:42,692 - Removed music command 'resume' (maintenance)
+2025-11-05 22:58:42,693 - Removed music command 'skip' (maintenance)
+2025-11-05 22:58:42,693 - Removed music command 'stop' (maintenance)
+2025-11-05 22:58:42,693 - Removed music command 'queue' (maintenance)
+2025-11-05 22:58:42,693 - Removed music command 'leave' (maintenance)
+2025-11-05 22:58:42,694 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 22:58:42,694 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 22:58:42,695 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 22:58:42,695 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 22:58:43,360 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:24:24,267 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 23:24:24,267 - Health server task started on port 8080
+2025-11-05 23:24:24,268 - Uptime checker task started
+2025-11-05 23:24:24,268 - Giftcode poster task started
+2025-11-05 23:24:24,268 - Skipping music cog load (file removed)
+2025-11-05 23:24:24,962 - Successfully synced global commands
+2025-11-05 23:25:24,945 - Synced commands globally
+2025-11-05 23:25:24,946 - Removed music command 'play' (maintenance)
+2025-11-05 23:25:24,946 - Removed music command 'pause' (maintenance)
+2025-11-05 23:25:24,947 - Removed music command 'resume' (maintenance)
+2025-11-05 23:25:24,949 - Removed music command 'skip' (maintenance)
+2025-11-05 23:25:24,954 - Removed music command 'stop' (maintenance)
+2025-11-05 23:25:24,966 - Removed music command 'queue' (maintenance)
+2025-11-05 23:25:24,981 - Removed music command 'leave' (maintenance)
+2025-11-05 23:25:24,997 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 23:25:25,005 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 23:25:25,017 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 23:25:25,025 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 23:25:25,807 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:29:39,098 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 23:29:39,099 - Health server task started on port 8080
+2025-11-05 23:29:39,099 - Uptime checker task started
+2025-11-05 23:29:39,100 - Giftcode poster task started
+2025-11-05 23:29:39,100 - Skipping music cog load (file removed)
+2025-11-05 23:29:39,808 - Successfully synced global commands
+2025-11-05 23:30:39,704 - Synced commands globally
+2025-11-05 23:30:39,705 - Removed music command 'play' (maintenance)
+2025-11-05 23:30:39,705 - Removed music command 'pause' (maintenance)
+2025-11-05 23:30:39,706 - Removed music command 'resume' (maintenance)
+2025-11-05 23:30:39,707 - Removed music command 'skip' (maintenance)
+2025-11-05 23:30:39,709 - Removed music command 'stop' (maintenance)
+2025-11-05 23:30:39,713 - Removed music command 'queue' (maintenance)
+2025-11-05 23:30:39,715 - Removed music command 'leave' (maintenance)
+2025-11-05 23:30:39,720 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 23:30:39,726 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 23:30:39,733 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 23:30:39,735 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 23:30:40,479 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:35:06,813 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 23:35:06,814 - Health server task started on port 8080
+2025-11-05 23:35:06,814 - Uptime checker task started
+2025-11-05 23:35:06,814 - Giftcode poster task started
+2025-11-05 23:35:06,815 - Skipping music cog load (file removed)
+2025-11-05 23:35:07,546 - Successfully synced global commands
+2025-11-05 23:36:07,855 - Synced commands globally
+2025-11-05 23:36:07,856 - Removed music command 'play' (maintenance)
+2025-11-05 23:36:07,857 - Removed music command 'pause' (maintenance)
+2025-11-05 23:36:07,861 - Removed music command 'resume' (maintenance)
+2025-11-05 23:36:07,863 - Removed music command 'skip' (maintenance)
+2025-11-05 23:36:07,873 - Removed music command 'stop' (maintenance)
+2025-11-05 23:36:07,875 - Removed music command 'queue' (maintenance)
+2025-11-05 23:36:07,876 - Removed music command 'leave' (maintenance)
+2025-11-05 23:36:07,877 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 23:36:07,880 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 23:36:07,883 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 23:36:07,883 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 23:36:08,597 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:40:45,592 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 23:40:45,592 - Health server task started on port 8080
+2025-11-05 23:40:45,592 - Uptime checker task started
+2025-11-05 23:40:45,592 - Giftcode poster task started
+2025-11-05 23:40:45,593 - Skipping music cog load (file removed)
+2025-11-05 23:40:46,346 - Successfully synced global commands
+2025-11-05 23:41:46,869 - Synced commands globally
+2025-11-05 23:41:46,869 - Removed music command 'play' (maintenance)
+2025-11-05 23:41:46,873 - Removed music command 'pause' (maintenance)
+2025-11-05 23:41:46,874 - Removed music command 'resume' (maintenance)
+2025-11-05 23:41:46,875 - Removed music command 'skip' (maintenance)
+2025-11-05 23:41:46,876 - Removed music command 'stop' (maintenance)
+2025-11-05 23:41:46,880 - Removed music command 'queue' (maintenance)
+2025-11-05 23:41:46,882 - Removed music command 'leave' (maintenance)
+2025-11-05 23:41:46,886 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 23:41:46,889 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 23:41:46,892 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 23:41:46,894 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 23:41:47,598 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:44:52,537 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 23:44:52,537 - Health server task started on port 8080
+2025-11-05 23:44:52,539 - Uptime checker task started
+2025-11-05 23:44:52,540 - Giftcode poster task started
+2025-11-05 23:44:52,540 - Skipping music cog load (file removed)
+2025-11-05 23:44:53,213 - Successfully synced global commands
+2025-11-05 23:45:53,198 - Synced commands globally
+2025-11-05 23:45:53,199 - Removed music command 'play' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'pause' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'resume' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'skip' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'stop' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'queue' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'leave' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 23:45:53,199 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 23:45:53,200 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 23:45:53,200 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 23:45:53,958 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:50:55,367 - Whiteout Survival#3946 has connected to Discord!
+2025-11-05 23:50:55,368 - Health server task started on port 8080
+2025-11-05 23:50:55,369 - Uptime checker task started
+2025-11-05 23:50:55,369 - Giftcode poster task started
+2025-11-05 23:50:55,370 - Skipping music cog load (file removed)
+2025-11-05 23:50:55,981 - Successfully synced global commands
+2025-11-05 23:51:46,366 - Error in ask command: All API requests failed after 3 attempts
+2025-11-05 23:51:56,106 - Synced commands globally
+2025-11-05 23:51:56,107 - Removed music command 'play' (maintenance)
+2025-11-05 23:51:56,108 - Removed music command 'pause' (maintenance)
+2025-11-05 23:51:56,109 - Removed music command 'resume' (maintenance)
+2025-11-05 23:51:56,109 - Removed music command 'skip' (maintenance)
+2025-11-05 23:51:56,110 - Removed music command 'stop' (maintenance)
+2025-11-05 23:51:56,112 - Removed music command 'queue' (maintenance)
+2025-11-05 23:51:56,113 - Removed music command 'leave' (maintenance)
+2025-11-05 23:51:56,113 - Removed music command 'giftcode_check' (maintenance)
+2025-11-05 23:51:56,114 - Removed music command 'giftchannel' (maintenance)
+2025-11-05 23:51:56,114 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-05 23:51:56,115 - Removed music command 'show_timezone' (maintenance)
+2025-11-05 23:51:56,808 - Synced command removals to Discord (music commands hidden)
+2025-11-05 23:57:05,548 - Error in ask command: All API requests failed after 3 attempts
+2025-11-05 23:57:17,886 - Error handling DM message: All API requests failed after 3 attempts
+2025-11-06 00:00:02,672 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:00:02,673 - Health server task started on port 8080
+2025-11-06 00:00:02,674 - Uptime checker task started
+2025-11-06 00:00:02,674 - Giftcode poster task started
+2025-11-06 00:00:02,675 - Skipping music cog load (file removed)
+2025-11-06 00:00:03,564 - Successfully synced global commands
+2025-11-06 00:01:05,061 - Synced commands globally
+2025-11-06 00:01:05,061 - Removed music command 'play' (maintenance)
+2025-11-06 00:01:05,062 - Removed music command 'pause' (maintenance)
+2025-11-06 00:01:05,062 - Removed music command 'resume' (maintenance)
+2025-11-06 00:01:05,064 - Removed music command 'skip' (maintenance)
+2025-11-06 00:01:05,065 - Removed music command 'stop' (maintenance)
+2025-11-06 00:01:05,066 - Removed music command 'queue' (maintenance)
+2025-11-06 00:01:05,066 - Removed music command 'leave' (maintenance)
+2025-11-06 00:01:05,067 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:01:05,068 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:01:05,072 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:01:05,075 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:01:06,782 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:04:08,090 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:11:04,779 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:11:04,779 - Health server task started on port 8080
+2025-11-06 00:11:04,780 - Uptime checker task started
+2025-11-06 00:11:04,780 - Giftcode poster task started
+2025-11-06 00:11:04,780 - Skipping music cog load (file removed)
+2025-11-06 00:11:05,482 - Successfully synced global commands
+2025-11-06 00:12:05,544 - Synced commands globally
+2025-11-06 00:12:05,545 - Removed music command 'play' (maintenance)
+2025-11-06 00:12:05,546 - Removed music command 'pause' (maintenance)
+2025-11-06 00:12:05,546 - Removed music command 'resume' (maintenance)
+2025-11-06 00:12:05,546 - Removed music command 'skip' (maintenance)
+2025-11-06 00:12:05,546 - Removed music command 'stop' (maintenance)
+2025-11-06 00:12:05,547 - Removed music command 'queue' (maintenance)
+2025-11-06 00:12:05,547 - Removed music command 'leave' (maintenance)
+2025-11-06 00:12:05,547 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:12:05,547 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:12:05,548 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:12:05,548 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:12:06,518 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:18:20,499 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:18:20,499 - Health server task started on port 8080
+2025-11-06 00:18:20,500 - Uptime checker task started
+2025-11-06 00:18:20,500 - Giftcode poster task started
+2025-11-06 00:18:20,501 - Skipping music cog load (file removed)
+2025-11-06 00:18:21,143 - Successfully synced global commands
+2025-11-06 00:19:21,116 - Synced commands globally
+2025-11-06 00:19:21,116 - Removed music command 'play' (maintenance)
+2025-11-06 00:19:21,117 - Removed music command 'pause' (maintenance)
+2025-11-06 00:19:21,117 - Removed music command 'resume' (maintenance)
+2025-11-06 00:19:21,118 - Removed music command 'skip' (maintenance)
+2025-11-06 00:19:21,118 - Removed music command 'stop' (maintenance)
+2025-11-06 00:19:21,120 - Removed music command 'queue' (maintenance)
+2025-11-06 00:19:21,122 - Removed music command 'leave' (maintenance)
+2025-11-06 00:19:21,123 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:19:21,125 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:19:21,126 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:19:21,129 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:19:22,646 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:22:38,131 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:23:17,999 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:23:18,000 - Health server task started on port 8080
+2025-11-06 00:23:18,000 - Uptime checker task started
+2025-11-06 00:23:18,000 - Giftcode poster task started
+2025-11-06 00:23:18,000 - Skipping music cog load (file removed)
+2025-11-06 00:23:18,630 - Successfully synced global commands
+2025-11-06 00:24:18,699 - Synced commands globally
+2025-11-06 00:24:18,700 - Removed music command 'play' (maintenance)
+2025-11-06 00:24:18,700 - Removed music command 'pause' (maintenance)
+2025-11-06 00:24:18,700 - Removed music command 'resume' (maintenance)
+2025-11-06 00:24:18,700 - Removed music command 'skip' (maintenance)
+2025-11-06 00:24:18,700 - Removed music command 'stop' (maintenance)
+2025-11-06 00:24:18,701 - Removed music command 'queue' (maintenance)
+2025-11-06 00:24:18,701 - Removed music command 'leave' (maintenance)
+2025-11-06 00:24:18,701 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:24:18,702 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:24:18,702 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:24:18,702 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:24:19,362 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:24:49,105 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:27:51,657 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:27:51,658 - Health server task started on port 8080
+2025-11-06 00:27:51,658 - Uptime checker task started
+2025-11-06 00:27:51,659 - Giftcode poster task started
+2025-11-06 00:27:51,659 - Skipping music cog load (file removed)
+2025-11-06 00:27:52,263 - Successfully synced global commands
+2025-11-06 00:28:52,271 - Synced commands globally
+2025-11-06 00:28:52,271 - Removed music command 'play' (maintenance)
+2025-11-06 00:28:52,272 - Removed music command 'pause' (maintenance)
+2025-11-06 00:28:52,272 - Removed music command 'resume' (maintenance)
+2025-11-06 00:28:52,274 - Removed music command 'skip' (maintenance)
+2025-11-06 00:28:52,274 - Removed music command 'stop' (maintenance)
+2025-11-06 00:28:52,275 - Removed music command 'queue' (maintenance)
+2025-11-06 00:28:52,275 - Removed music command 'leave' (maintenance)
+2025-11-06 00:28:52,275 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:28:52,276 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:28:52,276 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:28:52,276 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:28:53,019 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:29:29,163 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:29:46,819 - Received signal 2; shutting down gracefully...
+2025-11-06 00:31:50,716 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:31:50,717 - Health server task started on port 8080
+2025-11-06 00:31:50,717 - Uptime checker task started
+2025-11-06 00:31:50,717 - Giftcode poster task started
+2025-11-06 00:31:50,717 - Skipping music cog load (file removed)
+2025-11-06 00:31:51,402 - Successfully synced global commands
+2025-11-06 00:32:32,759 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:32:51,660 - Synced commands globally
+2025-11-06 00:32:51,661 - Removed music command 'play' (maintenance)
+2025-11-06 00:32:51,663 - Removed music command 'pause' (maintenance)
+2025-11-06 00:32:51,663 - Removed music command 'resume' (maintenance)
+2025-11-06 00:32:51,664 - Removed music command 'skip' (maintenance)
+2025-11-06 00:32:51,664 - Removed music command 'stop' (maintenance)
+2025-11-06 00:32:51,665 - Removed music command 'queue' (maintenance)
+2025-11-06 00:32:51,665 - Removed music command 'leave' (maintenance)
+2025-11-06 00:32:51,665 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:32:51,666 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:32:51,667 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:32:51,672 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:32:52,315 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:35:13,685 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:39:03,725 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:39:03,726 - Health server task started on port 8080
+2025-11-06 00:39:03,726 - Uptime checker task started
+2025-11-06 00:39:03,726 - Giftcode poster task started
+2025-11-06 00:39:03,726 - Skipping music cog load (file removed)
+2025-11-06 00:39:04,415 - Successfully synced global commands
+2025-11-06 00:39:44,909 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:40:04,424 - Synced commands globally
+2025-11-06 00:40:04,426 - Removed music command 'play' (maintenance)
+2025-11-06 00:40:04,427 - Removed music command 'pause' (maintenance)
+2025-11-06 00:40:04,428 - Removed music command 'resume' (maintenance)
+2025-11-06 00:40:04,428 - Removed music command 'skip' (maintenance)
+2025-11-06 00:40:04,428 - Removed music command 'stop' (maintenance)
+2025-11-06 00:40:04,429 - Removed music command 'queue' (maintenance)
+2025-11-06 00:40:04,429 - Removed music command 'leave' (maintenance)
+2025-11-06 00:40:04,429 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:40:04,430 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:40:04,430 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:40:04,430 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:40:05,121 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:40:34,106 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:40:34,107 - Health server task started on port 8080
+2025-11-06 00:40:34,108 - Uptime checker task started
+2025-11-06 00:40:34,108 - Giftcode poster task started
+2025-11-06 00:40:34,109 - Skipping music cog load (file removed)
+2025-11-06 00:41:05,151 - Successfully synced global commands
+2025-11-06 00:41:05,920 - Synced commands globally
+2025-11-06 00:41:05,920 - Removed music command 'play' (maintenance)
+2025-11-06 00:41:05,921 - Removed music command 'pause' (maintenance)
+2025-11-06 00:41:05,921 - Removed music command 'resume' (maintenance)
+2025-11-06 00:41:05,921 - Removed music command 'skip' (maintenance)
+2025-11-06 00:41:05,921 - Removed music command 'stop' (maintenance)
+2025-11-06 00:41:05,921 - Removed music command 'queue' (maintenance)
+2025-11-06 00:41:05,921 - Removed music command 'leave' (maintenance)
+2025-11-06 00:41:05,922 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:41:05,922 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:41:05,922 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:41:05,922 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:41:18,441 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:42:05,881 - Synced command removals to Discord (music commands hidden)
+2025-11-06 00:58:09,544 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 00:58:09,545 - Health server task started on port 8080
+2025-11-06 00:58:09,546 - Uptime checker task started
+2025-11-06 00:58:09,546 - Giftcode poster task started
+2025-11-06 00:58:09,546 - Skipping music cog load (file removed)
+2025-11-06 00:58:10,200 - Successfully synced global commands
+2025-11-06 00:58:47,752 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 00:59:10,260 - Synced commands globally
+2025-11-06 00:59:10,260 - Removed music command 'play' (maintenance)
+2025-11-06 00:59:10,260 - Removed music command 'pause' (maintenance)
+2025-11-06 00:59:10,260 - Removed music command 'resume' (maintenance)
+2025-11-06 00:59:10,260 - Removed music command 'skip' (maintenance)
+2025-11-06 00:59:10,261 - Removed music command 'stop' (maintenance)
+2025-11-06 00:59:10,261 - Removed music command 'queue' (maintenance)
+2025-11-06 00:59:10,261 - Removed music command 'leave' (maintenance)
+2025-11-06 00:59:10,262 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 00:59:10,262 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 00:59:10,262 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 00:59:10,262 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 00:59:11,106 - Synced command removals to Discord (music commands hidden)
+2025-11-06 01:01:49,977 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 01:01:49,977 - Health server task started on port 8080
+2025-11-06 01:01:49,978 - Uptime checker task started
+2025-11-06 01:01:49,978 - Giftcode poster task started
+2025-11-06 01:01:49,979 - Skipping music cog load (file removed)
+2025-11-06 01:01:50,712 - Successfully synced global commands
+2025-11-06 01:02:50,698 - Synced commands globally
+2025-11-06 01:02:50,700 - Removed music command 'play' (maintenance)
+2025-11-06 01:02:50,700 - Removed music command 'pause' (maintenance)
+2025-11-06 01:02:50,701 - Removed music command 'resume' (maintenance)
+2025-11-06 01:02:50,701 - Removed music command 'skip' (maintenance)
+2025-11-06 01:02:50,701 - Removed music command 'stop' (maintenance)
+2025-11-06 01:02:50,702 - Removed music command 'queue' (maintenance)
+2025-11-06 01:02:50,702 - Removed music command 'leave' (maintenance)
+2025-11-06 01:02:50,702 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 01:02:50,702 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 01:02:50,702 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 01:02:50,703 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 01:02:51,668 - Synced command removals to Discord (music commands hidden)
+2025-11-06 01:08:41,488 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 01:16:58,683 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 01:16:58,684 - Health server task started on port 8080
+2025-11-06 01:16:58,684 - Uptime checker task started
+2025-11-06 01:16:58,685 - Giftcode poster task started
+2025-11-06 01:16:58,685 - Skipping music cog load (file removed)
+2025-11-06 01:16:59,306 - Successfully synced global commands
+2025-11-06 01:17:52,212 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 01:17:59,428 - Synced commands globally
+2025-11-06 01:17:59,428 - Removed music command 'play' (maintenance)
+2025-11-06 01:17:59,428 - Removed music command 'pause' (maintenance)
+2025-11-06 01:17:59,429 - Removed music command 'resume' (maintenance)
+2025-11-06 01:17:59,429 - Removed music command 'skip' (maintenance)
+2025-11-06 01:17:59,429 - Removed music command 'stop' (maintenance)
+2025-11-06 01:17:59,429 - Removed music command 'queue' (maintenance)
+2025-11-06 01:17:59,430 - Removed music command 'leave' (maintenance)
+2025-11-06 01:17:59,430 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 01:17:59,430 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 01:17:59,430 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 01:17:59,430 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 01:18:00,026 - Synced command removals to Discord (music commands hidden)
+2025-11-06 01:19:35,894 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 01:19:35,895 - Health server task started on port 8080
+2025-11-06 01:19:35,896 - Uptime checker task started
+2025-11-06 01:19:35,897 - Giftcode poster task started
+2025-11-06 01:19:35,897 - Skipping music cog load (file removed)
+2025-11-06 01:19:37,657 - Successfully synced global commands
+2025-11-06 01:20:10,681 - Error in ask command: All API requests failed after 3 attempts
+2025-11-06 01:20:37,456 - Synced commands globally
+2025-11-06 01:20:37,459 - Removed music command 'play' (maintenance)
+2025-11-06 01:20:37,465 - Removed music command 'pause' (maintenance)
+2025-11-06 01:20:37,468 - Removed music command 'resume' (maintenance)
+2025-11-06 01:20:37,473 - Removed music command 'skip' (maintenance)
+2025-11-06 01:20:37,486 - Removed music command 'stop' (maintenance)
+2025-11-06 01:20:37,510 - Removed music command 'queue' (maintenance)
+2025-11-06 01:20:37,550 - Removed music command 'leave' (maintenance)
+2025-11-06 01:20:37,584 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 01:20:37,612 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 01:20:37,622 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 01:20:37,631 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 01:20:38,330 - Synced command removals to Discord (music commands hidden)
+2025-11-06 01:21:29,466 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 01:21:29,469 - Health server task started on port 8080
+2025-11-06 01:21:29,473 - Uptime checker task started
+2025-11-06 01:21:29,482 - Giftcode poster task started
+2025-11-06 01:21:29,493 - Skipping music cog load (file removed)
+2025-11-06 01:21:30,259 - Successfully synced global commands
+2025-11-06 01:22:30,268 - Synced commands globally
+2025-11-06 01:22:30,269 - Removed music command 'play' (maintenance)
+2025-11-06 01:22:30,269 - Removed music command 'pause' (maintenance)
+2025-11-06 01:22:30,269 - Removed music command 'resume' (maintenance)
+2025-11-06 01:22:30,269 - Removed music command 'skip' (maintenance)
+2025-11-06 01:22:30,269 - Removed music command 'stop' (maintenance)
+2025-11-06 01:22:30,270 - Removed music command 'queue' (maintenance)
+2025-11-06 01:22:30,270 - Removed music command 'leave' (maintenance)
+2025-11-06 01:22:30,270 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 01:22:30,270 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 01:22:30,270 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 01:22:30,270 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 01:22:30,867 - Synced command removals to Discord (music commands hidden)
+2025-11-06 01:22:44,110 - Received signal 2; shutting down gracefully...

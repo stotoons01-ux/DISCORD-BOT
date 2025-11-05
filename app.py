@@ -26,6 +26,7 @@ import giftcode_poster
 import aiohttp
 from urllib.parse import quote
 from typing import Optional
+from PIL import Image, ImageDraw, ImageFont
 import random
 import time
 from pathlib import Path
@@ -2413,6 +2414,513 @@ async def help_command(interaction: discord.Interaction):
             await interaction.followup.send(embed=embed, view=view, ephemeral=False)
         except Exception as e2:
             logger.error(f"Failed to send help embed via followup: {e2}")
+
+
+# --- Dice battle: a two-player roll with buttons ---
+class DiceBattleView(discord.ui.View):
+    """View that manages a two-player dice battle. Each player has one Roll button
+    that only they can press. After both roll, the view declares a winner and
+    disables the buttons."""
+    def __init__(self, challenger: discord.Member, opponent: discord.Member, *, timeout: float = 120.0):
+        super().__init__(timeout=timeout)
+        self.challenger = challenger
+        self.opponent = opponent
+        # store results as {user_id: int or None}
+        self.results = {challenger.id: None, opponent.id: None}
+        self.message: discord.Message | None = None
+        # Customize button labels and styles so each shows the player's name and different colors
+        try:
+            # short helper to trim long names for the button
+            def _short(name: str, limit: int = 18) -> str:
+                n = (name or "").strip()
+                if len(n) <= limit:
+                    return n
+                return n[: limit - 1].rstrip() + "…"
+
+            for child in list(self.children):
+                cid = getattr(child, 'custom_id', '')
+                if cid == 'dicebattle_roll_challenger':
+                    child.label = f"Roll\n{_short(self.challenger.display_name)}"
+                    child.style = discord.ButtonStyle.primary
+                elif cid == 'dicebattle_roll_opponent':
+                    child.label = f"Roll\n{_short(self.opponent.display_name)}"
+                    # make opponent a different color
+                    child.style = discord.ButtonStyle.success
+        except Exception:
+            # non-fatal: if UI objects aren't ready yet, ignore
+            pass
+
+    def build_embed(self) -> discord.Embed:
+        """Create an embed showing both players and current results."""
+        e = discord.Embed(title=f"🎲 Dice Battle: {self.challenger.display_name} vs {self.opponent.display_name}", color=0x3498db)
+        # Challenger as author with avatar
+        try:
+            e.set_author(name=self.challenger.display_name, icon_url=self.challenger.display_avatar.url)
+        except Exception:
+            e.set_author(name=self.challenger.display_name)
+
+        # Opponent avatar as thumbnail
+        try:
+            e.set_thumbnail(url=self.opponent.display_avatar.url)
+        except Exception:
+            pass
+
+        # Fields for results
+        cres = self.results.get(self.challenger.id)
+        ores = self.results.get(self.opponent.id)
+        e.add_field(name=f"Challenger — {self.challenger.display_name}", value=(str(cres) if cres is not None else "Not rolled"), inline=True)
+        e.add_field(name=f"Opponent — {self.opponent.display_name}", value=(str(ores) if ores is not None else "Not rolled"), inline=True)
+
+        if all(v is not None for v in self.results.values()):
+            # Both rolled — determine winner
+            a = self.results[self.challenger.id]
+            b = self.results[self.opponent.id]
+            if a > b:
+                e.title = f"🏆 {self.challenger.display_name} wins!"
+                e.color = 0x2ecc71
+                e.description = f"**{self.challenger.display_name}** wins the dice battle with a roll of **{a}** against **{b}**. Congratulations!"
+                try:
+                    e.set_thumbnail(url=self.challenger.display_avatar.url)
+                except Exception:
+                    pass
+            elif b > a:
+                e.title = f"🏆 {self.opponent.display_name} wins!"
+                e.color = 0x2ecc71
+                e.description = f"**{self.opponent.display_name}** wins the dice battle with a roll of **{b}** against **{a}**. Congratulations!"
+                try:
+                    e.set_thumbnail(url=self.opponent.display_avatar.url)
+                except Exception:
+                    pass
+            else:
+                e.title = f"🤝 It's a tie!"
+                e.color = 0xf1c40f
+                e.description = f"Both players rolled **{a}** — it's a draw!"
+
+            # Add a result field summarizing both rolls
+            e.add_field(name="Result", value=f"{self.challenger.display_name}: **{a}**\n{self.opponent.display_name}: **{b}**", inline=False)
+
+        return e
+
+    async def create_battle_image(self, left_face_url: str = None, right_face_url: str = None) -> discord.File:
+        """Create a composite image showing both players' avatars with a crossed-swords
+        emblem in the middle and optionally overlay dice-face images for left/right.
+        Returns a discord.File ready to send as attachment.
+        """
+    # Default canvas sizes
+        width = 900
+        height = 360
+        left_size = right_size = 320
+
+        # Helper to fetch binary data for an avatar URL
+        async def fetch_bytes(url: str) -> bytes:
+            timeout = aiohttp.ClientTimeout(total=20)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                async with session.get(url) as resp:
+                    if resp.status == 200:
+                        return await resp.read()
+            return None
+
+        # Get avatar URLs (use display_avatar which is HTTP(s) URL)
+        left_url = getattr(self.challenger.display_avatar, 'url', None) or getattr(self.challenger.avatar, 'url', None)
+        right_url = getattr(self.opponent.display_avatar, 'url', None) or getattr(self.opponent.avatar, 'url', None)
+
+        left_bytes = None
+        right_bytes = None
+        try:
+            left_bytes, right_bytes = await asyncio.gather(fetch_bytes(left_url), fetch_bytes(right_url))
+        except Exception:
+            # Fallback: try sequentially
+            try:
+                left_bytes = await fetch_bytes(left_url)
+            except Exception:
+                left_bytes = None
+            try:
+                right_bytes = await fetch_bytes(right_url)
+            except Exception:
+                right_bytes = None
+
+        # Load images (fallback to plain color if fetch failed)
+        try:
+            if left_bytes:
+                left_img = Image.open(io.BytesIO(left_bytes)).convert('RGBA')
+            else:
+                left_img = Image.new('RGBA', (left_size, left_size), (200, 200, 200))
+        except Exception:
+            left_img = Image.new('RGBA', (left_size, left_size), (200, 200, 200))
+
+        try:
+            if right_bytes:
+                right_img = Image.open(io.BytesIO(right_bytes)).convert('RGBA')
+            else:
+                right_img = Image.new('RGBA', (right_size, right_size), (180, 180, 180))
+        except Exception:
+            right_img = Image.new('RGBA', (right_size, right_size), (180, 180, 180))
+
+        # Resize avatars to square
+        left_img = left_img.resize((left_size, left_size), Image.LANCZOS)
+        right_img = right_img.resize((right_size, right_size), Image.LANCZOS)
+
+        # Use the provided remote URLs for assets (Render-friendly)
+        default_bg_url = "https://cdn.discordapp.com/attachments/1435569370389807144/1435702034497278142/2208_w026_n002_2422b_p1_2422.jpg?ex=690ced37&is=690b9bb7&hm=04cdb75f595c5babb52fc3210fa548a02d3680e518728a1856429028ad5a3b65"
+        default_sword_url = "https://cdn.discordapp.com/attachments/1435569370389807144/1435693707276845096/pngtree-crossed-swords-icon-combat-with-melee-weapons-duel-king-protect-vector-png-image_48129218-removebg-preview_2.png?ex=690ce575&is=690b93f5&hm=b564d747bfadcd5631911ce5e53710b70c7607410145e3c5ecc41a76fa55d5e8"
+        default_logo_url = "https://cdn.discordapp.com/attachments/1435569370389807144/1435683133319282890/unnamed_3.png?ex=690cdb9c&is=690b8a1c&hm=e605500d0e061ee4983c68c30b68d3e285b03a88d31605ac65abf2b4df0ae028"
+
+        canvas = Image.new('RGBA', (width, height), (40, 44, 52, 255))
+
+        # Try to fetch and draw the background image (remote)
+        try:
+            bg_bytes = await fetch_bytes(default_bg_url)
+            if bg_bytes:
+                bg_img = Image.open(io.BytesIO(bg_bytes)).convert('RGBA')
+                bg_img = bg_img.resize((width, height), Image.LANCZOS)
+                canvas.paste(bg_img, (0, 0))
+        except Exception:
+            # ignore background failures
+            pass
+
+        draw = ImageDraw.Draw(canvas)
+
+        # Create circular masks and paste avatars with a white ring
+        pad_y = (height - left_size) // 2
+        def paste_circular(img: Image.Image, x: int, y: int, size: int):
+            try:
+                mask = Image.new('L', (size, size), 0)
+                mdraw = ImageDraw.Draw(mask)
+                mdraw.ellipse((0, 0, size, size), fill=255)
+
+                # create a white ring background
+                ring = Image.new('RGBA', (size + 12, size + 12), (255, 255, 255, 0))
+                rdraw = ImageDraw.Draw(ring)
+                rdraw.ellipse((0, 0, size + 12, size + 12), fill=(255, 255, 255, 200))
+                canvas.paste(ring, (x - 6, y - 6), ring)
+
+                # paste avatar
+                canvas.paste(img, (x, y), mask)
+            except Exception:
+                try:
+                    canvas.paste(img, (x, y), img)
+                except Exception:
+                    canvas.paste(img, (x, y))
+
+        left_x = 40
+        right_x = width - right_size - 40
+        paste_circular(left_img, left_x, pad_y, left_size)
+        paste_circular(right_img, right_x, pad_y, right_size)
+
+        # Overlay the crossed-swords PNG centered between avatars and place the supplied logo above it
+        try:
+            sword_bytes = await fetch_bytes(default_sword_url)
+            if sword_bytes:
+                sword_img = Image.open(io.BytesIO(sword_bytes)).convert('RGBA')
+            else:
+                sword_img = None
+            if sword_img:
+                # remove near-black background from sword image (make it transparent)
+                try:
+                    sdata = sword_img.getdata()
+                    new_sdata = []
+                    for item in sdata:
+                        if len(item) >= 4:
+                            r, g, b, a = item
+                        else:
+                            r, g, b = item
+                            a = 255
+                        # treat very dark pixels as transparent
+                        if r < 30 and g < 30 and b < 30:
+                            new_sdata.append((255, 255, 255, 0))
+                        else:
+                            new_sdata.append((r, g, b, a))
+                    sword_img.putdata(new_sdata)
+                except Exception:
+                    pass
+
+                # scale sword image to fit between avatars
+                max_sword_w = 260
+                w_ratio = max_sword_w / sword_img.width
+                new_w = int(sword_img.width * w_ratio)
+                new_h = int(sword_img.height * w_ratio)
+                sword_img = sword_img.resize((new_w, new_h), Image.LANCZOS)
+                sx = (width - new_w) // 2
+                sy = (height - new_h) // 2
+                canvas.paste(sword_img, (sx, sy), sword_img)
+
+                # Now overlay provided logo above the sword (remote)
+                try:
+                    logo_bytes = await fetch_bytes(default_logo_url)
+                    if logo_bytes:
+                        logo_img = Image.open(io.BytesIO(logo_bytes)).convert('RGBA')
+                    else:
+                        logo_img = None
+                    if logo_img:
+                        # scale logo relative to sword (original size/position)
+                        logo_w = int(new_w * 0.5)
+                        logo_h = int(logo_img.height * (logo_w / logo_img.width))
+                        logo_img = logo_img.resize((logo_w, logo_h), Image.LANCZOS)
+                        lx = (width - logo_w) // 2
+                        ly = sy - int(logo_h * 0.6)
+                        canvas.paste(logo_img, (lx, ly), logo_img)
+                except Exception:
+                    pass
+        except Exception:
+            # fallback: draw simple crossed lines
+            cx = width // 2
+            cy = height // 2
+            draw.line((cx - 40, cy - 40, cx + 40, cy + 40), fill=(240, 200, 200, 255), width=6)
+            draw.line((cx + 40, cy - 40, cx - 40, cy + 40), fill=(240, 200, 200, 255), width=6)
+
+        # Add small name plates under avatars
+        try:
+            fn = ImageFont.load_default()
+            ln_w, ln_h = draw.textsize(self.challenger.display_name, font=fn)
+            draw.rectangle([40, pad_y + left_size + 8, 40 + left_size, pad_y + left_size + 8 + ln_h + 6], fill=(0, 0, 0, 140))
+            draw.text((40 + (left_size - ln_w) / 2, pad_y + left_size + 10), self.challenger.display_name, font=fn, fill=(255, 255, 255, 255))
+
+            rn_w, rn_h = draw.textsize(self.opponent.display_name, font=fn)
+            draw.rectangle([width - right_size - 40, pad_y + right_size + 8, width - 40, pad_y + right_size + 8 + rn_h + 6], fill=(0, 0, 0, 140))
+            draw.text((width - right_size - 40 + (right_size - rn_w) / 2, pad_y + right_size + 10), self.opponent.display_name, font=fn, fill=(255, 255, 255, 255))
+        except Exception:
+            pass
+
+        # Optionally overlay dice faces near avatars
+        try:
+            face_size = 110
+            async def fetch_face(url: str):
+                if not url:
+                    return None
+                timeout = aiohttp.ClientTimeout(total=15)
+                async with aiohttp.ClientSession(timeout=timeout) as session:
+                    async with session.get(url) as resp:
+                        if resp.status == 200:
+                            return await resp.read()
+                return None
+
+            if left_face_url:
+                fb = None
+                try:
+                    fb = await fetch_face(left_face_url)
+                except Exception:
+                    fb = None
+                if fb:
+                    try:
+                        fimg = Image.open(io.BytesIO(fb)).convert('RGBA')
+                        fimg = fimg.resize((face_size, face_size), Image.LANCZOS)
+                        # position: bottom-right corner of left avatar
+                        lx = 40 + left_size - face_size // 2
+                        ly = pad_y + left_size - face_size // 2
+                        canvas.paste(fimg, (lx, ly), fimg)
+                    except Exception:
+                        pass
+
+            if right_face_url:
+                fb = None
+                try:
+                    fb = await fetch_face(right_face_url)
+                except Exception:
+                    fb = None
+                if fb:
+                    try:
+                        fimg = Image.open(io.BytesIO(fb)).convert('RGBA')
+                        fimg = fimg.resize((face_size, face_size), Image.LANCZOS)
+                        # position: bottom-left corner of right avatar
+                        rx = width - right_size - 40 + (right_size - face_size // 2)
+                        ry = pad_y + right_size - face_size // 2
+                        canvas.paste(fimg, (int(rx), int(ry)), fimg)
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
+        # Export to BytesIO
+        bio = io.BytesIO()
+        canvas.convert('RGB').save(bio, format='PNG')
+        bio.seek(0)
+        return discord.File(bio, filename="battle.png")
+
+    async def _handle_roll(self, interaction: discord.Interaction, player: discord.Member, button: discord.ui.Button):
+        # Ensure only the intended user can press their button
+        if interaction.user.id != player.id:
+            await interaction.response.send_message("This roll button isn't for you.", ephemeral=True)
+            return
+
+        # Check if already rolled
+        if self.results.get(player.id) is not None:
+            await interaction.response.send_message("You already rolled.", ephemeral=True)
+            return
+
+        # Acknowledge interaction immediately
+        try:
+            await interaction.response.defer()
+        except Exception:
+            pass
+
+        # Show rolling animation by editing the original message to use the GIF
+        try:
+            if self.message:
+                anim_embed = self.build_embed()
+                anim_embed.set_image(url=DICE_GIF_URL)
+                await self.message.edit(embed=anim_embed, view=self)
+        except Exception:
+            # ignore failures to show animation
+            pass
+
+        # Wait a short time to simulate rolling
+        try:
+            await asyncio.sleep(2.0)
+        except Exception:
+            pass
+
+        # Determine roll value
+        value = random.randint(1, 6)
+        self.results[player.id] = value
+
+        # Update button state for that player and keep player's name shown below
+        button.disabled = True
+        try:
+            # short name (match what's used on the initial label)
+            pname = getattr(player, 'display_name', '')
+            if len(pname) > 18:
+                pname = pname[:17].rstrip() + '…'
+            button.label = f"Rolled: {value}\n{pname}"
+        except Exception:
+            button.label = f"Rolled: {value}"
+
+        # Build final composite image with this player's dice face overlaid
+        face_url = DICE_FACE_URLS.get(value)
+        try:
+            if player.id == self.challenger.id:
+                img_file = await self.create_battle_image(left_face_url=face_url)
+            else:
+                img_file = await self.create_battle_image(right_face_url=face_url)
+        except Exception:
+            img_file = None
+
+        # Send updated message with new composite image and updated view, then remove the old one
+        try:
+            new_embed = self.build_embed()
+            if img_file:
+                new_embed.set_image(url="attachment://battle.png")
+                new_msg = await self.message.channel.send(embed=new_embed, file=img_file, view=self)
+            else:
+                # Fallback: set image to the dice face URL directly (will replace center image)
+                if face_url:
+                    new_embed.set_image(url=face_url)
+                new_msg = await self.message.channel.send(embed=new_embed, view=self)
+
+            # Delete previous message to avoid duplication and update stored message reference
+            try:
+                await self.message.delete()
+            except Exception:
+                pass
+            self.message = new_msg
+        except Exception:
+            # If sending new message fails, try editing original to show final result as text
+            try:
+                if self.message:
+                    await self.message.edit(embed=self.build_embed(), view=self)
+            except Exception:
+                try:
+                    await interaction.followup.send(embed=self.build_embed())
+                except Exception:
+                    pass
+
+        # If both have rolled, finalize: disable all buttons and update message title
+        if all(v is not None for v in self.results.values()):
+            for child in self.children:
+                child.disabled = True
+            try:
+                if self.message:
+                    await self.message.edit(embed=self.build_embed(), view=self)
+            except Exception:
+                try:
+                    await interaction.followup.send(embed=self.build_embed())
+                except Exception:
+                    pass
+
+    @discord.ui.button(label="Roll", style=discord.ButtonStyle.primary, custom_id="dicebattle_roll_challenger")
+    async def roll_challenger(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self._handle_roll(interaction, self.challenger, button)
+
+    @discord.ui.button(label="Roll", style=discord.ButtonStyle.primary, custom_id="dicebattle_roll_opponent")
+    async def roll_opponent(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self._handle_roll(interaction, self.opponent, button)
+
+
+@bot.tree.command(name="dicebattle", description="Challenge someone to a dice battle")
+@app_commands.describe(opponent="Member to challenge")
+async def dicebattle(interaction: discord.Interaction, opponent: discord.Member):
+    """Slash command to start a two-player dice battle.
+
+    The challenger (invoker) selects an opponent. Both players will see a Roll
+    button under the embed; each button only works for the corresponding player.
+    After both click, the higher roll wins.
+    """
+    try:
+        if opponent.bot:
+            await interaction.response.send_message("You can't battle a bot.", ephemeral=True)
+            return
+        if opponent.id == interaction.user.id:
+            await interaction.response.send_message("You can't battle yourself.", ephemeral=True)
+            return
+
+        view = DiceBattleView(interaction.user, opponent)
+        # Build embed; defer first because creating the composite image may take >3s
+        embed = view.build_embed()
+        try:
+            # Defer the interaction to buy time for image generation
+            try:
+                await interaction.response.defer()
+            except Exception:
+                # ignore if already deferred
+                pass
+
+            img_file = await view.create_battle_image()
+            embed.set_image(url="attachment://battle.png")
+            # send as followup (wait=True returns the sent message)
+            sent = await interaction.followup.send(content=f"{interaction.user.mention} challenged {opponent.mention} to a dice battle!", embed=embed, file=img_file, view=view, wait=True)
+            try:
+                view.message = sent
+            except Exception:
+                view.message = None
+        except Exception:
+            # If image creation or sending fails, ensure we still respond
+            try:
+                # If we already deferred above, use followup; else fallback to response
+                if interaction.response.is_done():
+                    sent = await interaction.followup.send(content=f"{interaction.user.mention} challenged {opponent.mention} to a dice battle!", embed=embed, view=view, wait=True)
+                else:
+                    await interaction.response.send_message(content=f"{interaction.user.mention} challenged {opponent.mention} to a dice battle!", embed=embed, view=view)
+                    sent = await interaction.original_response()
+                try:
+                    view.message = sent
+                except Exception:
+                    view.message = None
+            except Exception:
+                # Final fallback: attempt an ephemeral error message
+                try:
+                    await interaction.followup.send("Failed to start dice battle.", ephemeral=True)
+                except Exception:
+                    pass
+        # store message reference for future edits
+        try:
+            view.message = await interaction.original_response()
+        except Exception:
+            # In some cases original_response may fail; try to fetch last message in channel
+            try:
+                channel = interaction.channel
+                async for msg in channel.history(limit=5):
+                    if msg.author == bot.user and msg.embeds and msg.embeds[0].title and interaction.user.display_name in msg.embeds[0].title:
+                        view.message = msg
+                        break
+            except Exception:
+                pass
+
+    except Exception as e:
+        logger.error(f"Error in /dicebattle command: {e}")
+        try:
+            await interaction.response.send_message("Failed to start dice battle.", ephemeral=True)
+        except Exception:
+            pass
+
 
 
 import sys, traceback, time

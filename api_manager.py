@@ -97,7 +97,7 @@ class APIKeyInfo:
 class RobustOpenRouterManager:
     """Robust manager for OpenRouter API requests with key rotation and failover"""
 
-    def __init__(self, api_keys: List[str], model: str = "openai/gpt-3.5-turbo"):
+    def __init__(self, api_keys: List[str], model: Optional[str] = None):
         self.api_keys = [APIKeyInfo(key=key, index=i) for i, key in enumerate(api_keys)]
         self.model = model
         self.sheets_manager = SheetsManager()
@@ -135,6 +135,11 @@ class RobustOpenRouterManager:
         random.shuffle(keys_to_try)  # Randomize order for better distribution
 
         for attempt in range(self.max_retries):
+            any_healthy = any(k.is_healthy for k in keys_to_try)
+            if not any_healthy:
+                logger.error("No healthy API keys available to try.")
+                break
+
             for key_info in keys_to_try:
                 if not key_info.is_healthy:
                     continue
@@ -157,6 +162,14 @@ class RobustOpenRouterManager:
                     return response
 
                 except aiohttp.ClientError as e:
+                    err_text = str(e).lower()
+                    # If it's an insufficient credits error, we've already marked the key as failed in _request_with_key.
+                    if 'insufficient credits' in err_text or 'insufficient' in err_text:
+                        logger.error(f"Key {key_info.index + 1} disabled due to insufficient credits: {e}")
+                        # don't backoff: move to next key immediately
+                        continue
+
+                    # Generic failure: update key status and backoff
                     self._update_key_status(key_info, False, str(e))
                     logger.warning(f"API request failed with key {key_info.index + 1}: {e}")
 
@@ -191,8 +204,40 @@ class RobustOpenRouterManager:
                     data = await response.json()
                     return data["choices"][0]["message"]["content"]
                 else:
+                    # Read error body for diagnostics
                     error_text = await response.text()
-                    raise aiohttp.ClientError(f"API request failed with status {response.status}: {error_text}")
+                    # If the account has insufficient credits (HTTP 402), open the circuit breaker for this key longer
+                    if response.status == 402:
+                        logger.error(f"API key {key_info.index + 1} returned 402 Insufficient credits: {error_text}")
+                        # If the configured model is a free model (contains ':free') or the env var
+                        # OPENROUTER_402_TREAT_AS_TRANSIENT is set to 'true', treat 402 as transient and
+                        # avoid opening a long circuit breaker. Some free models may return 402 in
+                        # specific conditions but the key may still be usable shortly.
+                        treat_as_transient = False
+                        try:
+                            env_flag = os.getenv('OPENROUTER_402_TREAT_AS_TRANSIENT', '').lower()
+                            if env_flag in ('1', 'true', 'yes'):
+                                treat_as_transient = True
+                        except Exception:
+                            pass
+
+                        if (self.model and ':free' in str(self.model)) or treat_as_transient:
+                            logger.warning(f"Treating 402 as transient for key {key_info.index + 1} (model={self.model})")
+                            # mark as rate limited for a short window instead of failed long-term
+                            key_info.status = APIKeyStatus.RATE_LIMITED
+                            key_info.rate_limit_reset_time = time.time() + 60  # 1 minute pause
+                            key_info.consecutive_failures += 1
+                            key_info.last_failure = time.time()
+                            raise aiohttp.ClientError(f"Transient insufficient credits (treated as rate-limited) for API key {key_info.index + 1}: {error_text}")
+                        else:
+                            # Mark key as failed and open circuit for 24 hours to avoid retry storms
+                            key_info.status = APIKeyStatus.FAILED
+                            key_info.circuit_breaker_open_until = time.time() + 24 * 3600
+                            key_info.consecutive_failures += 1
+                            key_info.last_failure = time.time()
+                            raise aiohttp.ClientError(f"Insufficient credits for API key {key_info.index + 1}: {error_text}")
+                    else:
+                        raise aiohttp.ClientError(f"API request failed with status {response.status}: {error_text}")
 
     def _update_key_status(self, key_info: APIKeyInfo, success: bool, error_msg: str = ""):
         """Update the status of an API key based on request results"""
@@ -247,7 +292,34 @@ def get_api_keys() -> List[str]:
 
 # Create global manager instance
 api_keys = get_api_keys()
-manager = RobustOpenRouterManager(api_keys)
+
+# Determine model from environment (allow override via OPENROUTER_MODEL)
+env_model = (os.getenv('OPENROUTER_MODEL') or '').strip()
+fallback = (os.getenv('OPENROUTER_FREE_FALLBACK') or '').strip()
+
+# Reject paid OpenAI-style models entirely — only allow free models set in .env
+if not env_model:
+    if fallback:
+        chosen_model = fallback
+        logger.warning("OPENROUTER_MODEL not set — falling back to OPENROUTER_FREE_FALLBACK")
+    else:
+        logger.error("OPENROUTER_MODEL is not set and no OPENROUTER_FREE_FALLBACK provided. Please set a free model in .env (e.g. 'model:free').")
+        raise RuntimeError("OPENROUTER_MODEL is required and must be a free model")
+else:
+    # If the env_model looks like a paid OpenAI model, reject it and require a free model
+    lower = env_model.lower()
+    if ('openai' in lower or 'gpt-' in lower) and ':free' not in lower:
+        if fallback:
+            chosen_model = fallback
+            logger.warning(f"OPENROUTER_MODEL '{env_model}' appears to be a paid model — falling back to free model '{fallback}' as paid models are disabled.")
+        else:
+            logger.error(f"OPENROUTER_MODEL '{env_model}' appears to be a paid model. Paid models are disabled for this deployment. Set OPENROUTER_MODEL to a free model in .env.")
+            raise RuntimeError("Paid OpenRouter models are disabled. Set OPENROUTER_MODEL to a free model.")
+    else:
+        chosen_model = env_model
+
+manager = RobustOpenRouterManager(api_keys, model=chosen_model)
+logger.info(f"OpenRouter model in use: {manager.model}")
 
 
 async def make_request(messages: List[Dict[str, str]], max_tokens: int = 1000, include_sheet_data: bool = True) -> str:
