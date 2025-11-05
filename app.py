@@ -430,12 +430,39 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Add file handler for chat logs
-file_handler = logging.FileHandler('chat_logs.txt')
+# Logging: add file handlers for both human-readable and structured JSONL chat logs
+LOG_DIR = Path(__file__).parent / "logs"
+try:
+    LOG_DIR.mkdir(exist_ok=True)
+except Exception:
+    # If directory creation fails, fallback to current directory
+    LOG_DIR = Path('.')
+
+# Human-readable chat log (kept for quick inspection)
+chat_log_txt = LOG_DIR / 'chat_logs.txt'
+file_handler = logging.FileHandler(str(chat_log_txt))
 file_handler.setLevel(logging.INFO)
 file_formatter = logging.Formatter('%(asctime)s - %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
+
+# Structured JSONL chat log for programmatic analysis (one JSON object per line)
+CHAT_LOG_JSONL = LOG_DIR / 'chat_logs.jsonl'
+def append_chat_log(entry: dict):
+    """Append a JSON object as a single line to the JSONL chat log.
+
+    This keeps a machine-friendly record of messages with metadata useful
+    for analytics, replays, and debugging.
+    """
+    try:
+        with CHAT_LOG_JSONL.open('a', encoding='utf-8') as jf:
+            jf.write(json.dumps(entry, ensure_ascii=False) + "\n")
+    except Exception:
+        # If the structured log fails, write a minimal fallback to the human log
+        try:
+            logger.error('Failed to append structured chat log entry')
+        except Exception:
+            pass
 
 
 # --- Dice command (slash + text fallback) ---------------------------------
@@ -711,10 +738,66 @@ async def on_message(message):
         channel_id = message.channel.id
         author_name = message.author.display_name
         author_id = message.author.id
-        content = message.content.replace('\n', ' ').strip()  # Replace newlines for single line log
+        content = (message.content or "").replace('\n', ' ').strip()  # Replace newlines for single line log
 
-        log_message = f"[GUILD: {guild_name} ({guild_id})] [CHANNEL: {channel_name} ({channel_id})] [AUTHOR: {author_name} ({author_id})] Message: {content}"
-        logger.info(log_message)
+        # Collect attachments (URLs) if present
+        try:
+            attachments = [att.url for att in message.attachments]
+        except Exception:
+            attachments = []
+
+        # Summarize embeds to keep logs small but useful
+        embeds_summary = []
+        try:
+            for emb in getattr(message, 'embeds', []) or []:
+                s = {}
+                if getattr(emb, 'title', None):
+                    s['title'] = emb.title
+                if getattr(emb, 'description', None):
+                    s['description'] = (emb.description[:200] + '...') if len(emb.description) > 200 else emb.description
+                if getattr(emb, 'url', None):
+                    s['url'] = emb.url
+                embeds_summary.append(s)
+        except Exception:
+            embeds_summary = []
+
+        # Reply reference (if message is a reply)
+        reply_to = None
+        try:
+            if message.reference and getattr(message.reference, 'message_id', None):
+                reply_to = message.reference.message_id
+        except Exception:
+            reply_to = None
+
+        # Build structured log entry
+        entry = {
+            'timestamp': (message.created_at.isoformat() + 'Z') if getattr(message, 'created_at', None) else datetime.utcnow().isoformat() + 'Z',
+            'event': 'message',
+            'guild': {'id': guild_id, 'name': guild_name},
+            'channel': {'id': channel_id, 'name': channel_name},
+            'author': {'id': author_id, 'display_name': author_name, 'bot': getattr(message.author, 'bot', False)},
+            'message_id': getattr(message, 'id', None),
+            'reply_to': reply_to,
+            'content': content,
+            'attachments': attachments,
+            'embeds': embeds_summary,
+            'is_dm': isinstance(message.channel, discord.DMChannel)
+        }
+
+        # Append structured JSONL entry (best-effort)
+        try:
+            append_chat_log(entry)
+        except Exception:
+            # append_chat_log already swallows errors; keep going
+            pass
+
+        # Also write a concise human-readable log line for quick inspection
+        try:
+            summary = f"[GUILD: {guild_name} ({guild_id})] [CHANNEL: {channel_name} ({channel_id})] [AUTHOR: {author_name} ({author_id})] msg_id={entry.get('message_id')} attachments={len(attachments)}"
+            logger.info(summary + f" Content: {content[:400]}")
+        except Exception:
+            # Last resort fallback
+            logger.info(f"Message from {author_id} in {channel_id}: {content[:200]}")
 
     # If this is a DM, handle like /ask but respond in plain text
     if isinstance(message.channel, discord.DMChannel) and not message.author.bot:
@@ -2295,29 +2378,30 @@ async def mostactive(interaction: discord.Interaction):
 async def help_command(interaction: discord.Interaction):
     embed = discord.Embed(
         title="🤖 Bot Commands",
-        description="**🤖 AI & Fun Commands**\n"
-                    "• **/imagine [prompt]** - Generate an AI image from your description\n"
-                    "• **/ask [question]** - Ask questions or get help with anything\n\n"
-                    "**🎁 Gift Codes**\n"
-                    "• **/giftcode** - Get active Whiteout Survival gift codes\n\n"
-                    "**📅 Reminder Commands**\n"
-                    "• **/reminder [time] [message] [channel]** - Set a timed reminder\n"
-                    "• **/reminderdashboard** - Open interactive reminder dashboard (list/delete/set timezone)\n"
-                    "**📊 Server Utility**\n"
-                    "• **/serverstats** - View detailed server statistics\n"
-                    "• **/mostactive** - See top active users and monthly activity graph\n\n"
-                    "**🎪 Events & Personality**\n"
-                    "• **/event [name]** - Get info on events (use autocomplete)\n"
-                    "• **/add_trait [trait]** - Add a trait to personalize your profile\n\n"
-                    "**⚙️ Configuration & Timezones**\n"
-                    "• **/giftchannel [channel]** - Set or disable this server's gift code posting channel (admin)\n"
-                    "• **/list_gift_channel** - Show the configured gift code channel for this server\n"
-                    "• **/giftcode_check** - Force a giftcode check now (admin)\n"
-                    "• **/reminderdashboard** - Open interactive reminder dashboard (list/delete/set timezone)\n"
-                    "• **/show_timezone** - Show your configured timezone\n\n"
-                    "**❓ Help**\n"
-                    "• **/help** - Show this command list",
-        color=0x1abc9c
+        description=(
+            "**🎮 Games & Fun**\n"
+            "• **/dice** - Roll a six-sided dice (slash + message trigger)\n"
+            "• **/dicebattle [opponent]** - Challenge another player to a dice battle (interactive roll buttons)\n"
+            "• **/imagine [prompt]** - Generate an AI image from a prompt\n"
+            "• **/ask [question]** - Ask the bot a question or get help\n\n"
+            "**🎁 Gift Codes & Server Tools**\n"
+            "• **/giftcode** - Show active Whiteout Survival gift codes\n"
+            "• **/giftcodesettings** - Open the server gift code settings dashboard (admin)\n"
+            "• **/refresh** - Refresh cached alliance/gift code data from Sheets\n\n"
+            "**⏰ Reminders & Time**\n"
+            "• **/reminder [time] [message] [channel]** - Create a timed reminder\n"
+            "• **/reminderdashboard** - Open interactive reminder dashboard (list/delete/timezone)\n\n"
+            "**👥 Player & Server**\n"
+            "• **/playerinfo [player_id]** - Fetch Whiteout Survival player info-UNDER developement\n"
+            "• **/serverstats** - View server statistics and charts\n"
+            "• **/mostactive** - Show top active users and activity graph\n\n"
+            "**🧭 Profile & Events**\n"
+            "• **/add_trait [trait]** - Add a personality trait to your profile\n"
+            "• **/event [name]** - Get event details (autocomplete supported)\n\n"
+            "**❓ Help**\n"
+            "• **/help** - Show this command list"
+        ),
+        color=0x1abc9c,
     )
     embed.set_thumbnail(url="https://i.postimg.cc/Fzq03CJf/a463d7c7-7fc7-47fc-b24d-1324383ee2ff-removebg-preview.png")
     embed.set_footer(text="Type a command to get started!")

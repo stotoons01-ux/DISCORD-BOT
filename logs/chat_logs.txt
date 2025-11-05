@@ -1,0 +1,20 @@
+2025-11-06 02:56:42,282 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 02:56:42,283 - Health server task started on port 8080
+2025-11-06 02:56:42,283 - Uptime checker task started
+2025-11-06 02:56:42,283 - Giftcode poster task started
+2025-11-06 02:56:42,283 - Skipping music cog load (file removed)
+2025-11-06 02:56:43,030 - Successfully synced global commands
+2025-11-06 02:57:42,924 - Synced commands globally
+2025-11-06 02:57:42,925 - Removed music command 'play' (maintenance)
+2025-11-06 02:57:42,926 - Removed music command 'pause' (maintenance)
+2025-11-06 02:57:42,926 - Removed music command 'resume' (maintenance)
+2025-11-06 02:57:42,927 - Removed music command 'skip' (maintenance)
+2025-11-06 02:57:42,929 - Removed music command 'stop' (maintenance)
+2025-11-06 02:57:42,930 - Removed music command 'queue' (maintenance)
+2025-11-06 02:57:42,931 - Removed music command 'leave' (maintenance)
+2025-11-06 02:57:42,931 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 02:57:42,932 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 02:57:42,934 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 02:57:42,940 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 02:57:43,610 - Synced command removals to Discord (music commands hidden)
+2025-11-06 02:58:49,928 - Failed to send help embed: 404 Not Found (error code: 10062): Unknown interaction
