@@ -564,6 +564,244 @@ async def dice_text(ctx: commands.Context):
             pass
 
 
+# ---------- Birthday command and storage ---------------------------------
+BIRTHDAY_FILE = Path(__file__).parent / "birthdays.json"
+
+# Notify channel helper: read channel ID from env var BIRTHDAY_NOTIFY_CHANNEL
+def get_notify_channel_id_from_env() -> Optional[int]:
+    env_val = os.getenv('BIRTHDAY_NOTIFY_CHANNEL')
+    if not env_val:
+        return None
+    try:
+        return int(env_val)
+    except Exception:
+        logger.error(f"Invalid BIRTHDAY_NOTIFY_CHANNEL env var: {env_val}")
+        return None
+
+def load_birthdays() -> dict:
+    try:
+        if BIRTHDAY_FILE.exists():
+            with BIRTHDAY_FILE.open('r', encoding='utf-8') as f:
+                return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load birthdays file: {e}")
+    return {}
+
+def save_birthdays(data: dict) -> bool:
+    try:
+        with BIRTHDAY_FILE.open('w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2)
+        return True
+    except Exception as e:
+        logger.error(f"Failed to save birthdays file: {e}")
+        return False
+
+def set_birthday(user_id: int, day: int, month: int) -> None:
+    data = load_birthdays()
+    data[str(user_id)] = {"day": int(day), "month": int(month)}
+    save_birthdays(data)
+
+def remove_birthday(user_id: int) -> bool:
+    data = load_birthdays()
+    if str(user_id) in data:
+        try:
+            del data[str(user_id)]
+            save_birthdays(data)
+            return True
+        except Exception as e:
+            logger.error(f"Failed to remove birthday for {user_id}: {e}")
+            return False
+    return False
+
+def get_birthday(user_id: int):
+    data = load_birthdays()
+    return data.get(str(user_id))
+
+
+class BirthdayModal(discord.ui.Modal, title="Add / Update Birthday"):
+    day = discord.ui.TextInput(label="Day (1-31)", placeholder="e.g. 23", required=True, max_length=2)
+    month = discord.ui.TextInput(label="Month (1-12)", placeholder="e.g. 7", required=True, max_length=2)
+
+    def __init__(self, target_user: Optional[discord.User] = None):
+        super().__init__()
+        self.target_user = target_user
+
+    async def on_submit(self, interaction: discord.Interaction):
+        try:
+            # Validate inputs
+            try:
+                d = int(self.day.value.strip())
+                m = int(self.month.value.strip())
+            except Exception:
+                await interaction.response.send_message("Please enter numeric values for day and month.", ephemeral=True)
+                return
+
+            if not (1 <= m <= 12):
+                await interaction.response.send_message("Month must be between 1 and 12.", ephemeral=True)
+                return
+            if not (1 <= d <= 31):
+                await interaction.response.send_message("Day must be between 1 and 31.", ephemeral=True)
+                return
+
+            user = interaction.user
+            user_id = user.id if self.target_user is None else self.target_user.id
+
+            # Check previous entry to determine if this is new or an update
+            prev = get_birthday(user_id)
+
+            # If submitting for self and an entry already exists, require removal first
+            if prev and self.target_user is None:
+                await interaction.response.send_message(
+                    "You already have a birthday saved. To change it, first remove your existing entry using 'Remove my entry', then add a new birthday.",
+                    ephemeral=True
+                )
+                return
+
+            # Otherwise save (this allows overwriting when target_user is set — e.g., admin use)
+            set_birthday(user_id, d, m)
+
+            await interaction.response.send_message(f"Saved birthday for <@{user_id}>: {d}/{m}", ephemeral=True)
+
+            # Notify configured channel (per-guild or env fallback) with a detailed embed
+            try:
+                # Read notify channel id from env var (BIRTHDAY_NOTIFY_CHANNEL)
+                notify_id = get_notify_channel_id_from_env()
+
+                if notify_id is not None:
+                    channel = bot.get_channel(notify_id)
+                    if channel is None:
+                        try:
+                            channel = await bot.fetch_channel(notify_id)
+                        except Exception:
+                            channel = None
+
+                    if channel is not None:
+                        status = "Updated" if prev else "New Entry"
+                        info_embed = discord.Embed(title="🎉 Birthday Submitted", color=0xff69b4, timestamp=datetime.utcnow())
+                        info_embed.add_field(name="User", value=f"{user.mention} ({user})", inline=False)
+                        info_embed.add_field(name="User ID", value=str(user_id), inline=True)
+                        # If target_user differs, show target
+                        if self.target_user is not None:
+                            info_embed.add_field(name="Target User", value=f"{self.target_user.mention} ({self.target_user.id})", inline=True)
+                        info_embed.add_field(name="Day", value=str(d), inline=True)
+                        info_embed.add_field(name="Month", value=str(m), inline=True)
+                        info_embed.add_field(name="Action", value=status, inline=True)
+                        if interaction.guild:
+                            info_embed.add_field(name="Guild", value=f"{interaction.guild.name} ({interaction.guild.id})", inline=False)
+
+                        info_embed.set_footer(text="Birthday manager")
+
+                        try:
+                            await channel.send(embed=info_embed)
+                        except Exception as send_err:
+                            logger.error(f"Failed to send birthday notification to channel {notify_id}: {send_err}")
+                    else:
+                        logger.error(f"Birthday notify channel {notify_id} not found or inaccessible.")
+                else:
+                    # No configured notify channel; nothing to do
+                    logger.debug("No birthday notify channel configured for this guild or via env var.")
+            except Exception as notify_exc:
+                logger.error(f"Error while notifying birthday channel: {notify_exc}")
+        except Exception as e:
+            logger.error(f"Error in BirthdayModal.on_submit: {e}")
+            await interaction.response.send_message("Failed to save birthday.", ephemeral=True)
+
+
+class BirthdayView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="Add/Update birthday", style=discord.ButtonStyle.primary, custom_id="birthday_add_update")
+    async def add_update(self, interaction: discord.Interaction, button: discord.ui.Button):
+        try:
+            # Prevent users from creating multiple entries: if they already have one, instruct to remove first
+            existing = get_birthday(interaction.user.id)
+            if existing:
+                await interaction.response.send_message(
+                    "You already have a birthday saved. To change it, first click 'Remove my entry' to delete your existing entry, then click 'Add/Update birthday' to submit a new one.",
+                    ephemeral=True
+                )
+                return
+
+            modal = BirthdayModal()
+            await interaction.response.send_modal(modal)
+        except Exception as e:
+            logger.error(f"Error opening BirthdayModal: {e}")
+            await interaction.response.send_message("Failed to open birthday form.", ephemeral=True)
+
+    @discord.ui.button(label="Remove my entry", style=discord.ButtonStyle.danger, custom_id="birthday_remove")
+    async def remove_entry(self, interaction: discord.Interaction, button: discord.ui.Button):
+        try:
+            removed = remove_birthday(interaction.user.id)
+            if removed:
+                await interaction.response.send_message("Your birthday entry was removed.", ephemeral=True)
+
+                # Send removal notification to configured notify channel (env var)
+                try:
+                    notify_id = get_notify_channel_id_from_env()
+                    if notify_id:
+                        channel = bot.get_channel(notify_id)
+                        if channel is None:
+                            try:
+                                channel = await bot.fetch_channel(notify_id)
+                            except Exception:
+                                channel = None
+
+                        if channel is not None:
+                            info_embed = discord.Embed(title="🗑️ Birthday Removed", color=0xff69b4, timestamp=datetime.utcnow())
+                            info_embed.add_field(name="User", value=f"{interaction.user.mention} ({interaction.user})", inline=False)
+                            info_embed.add_field(name="User ID", value=str(interaction.user.id), inline=True)
+                            # Try to include guild info if available
+                            if interaction.guild:
+                                info_embed.add_field(name="Guild", value=f"{interaction.guild.name} ({interaction.guild.id})", inline=False)
+
+                            info_embed.set_footer(text="Birthday manager")
+
+                            try:
+                                await channel.send(embed=info_embed)
+                            except Exception as send_err:
+                                logger.error(f"Failed to send birthday removal notification to channel {notify_id}: {send_err}")
+                        else:
+                            logger.error(f"Birthday notify channel {notify_id} not found or inaccessible.")
+                    else:
+                        logger.debug("No BIRTHDAY_NOTIFY_CHANNEL configured; skipping removal notification.")
+                except Exception as notify_exc:
+                    logger.error(f"Error while notifying birthday removal channel: {notify_exc}")
+            else:
+                await interaction.response.send_message("No birthday entry found for you.", ephemeral=True)
+        except Exception as e:
+            logger.error(f"Error removing birthday: {e}")
+            await interaction.response.send_message("Failed to remove your entry.", ephemeral=True)
+
+
+@bot.tree.command(name="birthday", description="Manage your birthday entry (day & month)")
+async def birthday(interaction: discord.Interaction):
+    """Sends an embed explaining the birthday system with buttons to add/update or remove your birthday."""
+    try:
+        embed_text = (
+            "**🎉 Let's never miss a birthday again!**\n\n"
+            
+            "🎂 Click “Add Birthday”\n\n"
+            "📅 Choose day & month\n\n"
+            "🥳 Your day gets celebrated – party vibes guaranteed!\n\n"
+            "🔄 Update? Just click the button again\n\n"
+            "✨ More entries = more fun & more party vibes! 🎉🎈"
+        )
+
+        embed = discord.Embed(title="Birthday Manager", description=embed_text, color=0xff69b4)
+        embed.set_image(url="https://cdn.discordapp.com/attachments/1435569370389807144/1435875606632988672/v04HfJr.png?ex=690d8edd&is=690c3d5d&hm=83662954ad3897d2b39763d40c347e27222018839a178420a57eb643ffbc3542")
+
+        view = BirthdayView()
+        await interaction.response.send_message(embed=embed, view=view)
+    except Exception as e:
+        logger.error(f"Error in /birthday command: {e}")
+        try:
+            await interaction.response.send_message("Failed to send birthday manager.", ephemeral=True)
+        except Exception:
+            pass
+
+
+# /birthday_setchannel removed — notification channel is read from the BIRTHDAY_NOTIFY_CHANNEL env var
 
 @bot.event
 async def on_message(message: discord.Message):
