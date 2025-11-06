@@ -961,6 +961,13 @@ async def on_ready():
                 logger.error(f"Failed to hide music commands: {e}")
 
         # Start the reminder checking task
+        # Register persistent GiftCodeView so button callbacks remain available
+        try:
+            bot.add_view(GiftCodeView())
+            logger.info('Registered persistent GiftCodeView for button interactions')
+        except Exception as addview_err:
+            logger.error(f'Failed to register persistent GiftCodeView: {addview_err}')
+
         reminder_system.check_reminders.start()
 
     except Exception as e:
@@ -1566,35 +1573,41 @@ class GiftCodeView(discord.ui.View):
     This was previously defined inside the /giftcode command; it's been
     moved to top-level so message-triggered giftcode embeds can reuse it.
     """
-    def __init__(self, codes_list):
-        super().__init__(timeout=300)
+    def __init__(self, codes_list=None):
+        # Make this view persistent (no timeout) so buttons remain valid
+        # across longer periods and bot restarts when the view is registered
+        # with bot.add_view at startup.
+        super().__init__(timeout=None)
+        # Keep an optional local cache, but handlers will fetch fresh codes
+        # when needed so the view works correctly across restarts.
         self.codes = codes_list or []
         self.message = None
 
     @discord.ui.button(label="Copy Code", style=discord.ButtonStyle.primary, custom_id="giftcode_copy")
     async def copy_button(self, interaction_button: discord.Interaction, button: discord.ui.Button):
-        if not self.codes:
-            try:
-                await interaction_button.response.send_message("No gift codes available to copy.", ephemeral=True)
-            except Exception:
-                logger.debug("Failed to send ephemeral no-codes message")
-            return
+        # Defer quickly to avoid the 3s interaction window
+        try:
+            await interaction_button.response.defer(ephemeral=True)
+        except Exception:
+            # If defer fails, continue — we'll attempt followups which may still work
+            logger.debug("Failed to defer interaction in copy_button")
 
-        code_list = [c.get('code', '').strip() for c in self.codes if c.get('code')]
+        # Fetch the freshest codes so this handler works correctly even after restarts
+        try:
+            fresh_codes = await get_active_gift_codes()
+        except Exception:
+            fresh_codes = self.codes or []
+
+        code_list = [c.get('code', '').strip() for c in (fresh_codes or []) if c.get('code')]
         if not code_list:
             try:
-                await interaction_button.response.send_message("Couldn't find any codes to copy.", ephemeral=True)
+                await interaction_button.followup.send("Couldn't find any codes to copy.", ephemeral=True)
             except Exception:
                 logger.debug("Failed to send ephemeral no-code-found message")
             return
 
         plain_text = "\n".join(code_list)
         plain_text += "\n\nGift Code :gift:  STATE #3063"
-
-        try:
-            await interaction_button.response.defer(ephemeral=True)
-        except Exception:
-            pass
 
         user = interaction_button.user
         dm_sent = False
@@ -1614,7 +1627,12 @@ class GiftCodeView(discord.ui.View):
 
     @discord.ui.button(label="Refresh Codes", style=discord.ButtonStyle.secondary, custom_id="giftcode_refresh")
     async def refresh_button(self, interaction_button: discord.Interaction, button: discord.ui.Button):
-        await interaction_button.response.defer(ephemeral=True)
+        # Defer quickly to keep within the interaction window
+        try:
+            await interaction_button.response.defer(ephemeral=True)
+        except Exception:
+            logger.debug("Failed to defer interaction in refresh_button")
+
         try:
             new_codes = await get_active_gift_codes()
             if not new_codes:
@@ -1622,22 +1640,28 @@ class GiftCodeView(discord.ui.View):
                 return
 
             self.codes = new_codes
-            # Use same embed builder from the command; import will capture function in scope
+            # Build a fresh embed
             new_embed = build_codes_embed(self.codes)
 
-            if self.message:
-                try:
-                    await self.message.edit(embed=new_embed)
+            # Prefer editing the message that the interaction came from (works for persistent views)
+            try:
+                target_msg = getattr(interaction_button, 'message', None)
+                if target_msg:
+                    await target_msg.edit(embed=new_embed)
                     await interaction_button.followup.send("Gift codes refreshed.", ephemeral=True)
-                except Exception as edit_err:
-                    logger.error(f"Failed to edit gift code message: {edit_err}")
-                    await interaction_button.followup.send("Failed to update the gift codes message.", ephemeral=True)
-            else:
-                await interaction_button.followup.send(embed=new_embed, ephemeral=False)
+                else:
+                    # Fallback: send the embed as a new message
+                    await interaction_button.followup.send(embed=new_embed, ephemeral=False)
+            except Exception as edit_err:
+                logger.error(f"Failed to edit gift code message: {edit_err}")
+                await interaction_button.followup.send("Failed to update the gift codes message.", ephemeral=True)
 
         except Exception as e:
             logger.error(f"Error refreshing gift codes via button: {e}")
-            await interaction_button.followup.send("Error while refreshing gift codes.", ephemeral=True)
+            try:
+                await interaction_button.followup.send("Error while refreshing gift codes.", ephemeral=True)
+            except Exception:
+                logger.debug("Failed to send error followup in refresh_button")
 
 @bot.tree.command(name="giftcode", description="Get active Whiteout Survival gift codes")
 async def giftcode(interaction: discord.Interaction):
@@ -2743,7 +2767,11 @@ class DiceBattleView(discord.ui.View):
     """View that manages a two-player dice battle. Each player has one Roll button
     that only they can press. After both roll, the view declares a winner and
     disables the buttons."""
-    def __init__(self, challenger: discord.Member, opponent: discord.Member, *, timeout: float = 120.0):
+    def __init__(self, challenger: discord.Member, opponent: discord.Member, *, timeout: float = None):
+        # Use a persistent view by default (timeout=None). We'll register the
+        # specific view instance for the sent message with bot.add_view(...,
+        # message_id=sent.id) so the view callbacks remain available across
+        # restarts and longer periods.
         super().__init__(timeout=timeout)
         self.challenger = challenger
         self.opponent = opponent
@@ -3134,6 +3162,12 @@ class DiceBattleView(discord.ui.View):
             except Exception:
                 pass
             self.message = new_msg
+            # Re-register this view instance for the new message so interactions
+            # continue to be routed to this instance even after restarts.
+            try:
+                bot.add_view(self, message_id=new_msg.id)
+            except Exception as addview_err:
+                logger.debug(f"Failed to register DiceBattleView for message {getattr(new_msg, 'id', None)}: {addview_err}")
         except Exception:
             # If sending new message fails, try editing original to show final result as text
             try:
@@ -3201,6 +3235,14 @@ async def dicebattle(interaction: discord.Interaction, opponent: discord.Member)
             sent = await interaction.followup.send(content=f"{interaction.user.mention} challenged {opponent.mention} to a dice battle!", embed=embed, file=img_file, view=view, wait=True)
             try:
                 view.message = sent
+                # Register this specific view instance for the sent message so
+                # interactions with its buttons are routed to this instance even
+                # after restarts.
+                try:
+                    bot.add_view(view, message_id=sent.id)
+                    logger.debug(f"Registered DiceBattleView for message {sent.id}")
+                except Exception as add_err:
+                    logger.debug(f"Failed to register DiceBattleView for message {getattr(sent, 'id', None)}: {add_err}")
             except Exception:
                 view.message = None
         except Exception:
@@ -3214,6 +3256,10 @@ async def dicebattle(interaction: discord.Interaction, opponent: discord.Member)
                     sent = await interaction.original_response()
                 try:
                     view.message = sent
+                    try:
+                        bot.add_view(view, message_id=sent.id)
+                    except Exception as add_err:
+                        logger.debug(f"Failed to register DiceBattleView for message {getattr(sent, 'id', None)}: {add_err}")
                 except Exception:
                     view.message = None
             except Exception:
