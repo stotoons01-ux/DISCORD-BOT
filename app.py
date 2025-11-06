@@ -792,9 +792,9 @@ async def birthday(interaction: discord.Interaction):
         embed.set_image(url="https://cdn.discordapp.com/attachments/1435569370389807144/1435875606632988672/v04HfJr.png?ex=690d8edd&is=690c3d5d&hm=83662954ad3897d2b39763d40c347e27222018839a178420a57eb643ffbc3542")
 
         view = BirthdayView()
-        await interaction.response.send_message(embed=embed, view=view, wait=True)
-        # Register this view instance for the sent message so button callbacks
-        # remain available after restarts
+        # Send the response (don't pass wait to response.send_message)
+        await interaction.response.send_message(embed=embed, view=view)
+        # Get the message object from original_response() and register the view
         try:
             msg = await interaction.original_response()
             bot.add_view(view, message_id=msg.id)
@@ -837,6 +837,132 @@ async def on_message(message: discord.Message):
 
 # Reduce noise: silence informational logs from the gift_codes module (it's verbose)
 logging.getLogger('gift_codes').setLevel(logging.WARNING)
+
+
+# --- Persistent Help view & startup re-registration for already-sent messages ---
+class PersistentFeedbackModal(discord.ui.Modal, title="Your Feedback"):
+    feedback = discord.ui.TextInput(label="Your feedback", style=discord.TextStyle.long,
+                                    placeholder="Share your feedback or a bug report...",
+                                    required=True, max_length=2000)
+
+    async def on_submit(self, modal_interaction: discord.Interaction):
+        try:
+            feedback_text = self.feedback.value
+            posted_channel = False
+            posted_owner = False
+
+            feedback_channel_id = get_feedback_channel_id()
+            if feedback_channel_id:
+                try:
+                    ch = modal_interaction.client.get_channel(int(feedback_channel_id))
+                    if ch:
+                        await ch.send(f"**Feedback from** {modal_interaction.user} (ID: {modal_interaction.user.id}):\n{feedback_text}")
+                        posted_channel = True
+                except Exception as e:
+                    logger.error(f"Failed to post feedback to channel: {e}")
+
+            owner_id = os.getenv('BOT_OWNER_ID')
+            if owner_id:
+                try:
+                    owner = modal_interaction.client.get_user(int(owner_id))
+                    if owner is None:
+                        try:
+                            owner = await modal_interaction.client.fetch_user(int(owner_id))
+                        except Exception as e:
+                            logger.error(f"Failed to fetch owner user object: {e}")
+
+                    if owner:
+                        try:
+                            await owner.send(f"**Feedback from** {modal_interaction.user} (ID: {modal_interaction.user.id}):\n{feedback_text}")
+                            posted_owner = True
+                        except Exception as e:
+                            logger.error(f"Failed to DM owner with feedback: {e}")
+                            if feedback_channel_id and not posted_channel:
+                                try:
+                                    ch = modal_interaction.client.get_channel(int(feedback_channel_id))
+                                    if ch:
+                                        await ch.send(f"⚠️ Could not DM configured owner (ID: {owner_id}). Feedback from {modal_interaction.user} (ID: {modal_interaction.user.id}):\n{feedback_text}")
+                                        posted_channel = True
+                                except Exception as e2:
+                                    logger.error(f"Failed to post fallback notification to feedback channel: {e2}")
+                except Exception as e:
+                    logger.error(f"Unexpected error while trying to deliver feedback to owner: {e}")
+
+            try:
+                append_feedback_log(modal_interaction.user, modal_interaction.user.id, feedback_text, posted_channel=posted_channel, posted_owner=posted_owner)
+            except Exception:
+                logger.exception("Failed to append feedback to log file")
+
+            try:
+                await modal_interaction.response.send_message("Thanks — your feedback has been submitted.", ephemeral=True)
+            except Exception:
+                logger.debug("Could not send ephemeral confirmation for feedback")
+        except Exception as e:
+            logger.error(f"Error handling feedback modal submit: {e}")
+
+
+class PersistentHelpView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+    @discord.ui.button(label="Share Feedback", style=discord.ButtonStyle.primary, custom_id="share_feedback")
+    async def share_feedback(self, button_interaction: discord.Interaction, button: discord.ui.Button):
+        try:
+            await button_interaction.response.send_modal(PersistentFeedbackModal())
+        except Exception as e:
+            logger.error(f"Failed to open feedback modal (persistent): {e}")
+            try:
+                await button_interaction.response.send_message("Couldn't open feedback form right now.", ephemeral=True)
+            except Exception:
+                pass
+
+
+async def register_existing_persistent_views(limit_per_channel: int = 100):
+    """Scan recent bot messages in guild channels and register persistent view
+    instances for messages that match known interactive embed titles. This
+    helps recover interactivity for messages that were sent before the bot
+    had persistent views registered.
+    """
+    # Map embed title substrings to a callable that returns a view instance
+    title_map = {
+        "Birthday Manager": lambda: BirthdayView(),
+        "🤖 Bot Commands": lambda: PersistentHelpView(),
+        "✨ Active Whiteout Survival Gift Codes ✨": lambda: GiftCodeView(),
+    }
+
+    for guild in list(bot.guilds):
+        try:
+            # Iterate a subset of text channels where the bot likely can read history
+            channels = [c for c in guild.text_channels if c.permissions_for(guild.me or bot.user).read_message_history]
+        except Exception:
+            channels = guild.text_channels
+
+        for channel in channels:
+            try:
+                async for msg in channel.history(limit=limit_per_channel):
+                    try:
+                        if msg.author != bot.user:
+                            continue
+                        if not msg.embeds:
+                            continue
+                        title = (msg.embeds[0].title or "").strip()
+                        if not title:
+                            continue
+                        for key, view_ctor in title_map.items():
+                            if key in title:
+                                try:
+                                    view = view_ctor()
+                                    bot.add_view(view, message_id=msg.id)
+                                    logger.info(f"Registered persistent view {type(view).__name__} for message {msg.id} in {channel.guild}/{channel.name}")
+                                except Exception as e:
+                                    logger.debug(f"Failed to register view for message {msg.id}: {e}")
+                                break
+                    except Exception:
+                        continue
+            except Exception as e:
+                logger.debug(f"Failed to scan channel {channel}: {e}")
+            # small sleep to avoid hitting rate limits
+            await asyncio.sleep(0.05)
 
 
 # Global exception hook to log uncaught exceptions
@@ -974,6 +1100,14 @@ async def on_ready():
             logger.info('Registered persistent GiftCodeView for button interactions')
         except Exception as addview_err:
             logger.error(f'Failed to register persistent GiftCodeView: {addview_err}')
+
+        # Attempt to register persistent views for messages that were sent
+        # before the bot had persistent views registered (recover existing
+        # help/birthday/giftcode messages so their buttons work).
+        try:
+            await register_existing_persistent_views(limit_per_channel=100)
+        except Exception as reg_err:
+            logger.debug(f"Failed to register existing persistent views on startup: {reg_err}")
 
         reminder_system.check_reminders.start()
 
@@ -2758,22 +2892,24 @@ async def help_command(interaction: discord.Interaction):
     view = HelpView()
     try:
         if not interaction.response.is_done():
-            sent = await interaction.response.send_message(embed=embed, view=view, ephemeral=False, wait=True)
-        else:
-            sent = await interaction.followup.send(embed=embed, view=view, ephemeral=False, wait=True)
-        # Register this view instance for the sent message so button callbacks
-        # remain available after restarts
-        try:
-            if hasattr(sent, 'id'):  # followup.send with wait=True
-                bot.add_view(view, message_id=sent.id)
-            else:  # response.send_message returns None, get from original_response
+            # send initial response; get message via original_response()
+            await interaction.response.send_message(embed=embed, view=view, ephemeral=False)
+            try:
                 sent = await interaction.original_response()
                 bot.add_view(view, message_id=sent.id)
-        except Exception as reg_err:
-            logger.debug(f"Failed to register HelpView for message: {reg_err}")
+            except Exception as reg_err:
+                logger.debug(f"Failed to register HelpView after response: {reg_err}")
+        else:
+            # If response is already done, use followup.send and request the sent message
+            sent = await interaction.followup.send(embed=embed, view=view, ephemeral=False, wait=True)
+            try:
+                bot.add_view(view, message_id=sent.id)
+            except Exception as reg_err:
+                logger.debug(f"Failed to register HelpView after followup: {reg_err}")
     except Exception as e:
         logger.error(f"Failed to send help embed: {e}")
         try:
+            # Final attempt using followup
             sent = await interaction.followup.send(embed=embed, view=view, ephemeral=False, wait=True)
             try:
                 bot.add_view(view, message_id=sent.id)
@@ -3307,6 +3443,51 @@ async def dicebattle(interaction: discord.Interaction, opponent: discord.Member)
         logger.error(f"Error in /dicebattle command: {e}")
         try:
             await interaction.response.send_message("Failed to start dice battle.", ephemeral=True)
+        except Exception:
+            pass
+
+
+@bot.tree.command(name="register_view", description="Register a persistent view for an existing message (admin)")
+@app_commands.describe(channel="Channel containing the message", message_id="The message ID to register", view_type="Which view to register: help, birthday, giftcode")
+@app_commands.default_permissions(administrator=True)
+async def register_view(interaction: discord.Interaction, channel: discord.TextChannel, message_id: str, view_type: str):
+    """Admin helper: register a persistent view instance for an existing message so its buttons work again.
+
+    view_type must be one of: help, birthday, giftcode
+    """
+    try:
+        await interaction.response.defer(ephemeral=True)
+    except Exception:
+        pass
+
+    try:
+        try:
+            msg = await channel.fetch_message(int(message_id))
+        except Exception as e:
+            await interaction.followup.send(f"Failed to fetch message: {e}", ephemeral=True)
+            return
+
+        view_type = (view_type or "").lower()
+        if view_type == 'help':
+            view = PersistentHelpView()
+        elif view_type == 'birthday':
+            view = BirthdayView()
+        elif view_type == 'giftcode':
+            view = GiftCodeView()
+        else:
+            await interaction.followup.send("Unknown view_type. Supported: help, birthday, giftcode", ephemeral=True)
+            return
+
+        try:
+            bot.add_view(view, message_id=msg.id)
+            await interaction.followup.send(f"Registered {view_type} view for message {msg.id}.", ephemeral=True)
+            logger.info(f"Manually registered {view_type} view for message {msg.id} in {channel.guild}/{channel.name}")
+        except Exception as e:
+            await interaction.followup.send(f"Failed to register view: {e}", ephemeral=True)
+    except Exception as e:
+        logger.error(f"Error in register_view command: {e}")
+        try:
+            await interaction.followup.send("Internal error registering view.", ephemeral=True)
         except Exception:
             pass
 
