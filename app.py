@@ -13,6 +13,11 @@ from gift_codes import get_active_gift_codes
 from reminder_system import ReminderSystem, set_user_timezone, get_user_timezone, TimeParser
 from event_tips import EVENT_TIPS, get_event_info
 from thinking_animation import ThinkingAnimation
+try:
+    from mongo_adapters import mongo_enabled, BirthdaysAdapter
+except Exception:
+    mongo_enabled = lambda: False
+    BirthdaysAdapter = None
 import sys
 import signal
 import asyncio
@@ -580,6 +585,12 @@ def get_notify_channel_id_from_env() -> Optional[int]:
 
 def load_birthdays() -> dict:
     try:
+        # Prefer Mongo when available
+        if mongo_enabled() and BirthdaysAdapter is not None:
+            try:
+                return BirthdaysAdapter.load_all() or {}
+            except Exception:
+                pass
         if BIRTHDAY_FILE.exists():
             with BIRTHDAY_FILE.open('r', encoding='utf-8') as f:
                 return json.load(f)
@@ -589,6 +600,18 @@ def load_birthdays() -> dict:
 
 def save_birthdays(data: dict) -> bool:
     try:
+        # Prefer Mongo when available
+        if mongo_enabled() and BirthdaysAdapter is not None:
+            try:
+                # upsert per-user
+                for uid, val in (data or {}).items():
+                    try:
+                        BirthdaysAdapter.set(str(uid), int(val.get('day')), int(val.get('month')))
+                    except Exception:
+                        continue
+                return True
+            except Exception:
+                pass
         with BIRTHDAY_FILE.open('w', encoding='utf-8') as f:
             json.dump(data, f, indent=2)
         return True
@@ -597,11 +620,24 @@ def save_birthdays(data: dict) -> bool:
         return False
 
 def set_birthday(user_id: int, day: int, month: int) -> None:
+    # Use adapter when available
+    if mongo_enabled() and BirthdaysAdapter is not None:
+        try:
+            BirthdaysAdapter.set(str(user_id), int(day), int(month))
+            return
+        except Exception:
+            pass
     data = load_birthdays()
     data[str(user_id)] = {"day": int(day), "month": int(month)}
     save_birthdays(data)
 
 def remove_birthday(user_id: int) -> bool:
+    # Adapter removal when available
+    if mongo_enabled() and BirthdaysAdapter is not None:
+        try:
+            return BirthdaysAdapter.remove(str(user_id))
+        except Exception:
+            pass
     data = load_birthdays()
     if str(user_id) in data:
         try:
@@ -614,6 +650,11 @@ def remove_birthday(user_id: int) -> bool:
     return False
 
 def get_birthday(user_id: int):
+    if mongo_enabled() and BirthdaysAdapter is not None:
+        try:
+            return BirthdaysAdapter.get(str(user_id))
+        except Exception:
+            pass
     data = load_birthdays()
     return data.get(str(user_id))
 
@@ -1867,6 +1908,15 @@ async def refresh(interaction: discord.Interaction):
         logger.error(f"Cache clear failed: {e}", exc_info=True)
 async def time_autocomplete(interaction: discord.Interaction, current: str):
     """Provide contextual autocomplete suggestions for the time parameter."""
+    # Defensive: if the interaction has already been acknowledged by some other handler,
+    # don't attempt to compute or return choices — attempting to respond will raise 400.
+    try:
+        if interaction.response.is_done():
+            logger.warning("Autocomplete interaction already acknowledged; skipping autocomplete response")
+            return []
+    except Exception:
+        # If the library does not expose is_done or another error occurs, continue normally
+        pass
     choices: list[app_commands.Choice] = []
     q = (current or "").strip().lower()
 
@@ -1934,6 +1984,50 @@ async def time_autocomplete(interaction: discord.Interaction, current: str):
 
     return choices[:25]
 
+
+@bot.tree.command(name="storage_status", description="Show which reminder storage is active and a sample count")
+async def storage_status(interaction: discord.Interaction):
+    """Reports whether the bot is using MongoDB or SQLite for reminders and a quick count."""
+    try:
+        storage = getattr(reminder_system, 'storage', None)
+        if storage is None:
+            await interaction.response.send_message("Reminder system not initialized.", ephemeral=True)
+            return
+
+        cls_name = storage.__class__.__name__
+        if cls_name == 'ReminderStorageMongo':
+            # Mongo storage exposes a collection attribute
+            try:
+                count = storage.col.count_documents({})
+            except Exception as e:
+                count = f"(error counting: {e})"
+            await interaction.response.send_message(f"Using MongoDB for reminders. Count: {count}", ephemeral=True)
+        else:
+            # Assume SQLite-backed ReminderStorage
+            try:
+                import sqlite3
+                path = getattr(storage, 'db_path', 'reminders.db')
+                # path may be a Path object
+                from pathlib import Path
+                p = Path(path)
+                if not p.exists():
+                    await interaction.response.send_message(f"Using SQLite but DB not found at {p}", ephemeral=True)
+                    return
+                conn = sqlite3.connect(str(p))
+                cur = conn.cursor()
+                cur.execute('SELECT COUNT(*) FROM reminders')
+                c = cur.fetchone()[0]
+                conn.close()
+                await interaction.response.send_message(f"Using SQLite for reminders. Count: {c} at {p}", ephemeral=True)
+            except Exception as e:
+                await interaction.response.send_message(f"Using SQLite but failed to read DB: {e}", ephemeral=True)
+
+    except Exception as e:
+        try:
+            await interaction.response.send_message(f"Error checking storage status: {e}", ephemeral=True)
+        except Exception:
+            logger.error(f"Failed to report storage status: {e}")
+
 @bot.tree.command(name="reminder", description="Set a reminder with time and message")
 @app_commands.describe(
     time="When to remind you (e.g., '5 minutes', 'tomorrow 3pm IST', 'daily at 9am')",
@@ -1942,16 +2036,24 @@ async def time_autocomplete(interaction: discord.Interaction, current: str):
 )
 @app_commands.autocomplete(time=time_autocomplete)
 async def reminder(interaction: discord.Interaction, time: str, message: str, channel: discord.TextChannel):
-    await interaction.response.defer(thinking=True)
+    # Defer only if the interaction hasn't already been acknowledged. Defer can raise
+    # NotFound/HTTPException if the interaction is invalid or already responded to, so
+    # catch and continue gracefully.
+    try:
+        if not interaction.response.is_done():
+            await interaction.response.defer(thinking=True)
+    except Exception as e:
+        logger.warning(f"Could not defer interaction for /reminder: {e}. Continuing without defer.")
 
     try:
         target_channel = channel
 
         # Display the exact command as entered
+        # Build a short command preview (don't send it here; create_reminder will reply)
         command_text = f"/reminder time: {time} message: {message}"
         if channel:
             command_text += f" channel: {channel.mention}"
-        await interaction.followup.send(command_text)
+        logger.debug(f"Creating reminder: {command_text}")
 
         # Create the reminder
         success = await reminder_system.create_reminder(interaction, time, message, target_channel)

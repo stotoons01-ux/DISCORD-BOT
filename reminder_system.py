@@ -10,12 +10,26 @@ from discord.ext import commands, tasks
 import logging
 import pytz
 import threading
+import os
+try:
+    from mongo_adapters import mongo_enabled, UserTimezonesAdapter
+except Exception:
+    # If adapters are not available at import time, functions will fall back to file-based storage
+    mongo_enabled = lambda: False
+    UserTimezonesAdapter = None
 
 USER_TZ_FILE = Path(__file__).with_name('user_timezones.json')
 
 
 def _load_user_timezones() -> dict:
     try:
+        # Prefer Mongo if configured
+        if mongo_enabled():
+            try:
+                return UserTimezonesAdapter.load_all() or {}
+            except Exception:
+                # fallback to file if adapter fails
+                pass
         if USER_TZ_FILE.exists():
             with USER_TZ_FILE.open('r', encoding='utf-8') as f:
                 return json.load(f)
@@ -26,6 +40,16 @@ def _load_user_timezones() -> dict:
 
 def _save_user_timezones(data: dict):
     try:
+        # Prefer Mongo when available
+        if mongo_enabled():
+            try:
+                # write per-user upserts
+                for uid, tz in (data or {}).items():
+                    UserTimezonesAdapter.set(str(uid), str(tz))
+                return
+            except Exception:
+                # fallback to file if adapter fails
+                pass
         with USER_TZ_FILE.open('w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
     except Exception as e:
@@ -38,6 +62,12 @@ _user_tz_lock = threading.Lock()
 def get_user_timezone(user_id: Union[int, str]) -> Optional[str]:
     try:
         with _user_tz_lock:
+            # If Mongo is enabled, use adapter directly for single lookup
+            if mongo_enabled() and UserTimezonesAdapter is not None:
+                try:
+                    return UserTimezonesAdapter.get(str(user_id))
+                except Exception:
+                    pass
             data = _load_user_timezones()
             return data.get(str(user_id))
     except Exception:
@@ -47,6 +77,12 @@ def get_user_timezone(user_id: Union[int, str]) -> Optional[str]:
 def set_user_timezone(user_id: Union[int, str], tz_abbr: str) -> bool:
     try:
         with _user_tz_lock:
+            # If Mongo is enabled, write using adapter
+            if mongo_enabled() and UserTimezonesAdapter is not None:
+                try:
+                    return UserTimezonesAdapter.set(str(user_id), tz_abbr)
+                except Exception:
+                    pass
             data = _load_user_timezones()
             data[str(user_id)] = tz_abbr.lower()
             _save_user_timezones(data)
@@ -183,6 +219,15 @@ class ReminderStorage:
                     is_recurring: bool = False, recurrence_type: str = None, recurrence_interval: int = None,
                     original_pattern: str = None, mention: str = 'everyone') -> int:
         """Add a new reminder to the database with optional recurring support"""
+        # If MongoDB is configured for this process, block writes to the SQLite DB to
+        # avoid accidental writes. The bot should be restarted with MONGO_URI set so
+        # ReminderStorageMongo is used instead.
+        try:
+            if os.getenv('MONGO_URI'):
+                logger.warning('MONGO_URI present in environment — refusing to write to SQLite reminders.db')
+                return -1
+        except Exception:
+            pass
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -238,6 +283,13 @@ class ReminderStorage:
     
     def mark_reminder_sent(self, reminder_id: int):
         """Mark a reminder as sent"""
+        # If running with Mongo configured, avoid updating the SQLite DB
+        try:
+            if os.getenv('MONGO_URI'):
+                logger.warning('MONGO_URI present — skipping SQLite mark_reminder_sent')
+                return
+        except Exception:
+            pass
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -276,6 +328,13 @@ class ReminderStorage:
     
     def delete_reminder(self, reminder_id: int, user_id: str) -> bool:
         """Delete a reminder (only if it belongs to the user)"""
+        # If Mongo is configured, refuse to delete in SQLite so actions only happen in Mongo
+        try:
+            if os.getenv('MONGO_URI'):
+                logger.warning('MONGO_URI present — skipping SQLite delete_reminder. Use Mongo storage instead.')
+                return False
+        except Exception:
+            pass
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -743,7 +802,21 @@ class ReminderSystem:
     
     def __init__(self, bot):
         self.bot = bot
-        self.storage = ReminderStorage()
+        # Prefer MongoDB-backed storage if MONGO_URI is provided; otherwise fall back to SQLite
+        try:
+            if os.getenv('MONGO_URI'):
+                try:
+                    from reminder_storage_mongo import ReminderStorageMongo
+                    self.storage = ReminderStorageMongo()
+                    logger.info('Using MongoDB for reminders storage')
+                except Exception as e:
+                    logger.exception('Failed to initialize MongoDB storage, falling back to SQLite', exc_info=e)
+                    self.storage = ReminderStorage()
+            else:
+                self.storage = ReminderStorage()
+        except Exception:
+            # Defensive fallback to ensure bot still runs
+            self.storage = ReminderStorage()
         # Don't start task here - let the bot handle it in setup_hook
     
     def cog_unload(self):
@@ -833,18 +906,25 @@ class ReminderSystem:
             else:
                 # Default to daily if type is unknown
                 next_time = current_time + timedelta(days=1)
-            
-            # Update the reminder time in database
-            with sqlite3.connect(self.storage.db_path) as conn:
-                cursor = conn.cursor()
-                cursor.execute('''
-                    UPDATE reminders 
-                    SET reminder_time = ?, is_sent = 0
-                    WHERE id = ?
-                ''', (next_time.isoformat(), reminder['id']))
-                conn.commit()
-                
-            logger.info(f"Rescheduled recurring reminder {reminder['id']} for {next_time}")
+            # Update the reminder time in storage. If storage provides update_reminder_time use it.
+            try:
+                if hasattr(self.storage, 'update_reminder_time'):
+                    success = self.storage.update_reminder_time(reminder['id'], next_time)
+                    if not success:
+                        logger.warning(f'Failed to update reminder time for {reminder.get("id")} via storage.update_reminder_time')
+                else:
+                    # Fallback to SQLite behaviour if original storage is in use
+                    with sqlite3.connect(self.storage.db_path) as conn:
+                        cursor = conn.cursor()
+                        cursor.execute('''
+                            UPDATE reminders 
+                            SET reminder_time = ?, is_sent = 0
+                            WHERE id = ?
+                        ''', (next_time.isoformat(), reminder['id']))
+                        conn.commit()
+            except Exception as e:
+                logger.error(f'Failed to reschedule recurring reminder {reminder.get("id")}: {e}')
+            logger.info(f"Rescheduled recurring reminder {reminder.get('id')} for {next_time}")
             
         except Exception as e:
             logger.error(f"Failed to reschedule recurring reminder {reminder['id']}: {e}")
@@ -910,6 +990,22 @@ class ReminderSystem:
             return False
         
         # Add to database with target channel and recurring info
+        # If MONGO_URI is set but the process currently has SQLite storage instantiated,
+        # try to switch to Mongo at runtime so writes go to Mongo instead of being blocked.
+        mongo_init_error = None
+        try:
+            if os.getenv('MONGO_URI') and self.storage.__class__.__name__ != 'ReminderStorageMongo':
+                try:
+                    from reminder_storage_mongo import ReminderStorageMongo
+                    self.storage = ReminderStorageMongo()
+                    logger.info('Switched reminder storage to MongoDB at runtime')
+                except Exception as e:
+                    mongo_init_error = e
+                    logger.exception('Failed to switch to MongoDB at runtime; continuing with current storage', exc_info=e)
+        except Exception as e:
+            mongo_init_error = e
+            logger.exception('Unexpected error while attempting runtime Mongo switch', exc_info=e)
+
         reminder_id = self.storage.add_reminder(
             user_id=str(interaction.user.id),
             channel_id=str(target_channel.id),
@@ -924,6 +1020,30 @@ class ReminderSystem:
         )
         
         if reminder_id == -1:
+            # If Mongo is configured but initialization failed, give a clearer message
+            if os.getenv('MONGO_URI'):
+                # Prefer the runtime init error if present, otherwise explain generic Mongo configuration issue
+                err_msg = None
+                if mongo_init_error is not None:
+                    err_msg = str(mongo_init_error)
+                else:
+                    err_msg = 'Unknown error initializing MongoDB client.'
+
+                # Truncate to avoid leaking large traces or secrets
+                short_err = (err_msg[:200] + '...') if len(err_msg) > 200 else err_msg
+                try:
+                    await interaction.followup.send(
+                        "❌ **MongoDB Connection Failed**\n\n"
+                        "The bot is configured to use MongoDB (MONGO_URI is set) but it failed to initialize. "
+                        "Please check your MONGO_URI, ensure `pymongo` is installed, and restart the bot.\n\n"
+                        f"Error: {short_err}",
+                        ephemeral=True
+                    )
+                except Exception as e:
+                    logger.warning(f"Failed to send Mongo error followup: {e}")
+                return False
+
+            # Fallback generic message for SQLite/db errors when Mongo not configured
             await interaction.followup.send(
                 "❌ **Database Error**\n\n"
                 "Sorry, there was an error saving your reminder. Please try again.",

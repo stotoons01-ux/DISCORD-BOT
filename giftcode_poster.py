@@ -8,6 +8,11 @@ from typing import Dict, List
 import discord
 
 from gift_codes import get_active_gift_codes
+try:
+    from mongo_adapters import mongo_enabled, GiftcodeStateAdapter
+except Exception:
+    mongo_enabled = lambda: False
+    GiftcodeStateAdapter = None
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +41,19 @@ class GiftCodePoster:
 
     def _load_state(self):
         try:
+            # Prefer Mongo when available
+            if mongo_enabled() and GiftcodeStateAdapter is not None:
+                try:
+                    s = GiftcodeStateAdapter.get_state()
+                    if s:
+                        self.state = s
+                        # Ensure normalized shapes
+                        self.state.setdefault('channels', {})
+                        self.state.setdefault('sent', {})
+                        self.state.setdefault('initialized', False)
+                        return
+                except Exception:
+                    pass
             if os.path.exists(STATE_FILE):
                 with open(STATE_FILE, 'r', encoding='utf-8') as f:
                     self.state = json.load(f)
@@ -59,6 +77,13 @@ class GiftCodePoster:
 
     def _save_state_sync(self):
         try:
+            # Prefer Mongo when available
+            if mongo_enabled() and GiftcodeStateAdapter is not None:
+                try:
+                    GiftcodeStateAdapter.set_state(self.state)
+                    return
+                except Exception:
+                    pass
             os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
             with open(STATE_FILE, 'w', encoding='utf-8') as f:
                 json.dump(self.state, f, ensure_ascii=False, indent=2)

@@ -12,6 +12,11 @@ from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
+try:
+    from mongo_adapters import mongo_enabled, UserProfilesAdapter
+except Exception:
+    mongo_enabled = lambda: False
+    UserProfilesAdapter = None
 
 class UserProfile:
     """User profile for personalization"""
@@ -301,6 +306,15 @@ Our state in whiteout survival is 3063 ,and GINA was our previous president of o
         """Save user profiles to file"""
         try:
             data = {uid: profile.to_dict() for uid, profile in self.user_profiles.items()}
+            # Prefer Mongo when available
+            if mongo_enabled() and UserProfilesAdapter is not None:
+                try:
+                    for uid, payload in data.items():
+                        UserProfilesAdapter.set(str(uid), payload)
+                    logger.info(f"Saved {len(self.user_profiles)} profiles to MongoDB")
+                    return
+                except Exception:
+                    pass
             with open(filename, 'w') as f:
                 json.dump(data, f, indent=2)
             logger.info(f"Saved {len(self.user_profiles)} profiles to {filename}")
@@ -310,12 +324,31 @@ Our state in whiteout survival is 3063 ,and GINA was our previous president of o
     def load_profiles(self, filename: str = "user_profiles.json"):
         """Load user profiles from file"""
         try:
+            # Prefer Mongo when available
+            if mongo_enabled() and UserProfilesAdapter is not None:
+                try:
+                    data = UserProfilesAdapter.load_all()
+                    for uid, profile_data in data.items():
+                        # profile_data may already be a dict matching to_dict
+                        try:
+                            self.user_profiles[uid] = UserProfile.from_dict(profile_data)
+                        except Exception:
+                            # If structure differs, attach raw dict into a minimal profile
+                            p = UserProfile(uid, profile_data.get('user_name', 'Unknown'))
+                            for k, v in profile_data.items():
+                                if hasattr(p, k):
+                                    setattr(p, k, v)
+                            self.user_profiles[uid] = p
+                    logger.info(f"Loaded {len(self.user_profiles)} profiles from MongoDB")
+                    return
+                except Exception:
+                    pass
             with open(filename, 'r') as f:
                 data = json.load(f)
-            
+
             for uid, profile_data in data.items():
                 self.user_profiles[uid] = UserProfile.from_dict(profile_data)
-            
+
             logger.info(f"Loaded {len(self.user_profiles)} profiles from {filename}")
         except FileNotFoundError:
             logger.info(f"No existing profile file found at {filename}")
