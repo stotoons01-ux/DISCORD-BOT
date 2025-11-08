@@ -68,8 +68,165 @@ class PlayerInfoCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.logger = logging.getLogger('bot.playerinfo')
+        # Semaphore to limit concurrent external requests from message triggers
+        self._sem = asyncio.Semaphore(6)
 
-    @discord.app_commands.guilds(discord.Object(id=DEV_GUILD_ID))
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        """Listen for plain 9-digit messages and show player info inline.
+
+        If the message content is exactly a 9-digit number and the API
+        returns a valid player, reply with the same embed used by the
+        slash command. If the API doesn't return data or an error occurs,
+        do nothing (ignore the message).
+        """
+        try:
+            if message.author.bot:
+                return
+
+            content = (message.content or "").strip()
+            if not re.fullmatch(r"\d{9}", content):
+                return
+
+            fid = content
+            # Delegate handling to shared handler so other code (like app.py) can reuse it
+            await self.handle_fid_message(message, fid)
+        except Exception as outer_e:
+            self.logger.exception("Unexpected error in playerinfo on_message: %s", outer_e)
+
+    async def handle_fid_message(self, message: discord.Message, fid: str):
+        """Shared handler to perform the API lookup and reply with embed.
+
+        This is separated so external code (like app.py's on_message)
+        can invoke it directly when they detect a raw 9-digit message.
+        """
+        try:
+            # Avoid running twice on the same message (app.py may delegate and
+            # the cog may also receive the event). Mark message when handled.
+            if getattr(message, '_playerinfo_handled', False):
+                return
+            try:
+                message._playerinfo_handled = True
+            except Exception:
+                pass
+
+            # Log detection so we can trace when message-based lookups run
+            channel_type = 'DM' if isinstance(message.channel, discord.DMChannel) else f'GUILD:{getattr(message.guild, "id", "unknown")}'
+            self.logger.info("playerinfo (message) detected fid=%s from user=%s in %s", fid, getattr(message.author, 'id', 'unknown'), channel_type)
+
+            # prepare request pieces
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+            headers = {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Origin": "https://wos-giftcode-api.centurygame.com",
+            }
+
+            async with self._sem:
+                current_time = int(time.time() * 1000)
+                form = f"fid={fid}&time={current_time}"
+                sign = hashlib.md5((form + SECRET).encode("utf-8")).hexdigest()
+                payload = f"sign={sign}&{form}"
+
+                try:
+                    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=ssl_context)) as session:
+                        async with session.post(API_URL, data=payload, headers=headers, timeout=20) as resp:
+                            text = await resp.text()
+                            try:
+                                js = await resp.json()
+                            except Exception:
+                                self.logger.debug("playerinfo (message) invalid json for fid=%s: %s", fid, text)
+                                return
+                except Exception as e:
+                    self.logger.debug("playerinfo (message) network error for fid=%s: %s", fid, e)
+                    return
+
+            # Log API result for debugging (don't include full payload)
+            try:
+                code = js.get('code') if isinstance(js, dict) else None
+                nick = js.get('data', {}).get('nickname') if isinstance(js, dict) else None
+                self.logger.info("playerinfo (message) api result for fid=%s: code=%s nickname=%s", fid, code, nick)
+            except Exception:
+                self.logger.debug("playerinfo (message) unable to parse api result for fid=%s", fid)
+
+            # If API did not return code 0, ignore the message as requested
+            if not js or js.get("code") != 0:
+                return
+
+            # Build embed similarly to the slash command
+            data = js.get('data', {})
+            nickname = data.get('nickname', 'Unknown')
+            kid = data.get('kid', 'N/A')
+            stove_lv = data.get('stove_lv')
+            stove_icon = data.get('stove_lv_content')
+            avatar = data.get('avatar_image')
+
+            try:
+                lv_int = int(stove_lv) if stove_lv is not None else None
+            except Exception:
+                lv_int = None
+            fc = map_furnace(lv_int)
+
+            embed = discord.Embed(colour=discord.Colour.blurple())
+            # author
+            try:
+                author_name = f"{nickname}"
+                if stove_icon:
+                    p = urllib.parse.urlparse(stove_icon)
+                    if p.scheme in ("http", "https") and p.netloc:
+                        embed.set_author(name=author_name, icon_url=stove_icon)
+                    else:
+                        embed.set_author(name=author_name)
+                else:
+                    embed.set_author(name=author_name)
+            except Exception:
+                embed.set_author(name=nickname)
+
+            # thumbnail
+            try:
+                if avatar:
+                    p2 = urllib.parse.urlparse(avatar)
+                    if p2.scheme in ("http", "https") and p2.netloc:
+                        embed.set_thumbnail(url=avatar)
+            except Exception:
+                pass
+
+            if lv_int is None:
+                furnace_display = f"```{stove_lv or 'N/A'}```"
+            else:
+                furnace_display = f"```{fc or lv_int}```"
+
+            pid_display = f"```{fid}```"
+            raw_state = str(kid or "N/A")
+            if raw_state.startswith("#"):
+                state_val = f"```{raw_state}```"
+            else:
+                state_val = f"```#{raw_state}```"
+
+            embed.add_field(name="🪪 Player ID", value=pid_display, inline=True)
+            embed.add_field(name="🏠 STATE", value=state_val, inline=True)
+            embed.add_field(name="Furnace Level", value=furnace_display, inline=True)
+
+            try:
+                if WATERMARK_URL:
+                    p3 = urllib.parse.urlparse(WATERMARK_URL)
+                    if p3.scheme in ("http", "https") and p3.netloc:
+                        embed.set_footer(text="Requested via message lookup", icon_url=WATERMARK_URL)
+                    else:
+                        embed.set_footer(text="Requested via message lookup")
+                else:
+                    embed.set_footer(text="Requested via message lookup")
+            except Exception:
+                embed.set_footer(text="Requested via message lookup")
+
+            try:
+                await message.reply(embed=embed, mention_author=False)
+            except Exception as send_err:
+                self.logger.debug("Failed to send playerinfo reply: %s", send_err)
+        except Exception as outer_e:
+            self.logger.exception("Unexpected error in playerinfo handler: %s", outer_e)
+
     @discord.app_commands.command(
         name="playerinfo",
         description="Get player info by 9-digit player id. Accepts comma-separated list (max 30).",
@@ -258,7 +415,14 @@ async def setup(bot: commands.Bot):
     await bot.add_cog(PlayerInfoCog(bot))
     # Try to sync commands to the dev guild for immediate availability
     try:
+        # Quick sync to dev guild for immediate testing
         await bot.tree.sync(guild=discord.Object(id=DEV_GUILD_ID))
-        print(f"/playerinfo synced to guild {DEV_GUILD_ID}")
+        print(f"/playerinfo synced to guild {DEV_GUILD_ID} (dev sync)")
     except Exception as e:
-        print("PlayerInfoCog: guild sync failed:", e)
+        print("PlayerInfoCog: dev guild sync failed:", e)
+    # Request a global sync as well (propagation may take up to an hour)
+    try:
+        await bot.tree.sync()
+        print("/playerinfo global sync requested (may take up to an hour to propagate)")
+    except Exception as e:
+        print("PlayerInfoCog: global sync failed:", e)

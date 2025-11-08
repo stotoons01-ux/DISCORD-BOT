@@ -8,3 +8,10 @@ creds.json
 cred.json
 .env
 cred.json
+.venv311/
+
+
+
+echo "__pycache__/" >> .gitignore
+echo "logs/" >> .gitignore
+echo ".venv311/" >> .gitignore
