@@ -1,0 +1,1703 @@
+2025-11-06 02:56:42,282 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 02:56:42,283 - Health server task started on port 8080
+2025-11-06 02:56:42,283 - Uptime checker task started
+2025-11-06 02:56:42,283 - Giftcode poster task started
+2025-11-06 02:56:42,283 - Skipping music cog load (file removed)
+2025-11-06 02:56:43,030 - Successfully synced global commands
+2025-11-06 02:57:42,924 - Synced commands globally
+2025-11-06 02:57:42,925 - Removed music command 'play' (maintenance)
+2025-11-06 02:57:42,926 - Removed music command 'pause' (maintenance)
+2025-11-06 02:57:42,926 - Removed music command 'resume' (maintenance)
+2025-11-06 02:57:42,927 - Removed music command 'skip' (maintenance)
+2025-11-06 02:57:42,929 - Removed music command 'stop' (maintenance)
+2025-11-06 02:57:42,930 - Removed music command 'queue' (maintenance)
+2025-11-06 02:57:42,931 - Removed music command 'leave' (maintenance)
+2025-11-06 02:57:42,931 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 02:57:42,932 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 02:57:42,934 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 02:57:42,940 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 02:57:43,610 - Synced command removals to Discord (music commands hidden)
+2025-11-06 02:58:49,928 - Failed to send help embed: 404 Not Found (error code: 10062): Unknown interaction
+2025-11-06 03:01:57,589 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 03:01:57,590 - Health server task started on port 8080
+2025-11-06 03:01:57,590 - Uptime checker task started
+2025-11-06 03:01:57,591 - Giftcode poster task started
+2025-11-06 03:01:57,591 - Skipping music cog load (file removed)
+2025-11-06 12:02:23,617 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 12:02:23,618 - Health server task started on port 8080
+2025-11-06 12:02:23,618 - Uptime checker task started
+2025-11-06 12:02:23,618 - Giftcode poster task started
+2025-11-06 12:02:23,620 - Skipping music cog load (file removed)
+2025-11-06 12:02:24,317 - Successfully synced global commands
+2025-11-06 12:03:24,441 - Synced commands globally
+2025-11-06 12:03:24,443 - Removed music command 'play' (maintenance)
+2025-11-06 12:03:24,444 - Removed music command 'pause' (maintenance)
+2025-11-06 12:03:24,445 - Removed music command 'resume' (maintenance)
+2025-11-06 12:03:24,446 - Removed music command 'skip' (maintenance)
+2025-11-06 12:03:24,446 - Removed music command 'stop' (maintenance)
+2025-11-06 12:03:24,452 - Removed music command 'queue' (maintenance)
+2025-11-06 12:03:24,453 - Removed music command 'leave' (maintenance)
+2025-11-06 12:03:24,454 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 12:03:24,455 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 12:03:24,458 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 12:03:24,459 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 12:03:25,262 - Synced command removals to Discord (music commands hidden)
+2025-11-06 12:04:44,012 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 12:04:44,013 - Health server task started on port 8080
+2025-11-06 12:04:44,013 - Uptime checker task started
+2025-11-06 12:04:44,014 - Giftcode poster task started
+2025-11-06 12:04:44,014 - Skipping music cog load (file removed)
+2025-11-06 12:04:44,788 - Successfully synced global commands
+2025-11-06 12:05:44,680 - Synced commands globally
+2025-11-06 12:05:44,681 - Removed music command 'play' (maintenance)
+2025-11-06 12:05:44,682 - Removed music command 'pause' (maintenance)
+2025-11-06 12:05:44,682 - Removed music command 'resume' (maintenance)
+2025-11-06 12:05:44,683 - Removed music command 'skip' (maintenance)
+2025-11-06 12:05:44,683 - Removed music command 'stop' (maintenance)
+2025-11-06 12:05:44,684 - Removed music command 'queue' (maintenance)
+2025-11-06 12:05:44,685 - Removed music command 'leave' (maintenance)
+2025-11-06 12:05:44,685 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 12:05:44,686 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 12:05:44,688 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 12:05:44,690 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 12:05:45,735 - Synced command removals to Discord (music commands hidden)
+2025-11-06 12:15:19,167 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 12:15:19,170 - Skipping music cog load (file removed)
+2025-11-06 12:15:19,939 - Successfully synced global commands
+2025-11-06 12:16:19,888 - Synced commands globally
+2025-11-06 12:16:19,889 - Removed music command 'play' (maintenance)
+2025-11-06 12:16:19,889 - Removed music command 'pause' (maintenance)
+2025-11-06 12:16:19,889 - Removed music command 'resume' (maintenance)
+2025-11-06 12:16:19,889 - Removed music command 'skip' (maintenance)
+2025-11-06 12:16:19,890 - Removed music command 'stop' (maintenance)
+2025-11-06 12:16:19,890 - Removed music command 'queue' (maintenance)
+2025-11-06 12:16:19,891 - Removed music command 'leave' (maintenance)
+2025-11-06 12:16:19,891 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 12:16:19,891 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 12:16:19,892 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 12:16:19,893 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 12:16:20,637 - Synced command removals to Discord (music commands hidden)
+2025-11-06 12:16:20,641 - Error in on_ready: Task is already launched and is not completed.
+2025-11-06 12:32:45,931 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 12:32:45,934 - Health server task started on port 8080
+2025-11-06 12:32:45,934 - Uptime checker task started
+2025-11-06 12:32:45,935 - Giftcode poster task started
+2025-11-06 12:32:45,936 - Skipping music cog load (file removed)
+2025-11-06 12:32:46,669 - Successfully synced global commands
+2025-11-06 12:33:46,649 - Synced commands globally
+2025-11-06 12:33:46,650 - Removed music command 'play' (maintenance)
+2025-11-06 12:33:46,651 - Removed music command 'pause' (maintenance)
+2025-11-06 12:33:46,651 - Removed music command 'resume' (maintenance)
+2025-11-06 12:33:46,652 - Removed music command 'skip' (maintenance)
+2025-11-06 12:33:46,653 - Removed music command 'stop' (maintenance)
+2025-11-06 12:33:46,653 - Removed music command 'queue' (maintenance)
+2025-11-06 12:33:46,654 - Removed music command 'leave' (maintenance)
+2025-11-06 12:33:46,654 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 12:33:46,655 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 12:33:46,656 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 12:33:46,658 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 12:33:47,408 - Synced command removals to Discord (music commands hidden)
+2025-11-06 12:43:28,443 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 12:43:28,444 - Health server task started on port 8080
+2025-11-06 12:43:28,445 - Uptime checker task started
+2025-11-06 12:43:28,446 - Giftcode poster task started
+2025-11-06 12:43:28,446 - Skipping music cog load (file removed)
+2025-11-06 12:43:29,136 - Successfully synced global commands
+2025-11-06 12:44:29,197 - Synced commands globally
+2025-11-06 12:44:29,199 - Removed music command 'play' (maintenance)
+2025-11-06 12:44:29,200 - Removed music command 'pause' (maintenance)
+2025-11-06 12:44:29,201 - Removed music command 'resume' (maintenance)
+2025-11-06 12:44:29,202 - Removed music command 'skip' (maintenance)
+2025-11-06 12:44:29,203 - Removed music command 'stop' (maintenance)
+2025-11-06 12:44:29,204 - Removed music command 'queue' (maintenance)
+2025-11-06 12:44:29,205 - Removed music command 'leave' (maintenance)
+2025-11-06 12:44:29,206 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 12:44:29,208 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 12:44:29,209 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 12:44:29,209 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 12:44:29,861 - Synced command removals to Discord (music commands hidden)
+2025-11-06 13:04:16,861 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 13:04:16,862 - Health server task started on port 8080
+2025-11-06 13:04:16,862 - Uptime checker task started
+2025-11-06 13:04:16,863 - Giftcode poster task started
+2025-11-06 13:04:16,863 - Skipping music cog load (file removed)
+2025-11-06 13:04:17,520 - Successfully synced global commands
+2025-11-06 13:05:17,500 - Synced commands globally
+2025-11-06 13:05:17,505 - Removed music command 'play' (maintenance)
+2025-11-06 13:05:17,507 - Removed music command 'pause' (maintenance)
+2025-11-06 13:05:17,508 - Removed music command 'resume' (maintenance)
+2025-11-06 13:05:17,511 - Removed music command 'skip' (maintenance)
+2025-11-06 13:05:17,514 - Removed music command 'stop' (maintenance)
+2025-11-06 13:05:17,518 - Removed music command 'queue' (maintenance)
+2025-11-06 13:05:17,520 - Removed music command 'leave' (maintenance)
+2025-11-06 13:05:17,523 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 13:05:17,523 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 13:05:17,526 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 13:05:17,527 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 13:05:18,342 - Synced command removals to Discord (music commands hidden)
+2025-11-06 16:36:24,611 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 16:36:24,612 - Health server task started on port 8080
+2025-11-06 16:36:24,612 - Uptime checker task started
+2025-11-06 16:36:24,613 - Giftcode poster task started
+2025-11-06 16:36:24,613 - Skipping music cog load (file removed)
+2025-11-06 16:36:25,340 - Successfully synced global commands
+2025-11-06 17:42:13,370 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 17:42:13,370 - Health server task started on port 8080
+2025-11-06 17:42:13,370 - Uptime checker task started
+2025-11-06 17:42:13,370 - Giftcode poster task started
+2025-11-06 17:42:13,370 - Skipping music cog load (file removed)
+2025-11-06 17:42:14,152 - Successfully synced global commands
+2025-11-06 17:43:14,055 - Synced commands globally
+2025-11-06 17:43:14,056 - Removed music command 'play' (maintenance)
+2025-11-06 17:43:14,056 - Removed music command 'pause' (maintenance)
+2025-11-06 17:43:14,057 - Removed music command 'resume' (maintenance)
+2025-11-06 17:43:14,058 - Removed music command 'skip' (maintenance)
+2025-11-06 17:43:14,058 - Removed music command 'stop' (maintenance)
+2025-11-06 17:43:14,059 - Removed music command 'queue' (maintenance)
+2025-11-06 17:43:14,060 - Removed music command 'leave' (maintenance)
+2025-11-06 17:43:14,063 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 17:43:14,065 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 17:43:14,066 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 17:43:14,067 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 17:43:14,792 - Synced command removals to Discord (music commands hidden)
+2025-11-06 17:43:14,792 - Registered persistent GiftCodeView for button interactions
+2025-11-06 17:53:40,281 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 17:53:40,282 - Health server task started on port 8080
+2025-11-06 17:53:40,282 - Uptime checker task started
+2025-11-06 17:53:40,283 - Giftcode poster task started
+2025-11-06 17:53:40,283 - Skipping music cog load (file removed)
+2025-11-06 17:53:40,933 - Successfully synced global commands
+2025-11-06 17:54:30,348 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 17:54:30,349 - Health server task started on port 8080
+2025-11-06 17:54:30,350 - Uptime checker task started
+2025-11-06 17:54:30,351 - Giftcode poster task started
+2025-11-06 17:54:30,351 - Skipping music cog load (file removed)
+2025-11-06 17:55:10,918 - Successfully synced global commands
+2025-11-06 17:55:11,877 - Synced commands globally
+2025-11-06 17:55:11,878 - Removed music command 'play' (maintenance)
+2025-11-06 17:55:11,879 - Removed music command 'pause' (maintenance)
+2025-11-06 17:55:11,880 - Removed music command 'resume' (maintenance)
+2025-11-06 17:55:11,881 - Removed music command 'skip' (maintenance)
+2025-11-06 17:55:11,882 - Removed music command 'stop' (maintenance)
+2025-11-06 17:55:11,883 - Removed music command 'queue' (maintenance)
+2025-11-06 17:55:11,885 - Removed music command 'leave' (maintenance)
+2025-11-06 17:55:11,886 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 17:55:11,888 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 17:55:11,890 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 17:55:11,890 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 17:56:11,758 - Synced command removals to Discord (music commands hidden)
+2025-11-06 17:56:11,761 - Registered persistent GiftCodeView for button interactions
+2025-11-06 17:56:12,383 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-06 17:56:15,692 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,693 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,694 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,695 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,696 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,696 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,697 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,697 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-06 17:56:15,702 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-06 17:56:16,811 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-06 17:56:16,812 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-06 17:56:16,813 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-06 17:56:16,814 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-06 17:56:16,814 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-06 17:56:16,815 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-06 17:56:16,815 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-06 17:56:16,816 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-06 17:56:16,817 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-06 17:56:16,818 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-06 17:56:16,819 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-06 17:56:16,820 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-06 17:56:16,820 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-06 17:56:16,821 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-06 17:56:16,822 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-06 17:56:16,822 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-06 17:56:16,823 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-06 17:56:16,824 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-06 17:56:18,149 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-06 17:56:18,150 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-06 17:56:18,151 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-06 17:56:18,153 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-06 17:56:18,153 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-06 17:56:18,154 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-06 17:56:19,148 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-06 17:56:19,152 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-06 17:56:19,154 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-06 17:56:19,155 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-06 17:57:05,803 - Failed to send help embed: InteractionResponse.send_message() got an unexpected keyword argument 'wait'
+2025-11-06 17:57:10,993 - Failed to send help embed via followup: 404 Not Found (error code: 10015): Unknown Webhook
+2025-11-06 17:57:33,074 - Failed to send help embed: InteractionResponse.send_message() got an unexpected keyword argument 'wait'
+2025-11-06 17:57:38,208 - Failed to send help embed via followup: 404 Not Found (error code: 10015): Unknown Webhook
+2025-11-06 17:57:44,422 - Error in /birthday command: InteractionResponse.send_message() got an unexpected keyword argument 'wait'
+2025-11-06 18:02:33,822 - Whiteout Survival#3946 has connected to Discord!
+2025-11-06 18:02:33,822 - Health server task started on port 8080
+2025-11-06 18:02:33,823 - Uptime checker task started
+2025-11-06 18:02:33,823 - Giftcode poster task started
+2025-11-06 18:02:33,823 - Skipping music cog load (file removed)
+2025-11-06 18:02:34,647 - Successfully synced global commands
+2025-11-06 18:02:44,566 - Failed to open feedback modal: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+2025-11-06 18:03:34,463 - Synced commands globally
+2025-11-06 18:03:34,463 - Removed music command 'play' (maintenance)
+2025-11-06 18:03:34,464 - Removed music command 'pause' (maintenance)
+2025-11-06 18:03:34,464 - Removed music command 'resume' (maintenance)
+2025-11-06 18:03:34,465 - Removed music command 'skip' (maintenance)
+2025-11-06 18:03:34,465 - Removed music command 'stop' (maintenance)
+2025-11-06 18:03:34,465 - Removed music command 'queue' (maintenance)
+2025-11-06 18:03:34,465 - Removed music command 'leave' (maintenance)
+2025-11-06 18:03:34,466 - Removed music command 'giftcode_check' (maintenance)
+2025-11-06 18:03:34,466 - Removed music command 'giftchannel' (maintenance)
+2025-11-06 18:03:34,466 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-06 18:03:34,467 - Removed music command 'show_timezone' (maintenance)
+2025-11-06 18:03:35,269 - Synced command removals to Discord (music commands hidden)
+2025-11-06 18:03:35,270 - Registered persistent GiftCodeView for button interactions
+2025-11-06 18:03:35,875 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-06 18:03:39,064 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,065 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,066 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,067 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,068 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,069 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,070 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,071 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-06 18:03:39,076 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-06 18:03:40,123 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-06 18:03:40,124 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-06 18:03:40,125 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-06 18:03:40,126 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-06 18:03:40,127 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-06 18:03:40,128 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-06 18:03:40,128 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-06 18:03:40,129 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-06 18:03:40,129 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-06 18:03:40,130 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-06 18:03:40,131 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-06 18:03:40,132 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-06 18:03:40,133 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-06 18:03:40,133 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-06 18:03:40,134 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-06 18:03:40,135 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-06 18:03:40,136 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-06 18:03:40,137 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-06 18:03:40,138 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-06 18:03:40,138 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-06 18:03:41,460 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-06 18:03:41,461 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-06 18:03:41,462 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-06 18:03:41,464 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-06 18:03:41,464 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-06 18:03:41,466 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-06 18:03:42,333 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-06 18:03:42,338 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-06 18:03:42,341 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-06 18:03:42,343 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-06 18:14:22,508 - Error opening BirthdayModal: 400 Bad Request (error code: 40060): Interaction has already been acknowledged.
+2025-11-07 01:34:49,575 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:34:49,576 - Health server task started on port 8080
+2025-11-07 01:34:49,577 - Uptime checker task started
+2025-11-07 01:34:49,577 - Giftcode poster task started
+2025-11-07 01:34:49,578 - Skipping music cog load (file removed)
+2025-11-07 01:34:50,221 - Successfully synced global commands
+2025-11-07 01:35:50,348 - Synced commands globally
+2025-11-07 01:35:50,349 - Removed music command 'play' (maintenance)
+2025-11-07 01:35:50,349 - Removed music command 'pause' (maintenance)
+2025-11-07 01:35:50,350 - Removed music command 'resume' (maintenance)
+2025-11-07 01:35:50,350 - Removed music command 'skip' (maintenance)
+2025-11-07 01:35:50,351 - Removed music command 'stop' (maintenance)
+2025-11-07 01:35:50,352 - Removed music command 'queue' (maintenance)
+2025-11-07 01:35:50,353 - Removed music command 'leave' (maintenance)
+2025-11-07 01:35:50,355 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:35:50,357 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:35:50,357 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:35:50,360 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:35:51,106 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:35:51,108 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:35:51,796 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:35:55,604 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,605 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,606 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,607 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,608 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,609 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,614 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,616 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:35:55,621 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:35:56,626 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:35:56,627 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:35:56,628 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:35:56,629 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:35:56,630 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:35:56,631 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:35:56,633 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:35:56,634 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:35:56,636 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:35:56,637 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:35:56,639 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:35:56,640 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:35:56,642 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:35:56,643 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:35:56,645 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:35:56,648 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:35:56,649 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:35:56,651 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:35:56,654 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:35:56,657 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:35:57,893 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:35:57,895 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:35:57,897 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:35:57,900 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:35:57,901 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:35:57,903 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:35:59,117 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:35:59,124 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:35:59,128 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:35:59,129 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 01:37:46,970 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:37:46,971 - Health server task started on port 8080
+2025-11-07 01:37:46,972 - Uptime checker task started
+2025-11-07 01:37:46,972 - Giftcode poster task started
+2025-11-07 01:37:46,973 - Skipping music cog load (file removed)
+2025-11-07 01:37:47,579 - Successfully synced global commands
+2025-11-07 01:38:47,752 - Synced commands globally
+2025-11-07 01:38:47,752 - Removed music command 'play' (maintenance)
+2025-11-07 01:38:47,753 - Removed music command 'pause' (maintenance)
+2025-11-07 01:38:47,753 - Removed music command 'resume' (maintenance)
+2025-11-07 01:38:47,754 - Removed music command 'skip' (maintenance)
+2025-11-07 01:38:47,754 - Removed music command 'stop' (maintenance)
+2025-11-07 01:38:47,754 - Removed music command 'queue' (maintenance)
+2025-11-07 01:38:47,755 - Removed music command 'leave' (maintenance)
+2025-11-07 01:38:47,755 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:38:47,756 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:38:47,756 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:38:47,757 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:38:48,739 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:38:48,740 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:38:49,406 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:38:52,335 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,336 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,336 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,337 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,337 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,338 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,338 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,339 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:38:52,342 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:38:53,333 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:38:53,334 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:38:53,335 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:38:53,336 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:38:53,337 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:38:53,338 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:38:53,338 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:38:53,339 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:38:53,339 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:38:53,340 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:38:53,341 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:38:53,342 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:38:53,344 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:38:53,345 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:38:53,345 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:38:53,346 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:38:53,347 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:38:53,348 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:38:53,350 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:38:53,350 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:38:54,496 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:38:54,497 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:38:54,497 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:38:54,499 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:38:54,500 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:38:54,501 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:38:55,485 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:38:55,490 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:38:55,492 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:38:55,493 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 01:41:35,660 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:41:35,661 - Health server task started on port 8080
+2025-11-07 01:41:35,662 - Uptime checker task started
+2025-11-07 01:41:35,662 - Giftcode poster task started
+2025-11-07 01:41:35,663 - Skipping music cog load (file removed)
+2025-11-07 01:41:36,552 - Successfully synced global commands
+2025-11-07 01:42:21,231 - Could not defer interaction for /reminder: 404 Not Found (error code: 10062): Unknown interaction. Continuing without defer.
+2025-11-07 01:42:36,426 - Synced commands globally
+2025-11-07 01:42:36,427 - Removed music command 'play' (maintenance)
+2025-11-07 01:42:36,428 - Removed music command 'pause' (maintenance)
+2025-11-07 01:42:36,429 - Removed music command 'resume' (maintenance)
+2025-11-07 01:42:36,430 - Removed music command 'skip' (maintenance)
+2025-11-07 01:42:36,431 - Removed music command 'stop' (maintenance)
+2025-11-07 01:42:36,433 - Removed music command 'queue' (maintenance)
+2025-11-07 01:42:36,435 - Removed music command 'leave' (maintenance)
+2025-11-07 01:42:36,436 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:42:36,437 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:42:36,438 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:42:36,442 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:42:37,067 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:42:37,069 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:42:37,702 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:42:40,939 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,940 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,941 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,943 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,945 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,946 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,948 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,950 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:42:40,957 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:42:42,225 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:42:42,227 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:42:42,228 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:42:42,229 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:42:42,230 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:42:42,230 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:42:42,233 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:42:42,234 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:42:42,235 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:42:42,236 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:42:42,238 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:42:42,242 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:42:42,243 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:42:42,244 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:42:42,245 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:42:42,247 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:42:42,248 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:42:42,249 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:42:42,252 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:42:42,253 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:42:43,326 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:42:43,327 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:42:43,328 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:42:43,332 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:42:43,333 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:42:43,335 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:42:44,277 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:42:44,284 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:42:44,293 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:42:44,297 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 01:42:50,891 - Could not defer interaction for /reminder: 404 Not Found (error code: 10062): Unknown interaction. Continuing without defer.
+2025-11-07 01:44:59,708 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:44:59,711 - Health server task started on port 8080
+2025-11-07 01:44:59,712 - Uptime checker task started
+2025-11-07 01:44:59,713 - Giftcode poster task started
+2025-11-07 01:44:59,714 - Skipping music cog load (file removed)
+2025-11-07 01:45:00,563 - Successfully synced global commands
+2025-11-07 01:46:00,420 - Synced commands globally
+2025-11-07 01:46:00,421 - Removed music command 'play' (maintenance)
+2025-11-07 01:46:00,421 - Removed music command 'pause' (maintenance)
+2025-11-07 01:46:00,422 - Removed music command 'resume' (maintenance)
+2025-11-07 01:46:00,422 - Removed music command 'skip' (maintenance)
+2025-11-07 01:46:00,423 - Removed music command 'stop' (maintenance)
+2025-11-07 01:46:00,423 - Removed music command 'queue' (maintenance)
+2025-11-07 01:46:00,423 - Removed music command 'leave' (maintenance)
+2025-11-07 01:46:00,424 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:46:00,424 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:46:00,424 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:46:00,425 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:46:01,120 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:46:01,121 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:46:03,101 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:46:06,036 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,037 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,037 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,039 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,040 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,040 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,041 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,042 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,047 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:46:06,942 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:46:06,943 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:46:06,944 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:46:06,945 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:46:06,946 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:46:06,947 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:46:06,948 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:46:06,948 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:46:06,949 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:46:06,950 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:46:06,951 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:46:06,952 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:46:06,954 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:46:06,955 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:46:06,956 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:46:06,956 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:46:06,957 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:46:06,958 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:46:06,960 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:46:06,961 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:46:08,332 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:46:08,333 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:46:08,334 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:46:08,335 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:46:08,336 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:46:08,337 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:46:09,412 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:46:09,416 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:46:09,419 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:46:09,420 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 01:51:18,778 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:51:18,779 - Health server task started on port 8080
+2025-11-07 01:51:18,780 - Uptime checker task started
+2025-11-07 01:51:18,780 - Giftcode poster task started
+2025-11-07 01:51:18,780 - Skipping music cog load (file removed)
+2025-11-07 01:51:19,417 - Successfully synced global commands
+2025-11-07 01:52:08,694 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:52:08,694 - Health server task started on port 8080
+2025-11-07 01:52:08,695 - Uptime checker task started
+2025-11-07 01:52:08,696 - Giftcode poster task started
+2025-11-07 01:52:08,696 - Skipping music cog load (file removed)
+2025-11-07 01:52:49,496 - Successfully synced global commands
+2025-11-07 01:52:50,096 - Synced commands globally
+2025-11-07 01:52:50,097 - Removed music command 'play' (maintenance)
+2025-11-07 01:52:50,097 - Removed music command 'pause' (maintenance)
+2025-11-07 01:52:50,098 - Removed music command 'resume' (maintenance)
+2025-11-07 01:52:50,098 - Removed music command 'skip' (maintenance)
+2025-11-07 01:52:50,098 - Removed music command 'stop' (maintenance)
+2025-11-07 01:52:50,098 - Removed music command 'queue' (maintenance)
+2025-11-07 01:52:50,098 - Removed music command 'leave' (maintenance)
+2025-11-07 01:52:50,099 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:52:50,099 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:52:50,099 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:52:50,099 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:53:51,496 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:53:51,497 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:53:52,075 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:53:55,535 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,536 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,537 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,538 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,539 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,540 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,541 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,542 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:53:55,547 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:53:56,570 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:53:56,572 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:53:56,574 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:53:56,575 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:53:56,575 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:53:56,576 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:53:56,577 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:53:56,578 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:53:56,579 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:53:56,580 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:53:56,581 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:53:56,582 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:53:56,583 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:53:56,584 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:53:56,585 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:53:56,587 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:53:56,587 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:53:56,588 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:53:56,589 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:53:56,590 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:53:57,637 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:53:57,638 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:53:57,638 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:53:57,640 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:53:57,641 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:53:57,642 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:53:58,617 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:53:58,621 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:53:58,623 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:53:58,624 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 01:54:29,306 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:54:29,306 - Health server task started on port 8080
+2025-11-07 01:54:29,307 - Uptime checker task started
+2025-11-07 01:54:29,307 - Giftcode poster task started
+2025-11-07 01:54:29,307 - Skipping music cog load (file removed)
+2025-11-07 01:54:30,152 - Successfully synced global commands
+2025-11-07 01:55:29,964 - Synced commands globally
+2025-11-07 01:55:29,965 - Removed music command 'play' (maintenance)
+2025-11-07 01:55:29,965 - Removed music command 'pause' (maintenance)
+2025-11-07 01:55:29,965 - Removed music command 'resume' (maintenance)
+2025-11-07 01:55:29,966 - Removed music command 'skip' (maintenance)
+2025-11-07 01:55:29,966 - Removed music command 'stop' (maintenance)
+2025-11-07 01:55:29,966 - Removed music command 'queue' (maintenance)
+2025-11-07 01:55:29,967 - Removed music command 'leave' (maintenance)
+2025-11-07 01:55:29,967 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:55:29,968 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:55:29,968 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:55:29,968 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:55:30,604 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:55:30,605 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:55:31,109 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:55:35,763 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,764 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,765 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,768 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,770 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,771 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,773 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,775 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:55:35,783 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:55:36,754 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:55:36,755 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:55:36,757 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:55:36,757 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:55:36,758 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:55:36,760 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:55:36,763 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:55:36,764 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:55:36,767 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:55:36,770 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:55:36,773 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:55:36,775 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:55:36,777 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:55:36,778 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:55:36,779 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:55:36,782 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:55:36,785 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:55:36,790 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:55:36,791 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:55:36,792 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:55:37,795 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:55:37,797 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:55:37,798 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:55:37,803 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:55:37,804 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:55:37,807 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:55:39,136 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:55:39,145 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:55:39,152 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:55:39,156 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 01:58:30,001 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 01:58:30,008 - Health server task started on port 8080
+2025-11-07 01:58:30,015 - Uptime checker task started
+2025-11-07 01:58:30,020 - Giftcode poster task started
+2025-11-07 01:58:30,023 - Skipping music cog load (file removed)
+2025-11-07 01:58:30,610 - Successfully synced global commands
+2025-11-07 01:59:30,646 - Synced commands globally
+2025-11-07 01:59:30,647 - Removed music command 'play' (maintenance)
+2025-11-07 01:59:30,648 - Removed music command 'pause' (maintenance)
+2025-11-07 01:59:30,648 - Removed music command 'resume' (maintenance)
+2025-11-07 01:59:30,648 - Removed music command 'skip' (maintenance)
+2025-11-07 01:59:30,649 - Removed music command 'stop' (maintenance)
+2025-11-07 01:59:30,649 - Removed music command 'queue' (maintenance)
+2025-11-07 01:59:30,650 - Removed music command 'leave' (maintenance)
+2025-11-07 01:59:30,650 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 01:59:30,650 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 01:59:30,651 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 01:59:30,651 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 01:59:31,464 - Synced command removals to Discord (music commands hidden)
+2025-11-07 01:59:31,465 - Registered persistent GiftCodeView for button interactions
+2025-11-07 01:59:32,003 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 01:59:35,944 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,944 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,945 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,947 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,948 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,949 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,950 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,951 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 01:59:35,956 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 01:59:36,951 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 01:59:36,952 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 01:59:36,955 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 01:59:36,956 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 01:59:36,957 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 01:59:36,958 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 01:59:36,961 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 01:59:36,962 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 01:59:36,964 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 01:59:36,967 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 01:59:36,969 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 01:59:36,970 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 01:59:36,973 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 01:59:36,975 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 01:59:36,979 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 01:59:36,982 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 01:59:36,983 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 01:59:36,984 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 01:59:36,986 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 01:59:36,987 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 01:59:38,129 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 01:59:38,131 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 01:59:38,132 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 01:59:38,135 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 01:59:38,136 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 01:59:38,138 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 01:59:39,712 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 01:59:39,721 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 01:59:39,729 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 01:59:39,731 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 02:00:46,779 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 02:00:46,782 - Health server task started on port 8080
+2025-11-07 02:00:46,783 - Uptime checker task started
+2025-11-07 02:00:46,784 - Giftcode poster task started
+2025-11-07 02:00:46,785 - Skipping music cog load (file removed)
+2025-11-07 02:00:48,733 - Successfully synced global commands
+2025-11-07 02:01:48,448 - Synced commands globally
+2025-11-07 02:01:48,449 - Removed music command 'play' (maintenance)
+2025-11-07 02:01:48,449 - Removed music command 'pause' (maintenance)
+2025-11-07 02:01:48,449 - Removed music command 'resume' (maintenance)
+2025-11-07 02:01:48,449 - Removed music command 'skip' (maintenance)
+2025-11-07 02:01:48,449 - Removed music command 'stop' (maintenance)
+2025-11-07 02:01:48,450 - Removed music command 'queue' (maintenance)
+2025-11-07 02:01:48,450 - Removed music command 'leave' (maintenance)
+2025-11-07 02:01:48,450 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 02:01:48,450 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 02:01:48,450 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 02:01:48,450 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 02:01:49,242 - Synced command removals to Discord (music commands hidden)
+2025-11-07 02:01:49,243 - Registered persistent GiftCodeView for button interactions
+2025-11-07 02:01:49,799 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 02:01:53,531 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,532 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,532 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,533 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,534 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,534 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,535 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,536 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 02:01:53,540 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 02:01:54,587 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 02:01:54,588 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 02:01:54,589 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 02:01:54,589 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 02:01:54,589 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 02:01:54,590 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 02:01:54,590 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 02:01:54,590 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 02:01:54,591 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 02:01:54,592 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 02:01:54,593 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 02:01:54,593 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 02:01:54,594 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 02:01:54,594 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 02:01:54,594 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 02:01:54,595 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 02:01:54,595 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 02:01:54,595 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 02:01:54,596 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 02:01:54,596 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 02:01:56,731 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 02:01:56,732 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 02:01:56,733 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 02:01:56,735 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 02:01:56,735 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 02:01:56,736 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 02:01:57,794 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 02:01:57,799 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 02:01:57,801 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 02:01:57,802 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 02:03:37,792 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 02:03:37,792 - Health server task started on port 8080
+2025-11-07 02:03:37,793 - Uptime checker task started
+2025-11-07 02:03:37,793 - Giftcode poster task started
+2025-11-07 02:03:37,793 - Skipping music cog load (file removed)
+2025-11-07 02:03:40,362 - Successfully synced global commands
+2025-11-07 02:05:02,568 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 02:05:02,569 - Health server task started on port 8080
+2025-11-07 02:05:02,569 - Uptime checker task started
+2025-11-07 02:05:02,570 - Giftcode poster task started
+2025-11-07 02:05:02,570 - Skipping music cog load (file removed)
+2025-11-07 02:05:03,387 - Successfully synced global commands
+2025-11-07 02:06:03,262 - Synced commands globally
+2025-11-07 02:06:03,263 - Removed music command 'play' (maintenance)
+2025-11-07 02:06:03,263 - Removed music command 'pause' (maintenance)
+2025-11-07 02:06:03,264 - Removed music command 'resume' (maintenance)
+2025-11-07 02:06:03,265 - Removed music command 'skip' (maintenance)
+2025-11-07 02:06:03,265 - Removed music command 'stop' (maintenance)
+2025-11-07 02:06:03,266 - Removed music command 'queue' (maintenance)
+2025-11-07 02:06:03,266 - Removed music command 'leave' (maintenance)
+2025-11-07 02:06:03,267 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 02:06:03,268 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 02:06:03,268 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 02:06:03,269 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 02:06:04,219 - Synced command removals to Discord (music commands hidden)
+2025-11-07 02:06:04,223 - Registered persistent GiftCodeView for button interactions
+2025-11-07 02:06:04,803 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 02:06:08,242 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,245 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,246 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,248 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,248 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,250 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,253 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,256 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 02:06:08,266 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 02:06:09,210 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 02:06:09,211 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 02:06:09,213 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 02:06:09,214 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 02:06:09,215 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 02:06:09,217 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 02:06:09,219 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 02:06:09,220 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 02:06:09,224 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 02:06:09,226 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 02:06:09,227 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 02:06:09,228 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 02:06:09,229 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 02:06:09,232 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 02:06:09,234 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 02:06:09,238 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 02:06:09,244 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 02:06:09,246 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 02:06:09,247 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 02:06:09,249 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 02:06:10,365 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 02:06:10,366 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 02:06:10,367 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 02:06:10,371 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 02:06:10,373 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 02:06:10,374 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 02:06:11,916 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 02:06:11,921 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 02:06:11,924 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 02:06:11,925 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 02:12:10,816 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 02:12:10,817 - Health server task started on port 8080
+2025-11-07 02:12:10,817 - Uptime checker task started
+2025-11-07 02:12:10,818 - Giftcode poster task started
+2025-11-07 02:12:10,818 - Skipping music cog load (file removed)
+2025-11-07 02:12:11,583 - Successfully synced global commands
+2025-11-07 02:13:11,418 - Synced commands globally
+2025-11-07 02:13:11,419 - Removed music command 'play' (maintenance)
+2025-11-07 02:13:11,420 - Removed music command 'pause' (maintenance)
+2025-11-07 02:13:11,421 - Removed music command 'resume' (maintenance)
+2025-11-07 02:13:11,421 - Removed music command 'skip' (maintenance)
+2025-11-07 02:13:11,422 - Removed music command 'stop' (maintenance)
+2025-11-07 02:13:11,422 - Removed music command 'queue' (maintenance)
+2025-11-07 02:13:11,423 - Removed music command 'leave' (maintenance)
+2025-11-07 02:13:11,423 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 02:13:11,424 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 02:13:11,425 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 02:13:11,426 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 02:13:13,077 - Synced command removals to Discord (music commands hidden)
+2025-11-07 02:13:13,078 - Registered persistent GiftCodeView for button interactions
+2025-11-07 02:13:13,751 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 02:13:18,978 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,981 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,983 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,985 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,987 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,988 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,990 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 02:13:18,993 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 02:13:19,001 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 02:13:20,106 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 02:13:20,107 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 02:13:20,109 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 02:13:20,110 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 02:13:20,113 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 02:13:20,116 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 02:13:20,119 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 02:13:20,121 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 02:13:20,123 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 02:13:20,126 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 02:13:20,130 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 02:13:20,132 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 02:13:20,136 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 02:13:20,140 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 02:13:20,150 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 02:13:20,155 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 02:13:20,157 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 02:13:20,158 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 02:13:20,160 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 02:13:20,166 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 02:13:21,302 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 02:13:21,303 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 02:13:21,304 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 02:13:21,309 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 02:13:21,310 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 02:13:21,312 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 02:13:22,420 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 02:13:22,429 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 02:13:22,434 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 02:13:22,435 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 02:18:50,707 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 02:18:50,708 - Health server task started on port 8080
+2025-11-07 02:18:50,709 - Uptime checker task started
+2025-11-07 02:18:50,709 - Giftcode poster task started
+2025-11-07 02:18:50,710 - Skipping music cog load (file removed)
+2025-11-07 02:18:51,540 - Successfully synced global commands
+2025-11-07 02:19:51,576 - Synced commands globally
+2025-11-07 02:19:51,578 - Removed music command 'play' (maintenance)
+2025-11-07 02:19:51,578 - Removed music command 'pause' (maintenance)
+2025-11-07 02:19:51,579 - Removed music command 'resume' (maintenance)
+2025-11-07 02:19:51,579 - Removed music command 'skip' (maintenance)
+2025-11-07 02:19:51,580 - Removed music command 'stop' (maintenance)
+2025-11-07 02:19:51,581 - Removed music command 'queue' (maintenance)
+2025-11-07 02:19:51,581 - Removed music command 'leave' (maintenance)
+2025-11-07 02:19:51,582 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 02:19:51,583 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 02:19:51,584 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 02:19:51,586 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 02:19:52,392 - Synced command removals to Discord (music commands hidden)
+2025-11-07 02:19:52,397 - Registered persistent GiftCodeView for button interactions
+2025-11-07 02:19:53,093 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 02:19:56,351 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,354 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,355 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,357 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,358 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,363 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,365 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,366 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 02:19:56,373 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 02:19:57,366 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 02:19:57,368 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 02:19:57,370 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 02:19:57,371 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 02:19:57,372 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 02:19:57,376 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 02:19:57,377 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 02:19:57,378 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 02:19:57,380 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 02:19:57,382 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 02:19:57,387 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 02:19:57,389 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 02:19:57,391 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 02:19:57,391 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 02:19:57,392 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 02:19:57,393 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 02:19:57,398 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 02:19:57,404 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 02:19:57,406 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 02:19:57,412 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 02:19:59,380 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 02:19:59,381 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 02:19:59,382 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 02:19:59,384 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 02:19:59,385 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 02:19:59,388 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 02:20:00,941 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 02:20:00,946 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 02:20:00,950 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 02:20:00,951 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 10:11:23,558 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 10:11:23,560 - Health server task started on port 8080
+2025-11-07 10:11:23,564 - Uptime checker task started
+2025-11-07 10:11:23,568 - Giftcode poster task started
+2025-11-07 10:11:23,574 - Skipping music cog load (file removed)
+2025-11-07 10:11:24,310 - Successfully synced global commands
+2025-11-07 10:12:24,199 - Synced commands globally
+2025-11-07 10:12:24,200 - Removed music command 'play' (maintenance)
+2025-11-07 10:12:24,202 - Removed music command 'pause' (maintenance)
+2025-11-07 10:12:24,203 - Removed music command 'resume' (maintenance)
+2025-11-07 10:12:24,204 - Removed music command 'skip' (maintenance)
+2025-11-07 10:12:24,205 - Removed music command 'stop' (maintenance)
+2025-11-07 10:12:24,206 - Removed music command 'queue' (maintenance)
+2025-11-07 10:12:24,207 - Removed music command 'leave' (maintenance)
+2025-11-07 10:12:24,208 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 10:12:24,210 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 10:12:24,211 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 10:12:24,212 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 10:12:25,148 - Synced command removals to Discord (music commands hidden)
+2025-11-07 10:12:25,150 - Registered persistent GiftCodeView for button interactions
+2025-11-07 10:12:25,701 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 10:12:29,150 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,151 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,152 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,156 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,157 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,160 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,163 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,164 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 10:12:29,175 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 10:12:30,600 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 10:12:30,612 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 10:12:30,620 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 10:12:30,639 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 10:12:30,691 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 10:12:30,749 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 10:12:30,784 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 10:12:30,816 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 10:12:30,840 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 10:12:30,866 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 10:12:30,914 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 10:12:30,939 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 10:12:30,976 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 10:12:30,991 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 10:12:31,005 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 10:12:31,109 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 10:12:31,143 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 10:12:31,160 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 10:12:31,174 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 10:12:31,194 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 10:12:32,595 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 10:12:32,610 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 10:12:32,644 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 10:12:32,687 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 10:12:32,708 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 10:12:32,746 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 10:12:34,232 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 10:12:34,242 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 10:12:34,251 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 10:12:34,262 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 10:16:26,283 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 10:16:26,284 - Health server task started on port 8080
+2025-11-07 10:16:26,284 - Uptime checker task started
+2025-11-07 10:16:26,284 - Giftcode poster task started
+2025-11-07 10:16:26,284 - Skipping music cog load (file removed)
+2025-11-07 10:16:26,990 - Successfully synced global commands
+2025-11-07 10:17:04,775 - Could not defer interaction for /reminder: 404 Not Found (error code: 10062): Unknown interaction. Continuing without defer.
+2025-11-07 10:17:26,861 - Synced commands globally
+2025-11-07 10:17:26,862 - Removed music command 'play' (maintenance)
+2025-11-07 10:17:26,863 - Removed music command 'pause' (maintenance)
+2025-11-07 10:17:26,863 - Removed music command 'resume' (maintenance)
+2025-11-07 10:17:26,864 - Removed music command 'skip' (maintenance)
+2025-11-07 10:17:26,865 - Removed music command 'stop' (maintenance)
+2025-11-07 10:17:26,866 - Removed music command 'queue' (maintenance)
+2025-11-07 10:17:26,868 - Removed music command 'leave' (maintenance)
+2025-11-07 10:17:26,871 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 10:17:26,871 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 10:17:26,872 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 10:17:26,874 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 10:17:29,043 - Synced command removals to Discord (music commands hidden)
+2025-11-07 10:17:29,046 - Registered persistent GiftCodeView for button interactions
+2025-11-07 10:17:29,667 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 10:17:33,142 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,144 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,147 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,150 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,156 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,163 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,168 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,170 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 10:17:33,185 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 10:17:34,223 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 10:17:34,227 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 10:17:34,229 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 10:17:34,232 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 10:17:34,233 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 10:17:34,236 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 10:17:34,237 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 10:17:34,238 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 10:17:34,244 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 10:17:34,247 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 10:17:34,262 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 10:17:34,265 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 10:17:34,271 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 10:17:34,276 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 10:17:34,279 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 10:17:34,281 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 10:17:34,286 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 10:17:34,290 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 10:17:34,294 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 10:17:34,298 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 10:17:35,335 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 10:17:35,336 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 10:17:35,337 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 10:17:35,342 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 10:17:35,343 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 10:17:35,348 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 10:17:36,251 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 10:17:36,259 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 10:17:36,264 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 10:17:36,265 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 10:18:23,416 - Could not defer interaction for /reminder: 404 Not Found (error code: 10062): Unknown interaction. Continuing without defer.
+2025-11-07 10:37:05,839 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 10:37:05,841 - Health server task started on port 8080
+2025-11-07 10:37:05,841 - Uptime checker task started
+2025-11-07 10:37:05,843 - Giftcode poster task started
+2025-11-07 10:37:05,843 - Skipping music cog load (file removed)
+2025-11-07 10:37:06,459 - Successfully synced global commands
+2025-11-07 10:38:06,478 - Synced commands globally
+2025-11-07 10:38:06,479 - Removed music command 'play' (maintenance)
+2025-11-07 10:38:06,479 - Removed music command 'pause' (maintenance)
+2025-11-07 10:38:06,480 - Removed music command 'resume' (maintenance)
+2025-11-07 10:38:06,481 - Removed music command 'skip' (maintenance)
+2025-11-07 10:38:06,482 - Removed music command 'stop' (maintenance)
+2025-11-07 10:38:06,483 - Removed music command 'queue' (maintenance)
+2025-11-07 10:38:06,484 - Removed music command 'leave' (maintenance)
+2025-11-07 10:38:06,486 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 10:38:06,486 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 10:38:06,488 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 10:38:06,489 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 10:38:07,323 - Synced command removals to Discord (music commands hidden)
+2025-11-07 10:38:07,324 - Registered persistent GiftCodeView for button interactions
+2025-11-07 10:38:07,941 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 10:38:11,320 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,321 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,322 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,323 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,324 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,327 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,329 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,330 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 10:38:11,335 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 10:38:12,460 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 10:38:12,462 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 10:38:12,463 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 10:38:12,464 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 10:38:12,465 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 10:38:12,466 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 10:38:12,466 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 10:38:12,467 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 10:38:12,468 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 10:38:12,469 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 10:38:12,470 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 10:38:12,471 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 10:38:12,473 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 10:38:12,474 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 10:38:12,475 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 10:38:12,475 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 10:38:12,476 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 10:38:12,477 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 10:38:12,479 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 10:38:12,480 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 10:38:13,588 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 10:38:13,588 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 10:38:13,589 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 10:38:13,590 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 10:38:13,590 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 10:38:13,591 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 10:38:14,467 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 10:38:14,470 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 10:38:14,473 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 10:38:14,473 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 11:00:09,373 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 11:00:09,374 - Skipping music cog load (file removed)
+2025-11-07 11:00:10,080 - Successfully synced global commands
+2025-11-07 11:01:10,157 - Synced commands globally
+2025-11-07 11:01:10,157 - Removed music command 'play' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'pause' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'resume' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'skip' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'stop' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'queue' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'leave' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 11:01:10,158 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 11:01:10,159 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 11:01:10,159 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 11:01:11,034 - Synced command removals to Discord (music commands hidden)
+2025-11-07 11:01:11,035 - Registered persistent GiftCodeView for button interactions
+2025-11-07 11:01:11,577 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 11:01:14,867 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,867 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,867 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,868 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,868 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,868 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,869 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,869 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 11:01:14,870 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 11:01:15,778 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 11:01:15,778 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 11:01:15,778 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 11:01:15,779 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 11:01:15,779 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 11:01:15,779 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 11:01:15,779 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 11:01:15,779 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 11:01:15,779 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 11:01:15,780 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 11:01:15,780 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 11:01:15,780 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 11:01:15,781 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 11:01:15,781 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 11:01:15,781 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 11:01:15,781 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 11:01:15,781 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 11:01:15,782 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 11:01:15,782 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 11:01:15,782 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 11:01:16,703 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 11:01:16,704 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 11:01:16,704 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 11:01:16,704 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 11:01:16,705 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 11:01:16,705 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 11:01:17,869 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 11:01:17,871 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 11:01:17,871 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 11:01:17,871 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 11:02:01,033 - Error in on_ready: Task is already launched and is not completed.
+2025-11-07 14:59:36,704 - Whiteout Survival#3946 has connected to Discord!
+2025-11-07 14:59:36,704 - Skipping music cog load (file removed)
+2025-11-07 14:59:37,381 - Successfully synced global commands
+2025-11-07 15:00:37,375 - Synced commands globally
+2025-11-07 15:00:37,376 - Removed music command 'play' (maintenance)
+2025-11-07 15:00:37,376 - Removed music command 'pause' (maintenance)
+2025-11-07 15:00:37,376 - Removed music command 'resume' (maintenance)
+2025-11-07 15:00:37,376 - Removed music command 'skip' (maintenance)
+2025-11-07 15:00:37,377 - Removed music command 'stop' (maintenance)
+2025-11-07 15:00:37,377 - Removed music command 'queue' (maintenance)
+2025-11-07 15:00:37,377 - Removed music command 'leave' (maintenance)
+2025-11-07 15:00:37,378 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 15:00:37,378 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 15:00:37,378 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 15:00:37,379 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 15:00:38,149 - Synced command removals to Discord (music commands hidden)
+2025-11-07 15:00:38,150 - Registered persistent GiftCodeView for button interactions
+2025-11-07 15:00:38,680 - Registered persistent view GiftCodeView for message 1416763758629617806 in Mohit Raj's server/general
+2025-11-07 15:00:42,155 - Registered persistent view PersistentHelpView for message 1434894551654469664 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,156 - Registered persistent view PersistentHelpView for message 1434894471052656751 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,156 - Registered persistent view PersistentHelpView for message 1434892389356404829 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,157 - Registered persistent view GiftCodeView for message 1434884601146245140 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,158 - Registered persistent view GiftCodeView for message 1434852873568780388 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,158 - Registered persistent view GiftCodeView for message 1434852873250017312 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,159 - Registered persistent view GiftCodeView for message 1434852082699079690 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,159 - Registered persistent view GiftCodeView for message 1434852081172217937 in Mohit Raj/notes-resources
+2025-11-07 15:00:42,162 - Registered persistent view PersistentHelpView for message 1423025441274335323 in Mohit Raj/notes-resources
+2025-11-07 15:00:43,115 - Registered persistent view PersistentHelpView for message 1435970148753477727 in Mohit Raj/off-topic
+2025-11-07 15:00:43,115 - Registered persistent view PersistentHelpView for message 1435970146475835504 in Mohit Raj/off-topic
+2025-11-07 15:00:43,116 - Registered persistent view GiftCodeView for message 1435950124982341632 in Mohit Raj/off-topic
+2025-11-07 15:00:43,116 - Registered persistent view BirthdayView for message 1435898156763320402 in Mohit Raj/off-topic
+2025-11-07 15:00:43,117 - Registered persistent view BirthdayView for message 1435895131365576724 in Mohit Raj/off-topic
+2025-11-07 15:00:43,117 - Registered persistent view BirthdayView for message 1435889892726018098 in Mohit Raj/off-topic
+2025-11-07 15:00:43,118 - Registered persistent view BirthdayView for message 1435880577407385630 in Mohit Raj/off-topic
+2025-11-07 15:00:43,118 - Registered persistent view BirthdayView for message 1435879533118226535 in Mohit Raj/off-topic
+2025-11-07 15:00:43,119 - Registered persistent view PersistentHelpView for message 1435787663314653276 in Mohit Raj/off-topic
+2025-11-07 15:00:43,119 - Registered persistent view PersistentHelpView for message 1435744350834262046 in Mohit Raj/off-topic
+2025-11-07 15:00:43,120 - Registered persistent view PersistentHelpView for message 1435742688161956040 in Mohit Raj/off-topic
+2025-11-07 15:00:43,123 - Registered persistent view PersistentHelpView for message 1435742686173990982 in Mohit Raj/off-topic
+2025-11-07 15:00:43,124 - Registered persistent view PersistentHelpView for message 1435369877316571237 in Mohit Raj/off-topic
+2025-11-07 15:00:43,124 - Registered persistent view PersistentHelpView for message 1435313759299305568 in Mohit Raj/off-topic
+2025-11-07 15:00:43,125 - Registered persistent view PersistentHelpView for message 1435306048738169015 in Mohit Raj/off-topic
+2025-11-07 15:00:43,125 - Registered persistent view PersistentHelpView for message 1435304790103031982 in Mohit Raj/off-topic
+2025-11-07 15:00:43,126 - Registered persistent view GiftCodeView for message 1435304645890412554 in Mohit Raj/off-topic
+2025-11-07 15:00:43,127 - Registered persistent view GiftCodeView for message 1435276553394196640 in Mohit Raj/off-topic
+2025-11-07 15:00:43,127 - Registered persistent view GiftCodeView for message 1434947695335968911 in Mohit Raj/off-topic
+2025-11-07 15:00:43,128 - Registered persistent view GiftCodeView for message 1434947688411041802 in Mohit Raj/off-topic
+2025-11-07 15:00:44,164 - Registered persistent view PersistentHelpView for message 1435736152022974635 in Mohit Raj/test
+2025-11-07 15:00:44,165 - Registered persistent view PersistentHelpView for message 1435733281483001869 in Mohit Raj/test
+2025-11-07 15:00:44,165 - Registered persistent view PersistentHelpView for message 1435733280178569236 in Mohit Raj/test
+2025-11-07 15:00:44,166 - Registered persistent view PersistentHelpView for message 1435304235922227245 in Mohit Raj/test
+2025-11-07 15:00:44,166 - Registered persistent view PersistentHelpView for message 1435302581667631226 in Mohit Raj/test
+2025-11-07 15:00:44,167 - Registered persistent view GiftCodeView for message 1435239597469728840 in Mohit Raj/test
+2025-11-07 15:00:45,080 - Registered persistent view GiftCodeView for message 1435722387659165776 in Mohit Raj/welcome
+2025-11-07 15:00:45,081 - Registered persistent view GiftCodeView for message 1435644883699503184 in Mohit Raj/welcome
+2025-11-07 15:00:45,082 - Registered persistent view GiftCodeView for message 1435630542992183486 in Mohit Raj/welcome
+2025-11-07 15:00:45,082 - Registered persistent view GiftCodeView for message 1435630463799656511 in Mohit Raj/welcome
+2025-11-07 15:01:26,324 - Error in on_ready: Task is already launched and is not completed.
+2025-11-07 19:38:56,358 - devx#5389 has connected to Discord!
+2025-11-07 19:38:56,360 - Health server task started on port 8080
+2025-11-07 19:38:56,364 - Uptime checker task started
+2025-11-07 19:38:56,366 - Giftcode poster task started
+2025-11-07 19:38:56,367 - Skipping music cog load (file removed)
+2025-11-07 19:38:57,317 - Successfully synced global commands
+2025-11-07 19:39:57,031 - Synced commands globally
+2025-11-07 19:39:57,034 - Removed music command 'play' (maintenance)
+2025-11-07 19:39:57,037 - Removed music command 'pause' (maintenance)
+2025-11-07 19:39:57,039 - Removed music command 'resume' (maintenance)
+2025-11-07 19:39:57,043 - Removed music command 'skip' (maintenance)
+2025-11-07 19:39:57,054 - Removed music command 'stop' (maintenance)
+2025-11-07 19:39:57,076 - Removed music command 'queue' (maintenance)
+2025-11-07 19:39:57,088 - Removed music command 'leave' (maintenance)
+2025-11-07 19:39:57,107 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 19:39:57,115 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 19:39:57,137 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 19:39:57,184 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 19:39:58,659 - Synced command removals to Discord (music commands hidden)
+2025-11-07 19:39:58,662 - Registered persistent GiftCodeView for button interactions
+2025-11-07 20:11:43,922 - devx#5389 has connected to Discord!
+2025-11-07 20:11:43,924 - Health server task started on port 8080
+2025-11-07 20:11:43,926 - Uptime checker task started
+2025-11-07 20:11:43,927 - Giftcode poster task started
+2025-11-07 20:11:43,928 - Skipping music cog load (file removed)
+2025-11-07 20:11:44,391 - Successfully synced global commands
+2025-11-07 20:20:46,452 - devx#5389 has connected to Discord!
+2025-11-07 20:20:46,453 - Health server task started on port 8080
+2025-11-07 20:20:46,453 - Uptime checker task started
+2025-11-07 20:20:46,455 - Giftcode poster task started
+2025-11-07 20:20:46,455 - Skipping music cog load (file removed)
+2025-11-07 20:20:47,149 - Successfully synced global commands
+2025-11-07 20:21:47,149 - Synced commands globally
+2025-11-07 20:21:47,149 - Removed music command 'play' (maintenance)
+2025-11-07 20:21:47,149 - Removed music command 'pause' (maintenance)
+2025-11-07 20:21:47,150 - Removed music command 'resume' (maintenance)
+2025-11-07 20:21:47,152 - Removed music command 'skip' (maintenance)
+2025-11-07 20:21:47,152 - Removed music command 'stop' (maintenance)
+2025-11-07 20:21:47,153 - Removed music command 'queue' (maintenance)
+2025-11-07 20:21:47,153 - Removed music command 'leave' (maintenance)
+2025-11-07 20:21:47,154 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 20:21:47,154 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 20:21:47,155 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 20:21:47,155 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 20:21:47,778 - Synced command removals to Discord (music commands hidden)
+2025-11-07 20:21:47,778 - Registered persistent GiftCodeView for button interactions
+2025-11-07 20:26:18,168 - devx#5389 has connected to Discord!
+2025-11-07 20:26:18,169 - Health server task started on port 8080
+2025-11-07 20:26:18,169 - Uptime checker task started
+2025-11-07 20:26:18,169 - Giftcode poster task started
+2025-11-07 20:26:18,170 - Skipping music cog load (file removed)
+2025-11-07 20:26:18,903 - Successfully synced global commands
+2025-11-07 20:27:18,820 - Synced commands globally
+2025-11-07 20:27:18,820 - Removed music command 'play' (maintenance)
+2025-11-07 20:27:18,821 - Removed music command 'pause' (maintenance)
+2025-11-07 20:27:18,821 - Removed music command 'resume' (maintenance)
+2025-11-07 20:27:18,822 - Removed music command 'skip' (maintenance)
+2025-11-07 20:27:18,823 - Removed music command 'stop' (maintenance)
+2025-11-07 20:27:18,823 - Removed music command 'queue' (maintenance)
+2025-11-07 20:27:18,824 - Removed music command 'leave' (maintenance)
+2025-11-07 20:27:18,824 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 20:27:18,824 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 20:27:18,826 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 20:27:18,826 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 20:27:20,081 - Synced command removals to Discord (music commands hidden)
+2025-11-07 20:27:20,081 - Registered persistent GiftCodeView for button interactions
+2025-11-07 20:36:45,000 - devx#5389 has connected to Discord!
+2025-11-07 20:36:45,000 - Health server task started on port 8080
+2025-11-07 20:36:45,001 - Uptime checker task started
+2025-11-07 20:36:45,002 - Giftcode poster task started
+2025-11-07 20:36:45,003 - Skipping music cog load (file removed)
+2025-11-07 20:36:45,679 - Successfully synced global commands
+2025-11-07 20:37:46,527 - Synced commands globally
+2025-11-07 20:37:46,527 - Removed music command 'play' (maintenance)
+2025-11-07 20:37:46,528 - Removed music command 'pause' (maintenance)
+2025-11-07 20:37:46,528 - Removed music command 'resume' (maintenance)
+2025-11-07 20:37:46,529 - Removed music command 'skip' (maintenance)
+2025-11-07 20:37:46,530 - Removed music command 'stop' (maintenance)
+2025-11-07 20:37:46,530 - Removed music command 'queue' (maintenance)
+2025-11-07 20:37:46,530 - Removed music command 'leave' (maintenance)
+2025-11-07 20:37:46,530 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 20:37:46,530 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 20:37:46,532 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 20:37:46,532 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 20:37:47,304 - Synced command removals to Discord (music commands hidden)
+2025-11-07 20:37:47,305 - Registered persistent GiftCodeView for button interactions
+2025-11-07 20:49:27,259 - devx#5389 has connected to Discord!
+2025-11-07 20:49:27,260 - Health server task started on port 8080
+2025-11-07 20:49:27,260 - Uptime checker task started
+2025-11-07 20:49:27,261 - Giftcode poster task started
+2025-11-07 20:49:27,261 - Skipping music cog load (file removed)
+2025-11-07 20:49:27,793 - Successfully synced global commands
+2025-11-07 20:50:27,770 - Synced commands globally
+2025-11-07 20:50:27,771 - Removed music command 'play' (maintenance)
+2025-11-07 20:50:27,771 - Removed music command 'pause' (maintenance)
+2025-11-07 20:50:27,772 - Removed music command 'resume' (maintenance)
+2025-11-07 20:50:27,772 - Removed music command 'skip' (maintenance)
+2025-11-07 20:50:27,773 - Removed music command 'stop' (maintenance)
+2025-11-07 20:50:27,774 - Removed music command 'queue' (maintenance)
+2025-11-07 20:50:27,774 - Removed music command 'leave' (maintenance)
+2025-11-07 20:50:27,774 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 20:50:27,775 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 20:50:27,776 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 20:50:27,777 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 20:50:28,496 - Synced command removals to Discord (music commands hidden)
+2025-11-07 20:50:28,497 - Registered persistent GiftCodeView for button interactions
+2025-11-07 20:55:37,594 - devx#5389 has connected to Discord!
+2025-11-07 20:55:37,595 - Health server task started on port 8080
+2025-11-07 20:55:37,595 - Uptime checker task started
+2025-11-07 20:55:37,595 - Giftcode poster task started
+2025-11-07 20:55:37,596 - Skipping music cog load (file removed)
+2025-11-07 20:55:38,131 - Successfully synced global commands
+2025-11-07 20:56:38,199 - Synced commands globally
+2025-11-07 20:56:38,199 - Removed music command 'play' (maintenance)
+2025-11-07 20:56:38,200 - Removed music command 'pause' (maintenance)
+2025-11-07 20:56:38,200 - Removed music command 'resume' (maintenance)
+2025-11-07 20:56:38,202 - Removed music command 'skip' (maintenance)
+2025-11-07 20:56:38,203 - Removed music command 'stop' (maintenance)
+2025-11-07 20:56:38,203 - Removed music command 'queue' (maintenance)
+2025-11-07 20:56:38,204 - Removed music command 'leave' (maintenance)
+2025-11-07 20:56:38,204 - Removed music command 'giftcode_check' (maintenance)
+2025-11-07 20:56:38,205 - Removed music command 'giftchannel' (maintenance)
+2025-11-07 20:56:38,205 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-07 20:56:38,205 - Removed music command 'show_timezone' (maintenance)
+2025-11-07 20:56:39,154 - Synced command removals to Discord (music commands hidden)
+2025-11-07 20:56:39,155 - Registered persistent GiftCodeView for button interactions
+2025-11-08 03:20:07,757 - devx#5389 has connected to Discord!
+2025-11-08 03:20:07,758 - Health server task started on port 8080
+2025-11-08 03:20:07,758 - Uptime checker task started
+2025-11-08 03:20:07,759 - Giftcode poster task started
+2025-11-08 03:20:07,759 - Skipping music cog load (file removed)
+2025-11-08 03:20:09,112 - Successfully synced global commands
+2025-11-08 03:21:08,399 - Synced commands globally
+2025-11-08 03:21:08,399 - Removed music command 'play' (maintenance)
+2025-11-08 03:21:08,400 - Removed music command 'pause' (maintenance)
+2025-11-08 03:21:08,400 - Removed music command 'resume' (maintenance)
+2025-11-08 03:21:08,401 - Removed music command 'skip' (maintenance)
+2025-11-08 03:21:08,401 - Removed music command 'stop' (maintenance)
+2025-11-08 03:21:08,402 - Removed music command 'queue' (maintenance)
+2025-11-08 03:21:08,402 - Removed music command 'leave' (maintenance)
+2025-11-08 03:21:08,403 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 03:21:08,403 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 03:21:08,403 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 03:21:08,404 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 03:21:09,041 - Synced command removals to Discord (music commands hidden)
+2025-11-08 03:21:09,042 - Registered persistent GiftCodeView for button interactions
+2025-11-08 03:28:20,414 - devx#5389 has connected to Discord!
+2025-11-08 03:28:20,415 - Health server task started on port 8080
+2025-11-08 03:28:20,415 - Uptime checker task started
+2025-11-08 03:28:20,416 - Giftcode poster task started
+2025-11-08 03:28:20,416 - Skipping music cog load (file removed)
+2025-11-08 03:28:21,329 - Successfully synced global commands
+2025-11-08 03:29:20,954 - Synced commands globally
+2025-11-08 03:29:20,955 - Removed music command 'play' (maintenance)
+2025-11-08 03:29:20,955 - Removed music command 'pause' (maintenance)
+2025-11-08 03:29:20,955 - Removed music command 'resume' (maintenance)
+2025-11-08 03:29:20,956 - Removed music command 'skip' (maintenance)
+2025-11-08 03:29:20,956 - Removed music command 'stop' (maintenance)
+2025-11-08 03:29:20,957 - Removed music command 'queue' (maintenance)
+2025-11-08 03:29:20,957 - Removed music command 'leave' (maintenance)
+2025-11-08 03:29:20,958 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 03:29:20,958 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 03:29:20,959 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 03:29:20,960 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 03:29:21,649 - Synced command removals to Discord (music commands hidden)
+2025-11-08 03:29:21,650 - Registered persistent GiftCodeView for button interactions
+2025-11-08 03:38:10,415 - devx#5389 has connected to Discord!
+2025-11-08 03:38:10,416 - Health server task started on port 8080
+2025-11-08 03:38:10,416 - Uptime checker task started
+2025-11-08 03:38:10,417 - Giftcode poster task started
+2025-11-08 03:38:10,417 - Skipping music cog load (file removed)
+2025-11-08 03:38:11,007 - Successfully synced global commands
+2025-11-08 03:39:10,990 - Synced commands globally
+2025-11-08 03:39:10,991 - Removed music command 'play' (maintenance)
+2025-11-08 03:39:10,991 - Removed music command 'pause' (maintenance)
+2025-11-08 03:39:10,992 - Removed music command 'resume' (maintenance)
+2025-11-08 03:39:10,992 - Removed music command 'skip' (maintenance)
+2025-11-08 03:39:10,992 - Removed music command 'stop' (maintenance)
+2025-11-08 03:39:10,993 - Removed music command 'queue' (maintenance)
+2025-11-08 03:39:10,993 - Removed music command 'leave' (maintenance)
+2025-11-08 03:39:10,994 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 03:39:10,994 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 03:39:10,994 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 03:39:10,995 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 03:39:11,588 - Synced command removals to Discord (music commands hidden)
+2025-11-08 03:39:11,589 - Registered persistent GiftCodeView for button interactions
+2025-11-08 03:41:12,871 - devx#5389 has connected to Discord!
+2025-11-08 03:41:12,871 - Health server task started on port 8080
+2025-11-08 03:41:12,872 - Uptime checker task started
+2025-11-08 03:41:12,872 - Giftcode poster task started
+2025-11-08 03:41:12,872 - Skipping music cog load (file removed)
+2025-11-08 03:41:13,454 - Successfully synced global commands
+2025-11-08 03:42:13,428 - Synced commands globally
+2025-11-08 03:42:13,431 - Removed music command 'play' (maintenance)
+2025-11-08 03:42:13,431 - Removed music command 'pause' (maintenance)
+2025-11-08 03:42:13,432 - Removed music command 'resume' (maintenance)
+2025-11-08 03:42:13,432 - Removed music command 'skip' (maintenance)
+2025-11-08 03:42:13,433 - Removed music command 'stop' (maintenance)
+2025-11-08 03:42:13,433 - Removed music command 'queue' (maintenance)
+2025-11-08 03:42:13,434 - Removed music command 'leave' (maintenance)
+2025-11-08 03:42:13,434 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 03:42:13,435 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 03:42:13,437 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 03:42:13,439 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 03:42:14,159 - Synced command removals to Discord (music commands hidden)
+2025-11-08 03:42:14,161 - Registered persistent GiftCodeView for button interactions
+2025-11-08 03:42:23,439 - Loaded playerinfo extension
+2025-11-08 03:46:07,745 - devx#5389 has connected to Discord!
+2025-11-08 03:46:07,746 - Health server task started on port 8080
+2025-11-08 03:46:07,747 - Uptime checker task started
+2025-11-08 03:46:07,747 - Giftcode poster task started
+2025-11-08 03:46:07,748 - Skipping music cog load (file removed)
+2025-11-08 03:46:08,319 - Successfully synced global commands
+2025-11-08 03:47:08,473 - Synced commands globally
+2025-11-08 03:47:08,474 - Removed music command 'play' (maintenance)
+2025-11-08 03:47:08,474 - Removed music command 'pause' (maintenance)
+2025-11-08 03:47:08,475 - Removed music command 'resume' (maintenance)
+2025-11-08 03:47:08,475 - Removed music command 'skip' (maintenance)
+2025-11-08 03:47:08,476 - Removed music command 'stop' (maintenance)
+2025-11-08 03:47:08,477 - Removed music command 'queue' (maintenance)
+2025-11-08 03:47:08,477 - Removed music command 'leave' (maintenance)
+2025-11-08 03:47:08,478 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 03:47:08,479 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 03:47:08,481 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 03:47:08,482 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 03:47:09,061 - Synced command removals to Discord (music commands hidden)
+2025-11-08 03:47:09,062 - Registered persistent GiftCodeView for button interactions
+2025-11-08 03:47:18,846 - Loaded playerinfo extension
+2025-11-08 12:09:33,494 - devx#5389 has connected to Discord!
+2025-11-08 12:09:33,500 - Health server task started on port 8080
+2025-11-08 12:09:33,507 - Uptime checker task started
+2025-11-08 12:09:33,514 - Giftcode poster task started
+2025-11-08 12:09:33,519 - Skipping music cog load (file removed)
+2025-11-08 12:09:34,082 - Successfully synced global commands
+2025-11-08 12:10:34,308 - Synced commands globally
+2025-11-08 12:10:34,309 - Removed music command 'play' (maintenance)
+2025-11-08 12:10:34,310 - Removed music command 'pause' (maintenance)
+2025-11-08 12:10:34,311 - Removed music command 'resume' (maintenance)
+2025-11-08 12:10:34,312 - Removed music command 'skip' (maintenance)
+2025-11-08 12:10:34,312 - Removed music command 'stop' (maintenance)
+2025-11-08 12:10:34,313 - Removed music command 'queue' (maintenance)
+2025-11-08 12:10:34,314 - Removed music command 'leave' (maintenance)
+2025-11-08 12:10:34,315 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 12:10:34,316 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 12:10:34,317 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 12:10:34,319 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 12:10:34,937 - Synced command removals to Discord (music commands hidden)
+2025-11-08 12:10:34,940 - Registered persistent GiftCodeView for button interactions
+2025-11-08 12:10:44,393 - Loaded playerinfo extension
+2025-11-08 14:10:35,046 - devx#5389 has connected to Discord!
+2025-11-08 14:10:35,046 - Health server task started on port 8080
+2025-11-08 14:10:35,047 - Uptime checker task started
+2025-11-08 14:10:35,047 - Giftcode poster task started
+2025-11-08 14:10:35,047 - Skipping music cog load (file removed)
+2025-11-08 14:10:35,565 - Successfully synced global commands
+2025-11-08 14:11:35,582 - Synced commands globally
+2025-11-08 14:11:35,583 - Removed music command 'play' (maintenance)
+2025-11-08 14:11:35,583 - Removed music command 'pause' (maintenance)
+2025-11-08 14:11:35,584 - Removed music command 'resume' (maintenance)
+2025-11-08 14:11:35,584 - Removed music command 'skip' (maintenance)
+2025-11-08 14:11:35,585 - Removed music command 'stop' (maintenance)
+2025-11-08 14:11:35,586 - Removed music command 'queue' (maintenance)
+2025-11-08 14:11:35,586 - Removed music command 'leave' (maintenance)
+2025-11-08 14:11:35,587 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 14:11:35,588 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 14:11:35,589 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 14:11:35,590 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 14:11:36,163 - Synced command removals to Discord (music commands hidden)
+2025-11-08 14:11:36,164 - Registered persistent GiftCodeView for button interactions
+2025-11-08 14:11:45,651 - Loaded playerinfo extension
+2025-11-08 15:12:20,604 - devx#5389 has connected to Discord!
+2025-11-08 15:12:20,606 - Health server task started on port 8080
+2025-11-08 15:12:20,607 - Uptime checker task started
+2025-11-08 15:12:20,607 - Giftcode poster task started
+2025-11-08 15:12:20,607 - Skipping music cog load (file removed)
+2025-11-08 15:12:21,202 - Successfully synced global commands
+2025-11-08 15:13:21,132 - Synced commands globally
+2025-11-08 15:13:21,133 - Removed music command 'play' (maintenance)
+2025-11-08 15:13:21,133 - Removed music command 'pause' (maintenance)
+2025-11-08 15:13:21,134 - Removed music command 'resume' (maintenance)
+2025-11-08 15:13:21,135 - Removed music command 'skip' (maintenance)
+2025-11-08 15:13:21,135 - Removed music command 'stop' (maintenance)
+2025-11-08 15:13:21,137 - Removed music command 'queue' (maintenance)
+2025-11-08 15:13:21,138 - Removed music command 'leave' (maintenance)
+2025-11-08 15:13:21,139 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 15:13:21,140 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 15:13:21,141 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 15:13:21,142 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 15:13:21,803 - Synced command removals to Discord (music commands hidden)
+2025-11-08 15:13:21,806 - Registered persistent GiftCodeView for button interactions
+2025-11-08 15:13:31,987 - Loaded playerinfo extension
+2025-11-08 15:18:48,557 - devx#5389 has connected to Discord!
+2025-11-08 15:18:48,558 - Health server task started on port 8080
+2025-11-08 15:18:48,559 - Uptime checker task started
+2025-11-08 15:18:48,560 - Giftcode poster task started
+2025-11-08 15:18:48,560 - Skipping music cog load (file removed)
+2025-11-08 15:18:49,042 - Successfully synced global commands
+2025-11-08 15:19:49,095 - Synced commands globally
+2025-11-08 15:19:49,096 - Removed music command 'play' (maintenance)
+2025-11-08 15:19:49,096 - Removed music command 'pause' (maintenance)
+2025-11-08 15:19:49,097 - Removed music command 'resume' (maintenance)
+2025-11-08 15:19:49,097 - Removed music command 'skip' (maintenance)
+2025-11-08 15:19:49,098 - Removed music command 'stop' (maintenance)
+2025-11-08 15:19:49,099 - Removed music command 'queue' (maintenance)
+2025-11-08 15:19:49,099 - Removed music command 'leave' (maintenance)
+2025-11-08 15:19:49,100 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 15:19:49,100 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 15:19:49,102 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 15:19:49,103 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 15:19:49,963 - Synced command removals to Discord (music commands hidden)
+2025-11-08 15:19:49,967 - Registered persistent GiftCodeView for button interactions
+2025-11-08 15:20:00,254 - Loaded playerinfo extension
+2025-11-08 15:36:26,431 - devx#5389 has connected to Discord!
+2025-11-08 15:36:26,432 - Health server task started on port 8080
+2025-11-08 15:36:26,433 - Uptime checker task started
+2025-11-08 15:36:26,434 - Giftcode poster task started
+2025-11-08 15:36:26,434 - Skipping music cog load (file removed)
+2025-11-08 15:36:27,065 - Successfully synced global commands
+2025-11-08 15:37:27,740 - Synced commands globally
+2025-11-08 15:37:27,741 - Removed music command 'play' (maintenance)
+2025-11-08 15:37:27,741 - Removed music command 'pause' (maintenance)
+2025-11-08 15:37:27,742 - Removed music command 'resume' (maintenance)
+2025-11-08 15:37:27,743 - Removed music command 'skip' (maintenance)
+2025-11-08 15:37:27,744 - Removed music command 'stop' (maintenance)
+2025-11-08 15:37:27,745 - Removed music command 'queue' (maintenance)
+2025-11-08 15:37:27,747 - Removed music command 'leave' (maintenance)
+2025-11-08 15:37:27,749 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 15:37:27,750 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 15:37:27,751 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 15:37:27,752 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 15:37:28,528 - Synced command removals to Discord (music commands hidden)
+2025-11-08 15:37:28,529 - Registered persistent GiftCodeView for button interactions
+2025-11-08 15:37:41,551 - Loaded playerinfo extension
+2025-11-08 15:43:39,533 - devx#5389 has connected to Discord!
+2025-11-08 15:43:39,534 - Health server task started on port 8080
+2025-11-08 15:43:39,534 - Uptime checker task started
+2025-11-08 15:43:39,534 - Giftcode poster task started
+2025-11-08 15:43:39,534 - Skipping music cog load (file removed)
+2025-11-08 15:43:40,116 - Successfully synced global commands
+2025-11-08 15:44:40,129 - Synced commands globally
+2025-11-08 15:44:40,130 - Removed music command 'play' (maintenance)
+2025-11-08 15:44:40,131 - Removed music command 'pause' (maintenance)
+2025-11-08 15:44:40,131 - Removed music command 'resume' (maintenance)
+2025-11-08 15:44:40,132 - Removed music command 'skip' (maintenance)
+2025-11-08 15:44:40,132 - Removed music command 'stop' (maintenance)
+2025-11-08 15:44:40,133 - Removed music command 'queue' (maintenance)
+2025-11-08 15:44:40,133 - Removed music command 'leave' (maintenance)
+2025-11-08 15:44:40,134 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 15:44:40,135 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 15:44:40,135 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 15:44:40,136 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 15:44:40,916 - Synced command removals to Discord (music commands hidden)
+2025-11-08 15:44:40,917 - Registered persistent GiftCodeView for button interactions
+2025-11-08 15:44:50,160 - Loaded playerinfo extension
+2025-11-08 15:48:41,507 - devx#5389 has connected to Discord!
+2025-11-08 15:48:41,507 - Health server task started on port 8080
+2025-11-08 15:48:41,508 - Uptime checker task started
+2025-11-08 15:48:41,508 - Giftcode poster task started
+2025-11-08 15:48:41,509 - Skipping music cog load (file removed)
+2025-11-08 15:48:42,151 - Successfully synced global commands
+2025-11-08 15:49:42,167 - Synced commands globally
+2025-11-08 15:49:42,168 - Removed music command 'play' (maintenance)
+2025-11-08 15:49:42,168 - Removed music command 'pause' (maintenance)
+2025-11-08 15:49:42,169 - Removed music command 'resume' (maintenance)
+2025-11-08 15:49:42,170 - Removed music command 'skip' (maintenance)
+2025-11-08 15:49:42,170 - Removed music command 'stop' (maintenance)
+2025-11-08 15:49:42,170 - Removed music command 'queue' (maintenance)
+2025-11-08 15:49:42,171 - Removed music command 'leave' (maintenance)
+2025-11-08 15:49:42,171 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 15:49:42,172 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 15:49:42,172 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 15:49:42,173 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 15:49:42,865 - Synced command removals to Discord (music commands hidden)
+2025-11-08 15:49:42,866 - Registered persistent GiftCodeView for button interactions
+2025-11-08 15:49:52,504 - Loaded playerinfo extension
+2025-11-08 16:01:00,804 - devx#5389 has connected to Discord!
+2025-11-08 16:01:00,805 - Health server task started on port 8080
+2025-11-08 16:01:00,806 - Uptime checker task started
+2025-11-08 16:01:00,806 - Giftcode poster task started
+2025-11-08 16:01:00,806 - Skipping music cog load (file removed)
+2025-11-08 16:01:01,396 - Successfully synced global commands
+2025-11-08 16:02:01,433 - Synced commands globally
+2025-11-08 16:02:01,435 - Removed music command 'play' (maintenance)
+2025-11-08 16:02:01,436 - Removed music command 'pause' (maintenance)
+2025-11-08 16:02:01,436 - Removed music command 'resume' (maintenance)
+2025-11-08 16:02:01,437 - Removed music command 'skip' (maintenance)
+2025-11-08 16:02:01,438 - Removed music command 'stop' (maintenance)
+2025-11-08 16:02:01,438 - Removed music command 'queue' (maintenance)
+2025-11-08 16:02:01,439 - Removed music command 'leave' (maintenance)
+2025-11-08 16:02:01,439 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 16:02:01,440 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 16:02:01,442 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 16:02:01,443 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 16:02:02,116 - Synced command removals to Discord (music commands hidden)
+2025-11-08 16:02:02,117 - Registered persistent GiftCodeView for button interactions
+2025-11-08 16:02:12,020 - Loaded playerinfo extension
+2025-11-08 16:13:51,262 - devx#5389 has connected to Discord!
+2025-11-08 16:13:51,263 - Health server task started on port 8080
+2025-11-08 16:13:51,264 - Uptime checker task started
+2025-11-08 16:13:51,264 - Giftcode poster task started
+2025-11-08 16:13:51,265 - Skipping music cog load (file removed)
+2025-11-08 16:13:51,832 - Successfully synced global commands
+2025-11-08 16:14:51,844 - Synced commands globally
+2025-11-08 16:14:51,845 - Removed music command 'play' (maintenance)
+2025-11-08 16:14:51,846 - Removed music command 'pause' (maintenance)
+2025-11-08 16:14:51,846 - Removed music command 'resume' (maintenance)
+2025-11-08 16:14:51,847 - Removed music command 'skip' (maintenance)
+2025-11-08 16:14:51,848 - Removed music command 'stop' (maintenance)
+2025-11-08 16:14:51,849 - Removed music command 'queue' (maintenance)
+2025-11-08 16:14:51,849 - Removed music command 'leave' (maintenance)
+2025-11-08 16:14:51,849 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 16:14:51,851 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 16:14:51,852 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 16:14:51,853 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 16:14:52,620 - Synced command removals to Discord (music commands hidden)
+2025-11-08 16:14:52,622 - Registered persistent GiftCodeView for button interactions
+2025-11-08 16:15:52,573 - Loaded playerinfo extension
+2025-11-08 16:40:39,861 - devx#5389 has connected to Discord!
+2025-11-08 16:40:39,863 - Health server task started on port 8080
+2025-11-08 16:40:39,863 - Uptime checker task started
+2025-11-08 16:40:39,864 - Giftcode poster task started
+2025-11-08 16:40:39,864 - Skipping music cog load (file removed)
+2025-11-08 16:40:40,462 - Successfully synced global commands
+2025-11-08 16:41:40,343 - Synced commands globally
+2025-11-08 16:41:40,344 - Removed music command 'play' (maintenance)
+2025-11-08 16:41:40,344 - Removed music command 'pause' (maintenance)
+2025-11-08 16:41:40,345 - Removed music command 'resume' (maintenance)
+2025-11-08 16:41:40,346 - Removed music command 'skip' (maintenance)
+2025-11-08 16:41:40,347 - Removed music command 'stop' (maintenance)
+2025-11-08 16:41:40,348 - Removed music command 'queue' (maintenance)
+2025-11-08 16:41:40,348 - Removed music command 'leave' (maintenance)
+2025-11-08 16:41:40,349 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 16:41:40,350 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 16:41:40,351 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 16:41:40,352 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 16:41:40,941 - Synced command removals to Discord (music commands hidden)
+2025-11-08 16:41:40,943 - Registered persistent GiftCodeView for button interactions

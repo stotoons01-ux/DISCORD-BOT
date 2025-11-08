@@ -1279,22 +1279,9 @@ async def on_message(message):
             # Last resort fallback
             logger.info(f"Message from {author_id} in {channel_id}: {content[:200]}")
 
-    # Quick automatic playerinfo lookup: if the message is exactly a 9-digit id,
-    # attempt to delegate to the PlayerInfoCog handler (if loaded). This covers
-    # both guild messages and direct messages.
-    try:
-        if re.fullmatch(r"\d{9}", (message.content or "").strip()):
-            fid = (message.content or "").strip()
-            cog = bot.get_cog('PlayerInfoCog')
-            if cog and hasattr(cog, 'handle_fid_message'):
-                try:
-                    await cog.handle_fid_message(message, fid)
-                    # If the cog handled it (it replies only on success), we're done here.
-                except Exception as call_err:
-                    logger.debug(f"Error calling PlayerInfoCog.handle_fid_message: {call_err}")
-    except Exception:
-        # non-fatal; continue with DM handling below
-        pass
+    # NOTE: playerinfo message detection is handled by the playerinfo extension
+    # itself (it registers an on_message listener). We removed the inline
+    # delegation here to avoid double-processing/duplicate replies.
 
     # If this is a DM, handle like /ask but respond in plain text
     if isinstance(message.channel, discord.DMChannel) and not message.author.bot:
