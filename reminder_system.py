@@ -167,7 +167,13 @@ class ReminderStorage:
                         recurrence_type TEXT DEFAULT NULL,
                         recurrence_interval INTEGER DEFAULT NULL,
                         original_time_pattern TEXT DEFAULT NULL,
-                        mention TEXT DEFAULT 'everyone'
+                        mention TEXT DEFAULT 'everyone',
+                        image_url TEXT DEFAULT NULL,
+                        thumbnail_url TEXT DEFAULT NULL,
+                        author_name TEXT DEFAULT NULL,
+                        author_icon_url TEXT DEFAULT NULL,
+                        footer_text TEXT DEFAULT NULL,
+                        footer_icon_url TEXT DEFAULT NULL
                     )
                 ''')
 
@@ -197,6 +203,36 @@ class ReminderStorage:
                 except sqlite3.OperationalError:
                     pass  # Column already exists
 
+                try:
+                    cursor.execute("ALTER TABLE reminders ADD COLUMN image_url TEXT DEFAULT NULL")
+                except sqlite3.OperationalError:
+                    pass  # Column already exists
+
+                try:
+                    cursor.execute("ALTER TABLE reminders ADD COLUMN thumbnail_url TEXT DEFAULT NULL")
+                except sqlite3.OperationalError:
+                    pass
+
+                try:
+                    cursor.execute("ALTER TABLE reminders ADD COLUMN author_name TEXT DEFAULT NULL")
+                except sqlite3.OperationalError:
+                    pass
+
+                try:
+                    cursor.execute("ALTER TABLE reminders ADD COLUMN author_icon_url TEXT DEFAULT NULL")
+                except sqlite3.OperationalError:
+                    pass
+
+                try:
+                    cursor.execute("ALTER TABLE reminders ADD COLUMN footer_text TEXT DEFAULT NULL")
+                except sqlite3.OperationalError:
+                    pass
+
+                try:
+                    cursor.execute("ALTER TABLE reminders ADD COLUMN footer_icon_url TEXT DEFAULT NULL")
+                except sqlite3.OperationalError:
+                    pass
+
                 conn.commit()
                 logger.info("✅ Reminder database initialized successfully with recurring support")
         except sqlite3.DatabaseError as e:
@@ -217,7 +253,9 @@ class ReminderStorage:
     
     def add_reminder(self, user_id: str, channel_id: str, guild_id: str, message: str, reminder_time: datetime,
                     is_recurring: bool = False, recurrence_type: str = None, recurrence_interval: int = None,
-                    original_pattern: str = None, mention: str = 'everyone') -> int:
+                    original_pattern: str = None, mention: str = 'everyone', image_url: str = None,
+                    thumbnail_url: str = None, author_name: str = None, author_icon_url: str = None,
+                    footer_text: str = None, footer_icon_url: str = None) -> int:
         """Add a new reminder to the database with optional recurring support"""
         # If MongoDB is configured for this process, block writes to the SQLite DB to
         # avoid accidental writes. The bot should be restarted with MONGO_URI set so
@@ -228,13 +266,49 @@ class ReminderStorage:
                 return -1
         except Exception:
             pass
+
+        # Deduplicate: if an active, unsent reminder with same user/channel/time/message exists,
+        # update it with any provided metadata instead of inserting a new row. This prevents
+        # duplicate reminders when two code paths race to create the same reminder.
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute('''
+                    SELECT id FROM reminders
+                    WHERE user_id = ? AND channel_id = ? AND reminder_time = ? AND message = ?
+                          AND is_active = 1 AND is_sent = 0
+                    LIMIT 1
+                ''', (user_id, channel_id, reminder_time.isoformat(), message))
+                row = cursor.fetchone()
+                if row:
+                    existing_id = row[0]
+                    # Build update for given optional fields
+                    updates = {
+                        'image_url': image_url,
+                        'thumbnail_url': thumbnail_url,
+                        'author_name': author_name,
+                        'author_icon_url': author_icon_url,
+                        'footer_text': footer_text,
+                        'footer_icon_url': footer_icon_url,
+                        'mention': mention
+                    }
+                    to_update = {k: v for k, v in updates.items() if v is not None}
+                    if to_update:
+                        cols = ', '.join([f"{k} = ?" for k in to_update.keys()])
+                        vals = list(to_update.values())
+                        cursor.execute(f"UPDATE reminders SET {cols} WHERE id = ?", vals + [existing_id])
+                        conn.commit()
+                        logger.info(f"✅ Updated existing reminder {existing_id} with new metadata instead of inserting duplicate")
+                    else:
+                        logger.info(f"ℹ️ Found existing identical reminder {existing_id}; not inserting duplicate")
+                    return existing_id
+
+                # No duplicate found — insert normally
+                cursor.execute('''
                     INSERT INTO reminders (user_id, channel_id, guild_id, message, reminder_time, created_at,
-                                         is_recurring, recurrence_type, recurrence_interval, original_time_pattern, mention)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                         is_recurring, recurrence_type, recurrence_interval, original_time_pattern, mention, image_url,
+                                         thumbnail_url, author_name, author_icon_url, footer_text, footer_icon_url)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ''', (
                     user_id,
                     channel_id,
@@ -246,7 +320,13 @@ class ReminderStorage:
                     recurrence_type,
                     recurrence_interval,
                     original_pattern,
-                    mention
+                    mention,
+                    image_url,
+                    thumbnail_url,
+                    author_name,
+                    author_icon_url,
+                    footer_text,
+                    footer_icon_url
                 ))
                 reminder_id = cursor.lastrowid
                 conn.commit()
@@ -294,12 +374,51 @@ class ReminderStorage:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute('''
-                    UPDATE reminders SET is_sent = 1 WHERE id = ?
+                    UPDATE reminders SET is_sent = 1 WHERE id = ? AND is_sent = 0
                 ''', (reminder_id,))
+                changed = cursor.rowcount
                 conn.commit()
-                logger.info(f"✅ Marked reminder {reminder_id} as sent")
+                if changed > 0:
+                    logger.info(f"✅ Claimed and marked reminder {reminder_id} as sent")
+                    return True
+                else:
+                    logger.debug(f"Reminder {reminder_id} was already claimed/sent")
+                    return False
         except Exception as e:
             logger.error(f"❌ Failed to mark reminder as sent: {e}")
+            return False
+
+    def update_reminder_fields(self, reminder_id: Union[int, str], fields: dict) -> bool:
+        """Update arbitrary fields on a reminder (used to attach images/metadata).
+
+        Only whitelisted columns will be updated to avoid SQL injection.
+        """
+        if not fields:
+            return False
+        allowed = {'image_url', 'thumbnail_url', 'author_name', 'author_icon_url', 'footer_text', 'footer_icon_url', 'mention', 'reminder_time'}
+        to_update = {k: v for k, v in fields.items() if k in allowed}
+        if not to_update:
+            return False
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cols = ', '.join([f"{k} = ?" for k in to_update.keys()])
+                vals = list(to_update.values())
+                # Support string or int id
+                try:
+                    rid = int(reminder_id)
+                except Exception:
+                    rid = reminder_id
+                sql = f"UPDATE reminders SET {cols} WHERE id = ?"
+                cursor.execute(sql, vals + [rid])
+                if cursor.rowcount > 0:
+                    conn.commit()
+                    logger.info(f"✅ Updated reminder {reminder_id} fields: {list(to_update.keys())}")
+                    return True
+                return False
+        except Exception as e:
+            logger.error(f"❌ Failed to update reminder {reminder_id}: {e}")
+            return False
     
     def get_user_reminders(self, user_id: str, limit: int = 10) -> List[Dict]:
         """Get active reminders for a specific user"""
@@ -845,13 +964,55 @@ class ReminderSystem:
                     user = self.bot.get_user(int(reminder['user_id']))
                     user_mention = f"<@{reminder['user_id']}>" if user else "Unknown User"
                     
-                    # Create reminder alert embed with simple text formatting
+                    # Attempt to claim this reminder to avoid duplicates across workers/processes
+                    try:
+                        claimed = self.storage.mark_reminder_sent(reminder['id'])
+                    except Exception:
+                        claimed = False
+                    if not claimed:
+                        logger.debug(f"Skipping reminder {reminder.get('id')} because it was already claimed")
+                        continue
+
+                    # Create reminder alert embed with message (no default title)
                     embed = discord.Embed(
-                        title="⏰ **REMINDER**" ,
                         description=f"{reminder['message']}",
-                        color=0xb4a7d6  # Light blue - Modified for jeronimo theme
+                        color=0xb4a7d6
                     )
-                    embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1424082091750068364/1431246283334619136/Gemini_Generated_Image_dqdcnxdqdcnxdqdc-removebg-preview.png?ex=68fcb779&is=68fb65f9&hm=6afcbee2e3dea071f560ea5e1615dc24a691a1e12e123b02cb3c7f0cba2a33db")  # Horror-themed image - Modified for horror theme
+                    # Use stored image/thumbnail/author/footer on the reminder if present
+                    try:
+                        thumb = reminder.get('thumbnail_url')
+                        img = reminder.get('image_url')
+                        author_n = reminder.get('author_name')
+                        author_icon = reminder.get('author_icon_url')
+                        footer_t = reminder.get('footer_text')
+                        footer_icon = reminder.get('footer_icon_url')
+
+                        if img:
+                            embed.set_image(url=img)
+                        elif REMINDER_IMAGES.get('alert'):
+                            # fallback small thumbnail if no image
+                            embed.set_thumbnail(url=REMINDER_IMAGES.get('alert'))
+
+                        if thumb:
+                            try:
+                                embed.set_thumbnail(url=thumb)
+                            except Exception:
+                                pass
+
+                        if author_n or author_icon:
+                            try:
+                                embed.set_author(name=author_n or user_mention, icon_url=author_icon)
+                            except Exception:
+                                pass
+
+                        if footer_t or footer_icon:
+                            try:
+                                embed.set_footer(text=footer_t or '', icon_url=footer_icon)
+                            except Exception:
+                                pass
+                    except Exception:
+                        # Best-effort: ignore image/author/footer errors and continue
+                        pass
                     
                     # Send the reminder with appropriate mention based on stored setting
                     mention_text = ""
@@ -866,7 +1027,8 @@ class ReminderSystem:
                             # Send embed first
                             await channel.send(embed=embed)
                             # Then send the mention as a separate message
-                            await channel.send(content=mention_text)
+                            if mention_text:
+                                await channel.send(content=mention_text)
                         except Exception as e:
                             logger.warning(f"Failed to send reminder {reminder['id']} to channel {reminder.get('channel_id')}: {e}")
                             # Don't re-raise; continue to next reminder
@@ -879,8 +1041,7 @@ class ReminderSystem:
                         await self._reschedule_recurring_reminder(reminder)
                         logger.info(f"✅ Sent recurring reminder {reminder['id']} and rescheduled next occurrence")
                     else:
-                        # Mark one-time reminder as sent
-                        self.storage.mark_reminder_sent(reminder['id'])
+                        # One-time reminder was already claimed above; simply log success
                         logger.info(f"✅ Sent one-time reminder {reminder['id']}")
                     
                 except Exception as e:
@@ -935,7 +1096,10 @@ class ReminderSystem:
         await self.bot.wait_until_ready()
         logger.info("🔄 Reminder checker started")
     
-    async def create_reminder(self, interaction: discord.Interaction, time_str: str, message: str, target_channel: discord.TextChannel, mention: str = 'everyone') -> bool:
+    async def create_reminder(self, interaction: discord.Interaction, time_str: str, message: str, target_channel: discord.TextChannel,
+                              mention: str = 'everyone', image_url: str = None, thumbnail_url: str = None,
+                              author_name: str = None, author_icon_url: str = None,
+                              footer_text: str = None, footer_icon_url: str = None) -> bool:
         """Create a new reminder with timezone and channel support
         
         Note: This method expects the interaction to already be deferred.
@@ -1016,7 +1180,13 @@ class ReminderSystem:
             recurrence_type=recurring_info.get('type'),
             recurrence_interval=recurring_info.get('interval'),
             original_pattern=recurring_info.get('pattern', time_str),
-            mention=mention
+            mention=mention,
+            image_url=image_url,
+            thumbnail_url=thumbnail_url,
+            author_name=author_name,
+            author_icon_url=author_icon_url,
+            footer_text=footer_text,
+            footer_icon_url=footer_icon_url
         )
         
         if reminder_id == -1:
@@ -1070,7 +1240,14 @@ class ReminderSystem:
             description=f"I'll remind you about: **{message}**",
             color=0x00FF7F
         )
-        embed.set_thumbnail(url=REMINDER_IMAGES['set'])
+        # Use provided thumbnail if supplied, otherwise fall back to set image
+        try:
+            if thumbnail_url:
+                embed.set_thumbnail(url=thumbnail_url)
+            else:
+                embed.set_thumbnail(url=image_url or REMINDER_IMAGES.get('set'))
+        except Exception:
+            pass
         
         # Display scheduled time according to user's timezone preference (if set).
         try:
@@ -1144,14 +1321,27 @@ class ReminderSystem:
             )
         
         embed.set_footer(text="💡 Use /reminderdashboard to manage your reminders")
+        # If the user provided footer text/icon, override footer
+        try:
+            if footer_text or footer_icon_url:
+                embed.set_footer(text=footer_text or "💡 Use /reminderdashboard to manage your reminders", icon_url=footer_icon_url)
+        except Exception:
+            pass
+
+        # If author fields provided, set author
+        try:
+            if author_name or author_icon_url:
+                embed.set_author(name=author_name or interaction.user.display_name, icon_url=author_icon_url)
+        except Exception:
+            pass
 
         try:
             await interaction.followup.send(embed=embed, ephemeral=True)
         except Exception as e:
             logger.warning(f"Failed to send reminder success followup to interaction: {e}")
-            # Still return True because database operation succeeded
 
-        return True
+        # Return the reminder id so callers can attach images/modify metadata
+        return reminder_id
     
     async def list_user_reminders(self, interaction: discord.Interaction):
         """List all active reminders for the user"""
@@ -1203,10 +1393,46 @@ class ReminderSystem:
             embed.set_footer(text="💡 Use /reminderdashboard to delete or change timezone for a reminder")
         
         await interaction.response.send_message(embed=embed, ephemeral=True)
+        # Send small previews for reminders that include images (up to 5)
+        try:
+            preview_count = 0
+            for reminder in user_reminders[:10]:
+                if preview_count >= 5:
+                    break
+                img = reminder.get('image_url') or reminder.get('thumbnail_url')
+                if not img:
+                    continue
+                try:
+                    preview = discord.Embed(title=f"Preview — Reminder #{reminder.get('id')}", description=(reminder.get('message') or '')[:200], color=0x2f3136)
+                    # Prefer full image preview if available
+                    if reminder.get('image_url'):
+                        preview.set_image(url=reminder.get('image_url'))
+                    else:
+                        preview.set_thumbnail(url=reminder.get('thumbnail_url'))
+                    await interaction.followup.send(embed=preview, ephemeral=True)
+                    preview_count += 1
+                except Exception:
+                    # ignore preview errors and continue
+                    continue
+        except Exception:
+            pass
     
-    async def delete_user_reminder(self, interaction: discord.Interaction, reminder_id: int):
-        """Delete a specific reminder"""
-        success = self.storage.delete_reminder(reminder_id, str(interaction.user.id))
+    async def delete_user_reminder(self, interaction: discord.Interaction, reminder_id):
+        """Delete a specific reminder.
+
+        reminder_id may be an int (SQLite) or a string (Mongo ObjectId). Attempt to
+        coerce to int when possible so underlying SQLite storage still works; otherwise
+        pass the raw string through (Mongo storage will accept string/ObjectId).
+        """
+        # Normalize the id for storage layer: try int conversion first, fall back to raw
+        rid = reminder_id
+        try:
+            rid = int(reminder_id)
+        except Exception:
+            # keep original (likely Mongo ObjectId string)
+            rid = reminder_id
+
+        success = self.storage.delete_reminder(rid, str(interaction.user.id))
         
         if success:
             embed = discord.Embed(
@@ -1292,6 +1518,28 @@ class ReminderSystem:
                 await interaction.followup.send(embed=embed, ephemeral=True)
             else:
                 await interaction.response.send_message(embed=embed, ephemeral=True)
+
+            # After the main embed, send previews for reminders that include images (up to 8 for admins)
+            try:
+                preview_count = 0
+                for reminder in all_reminders[:15]:
+                    if preview_count >= 8:
+                        break
+                    img = reminder.get('image_url') or reminder.get('thumbnail_url')
+                    if not img:
+                        continue
+                    try:
+                        preview = discord.Embed(title=f"Preview — Reminder #{reminder.get('id')}", description=(reminder.get('message') or '')[:200], color=0x2f3136)
+                        if reminder.get('image_url'):
+                            preview.set_image(url=reminder.get('image_url'))
+                        else:
+                            preview.set_thumbnail(url=reminder.get('thumbnail_url'))
+                        await interaction.followup.send(embed=preview, ephemeral=True)
+                        preview_count += 1
+                    except Exception:
+                        continue
+            except Exception:
+                pass
 
         except Exception as e:
             logger.error(f"❌ Failed to list all active reminders: {e}")

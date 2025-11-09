@@ -1701,3 +1701,262 @@
 2025-11-08 16:41:40,352 - Removed music command 'show_timezone' (maintenance)
 2025-11-08 16:41:40,941 - Synced command removals to Discord (music commands hidden)
 2025-11-08 16:41:40,943 - Registered persistent GiftCodeView for button interactions
+2025-11-08 19:11:14,664 - devx#5389 has connected to Discord!
+2025-11-08 19:11:14,666 - Health server task started on port 8080
+2025-11-08 19:11:14,667 - Uptime checker task started
+2025-11-08 19:11:14,669 - Giftcode poster task started
+2025-11-08 19:11:14,669 - Skipping music cog load (file removed)
+2025-11-08 19:11:15,457 - Successfully synced global commands
+2025-11-08 19:12:15,335 - Synced commands globally
+2025-11-08 19:12:15,341 - Removed music command 'play' (maintenance)
+2025-11-08 19:12:15,346 - Removed music command 'pause' (maintenance)
+2025-11-08 19:12:15,350 - Removed music command 'resume' (maintenance)
+2025-11-08 19:12:15,358 - Removed music command 'skip' (maintenance)
+2025-11-08 19:12:15,371 - Removed music command 'stop' (maintenance)
+2025-11-08 19:12:15,389 - Removed music command 'queue' (maintenance)
+2025-11-08 19:12:15,408 - Removed music command 'leave' (maintenance)
+2025-11-08 19:12:15,420 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 19:12:15,428 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 19:12:15,439 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 19:12:15,458 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 19:12:16,132 - Synced command removals to Discord (music commands hidden)
+2025-11-08 19:12:16,135 - Registered persistent GiftCodeView for button interactions
+2025-11-08 19:13:16,479 - Loaded playerinfo extension
+2025-11-08 19:52:45,352 - Failed to delete reminder via dashboard: invalid literal for int() with base 10: '690f52280bf65a0f4cca11cb'
+2025-11-08 19:57:30,362 - devx#5389 has connected to Discord!
+2025-11-08 19:57:30,364 - Health server task started on port 8080
+2025-11-08 19:57:30,364 - Uptime checker task started
+2025-11-08 19:57:30,365 - Giftcode poster task started
+2025-11-08 19:57:30,365 - Skipping music cog load (file removed)
+2025-11-08 19:57:30,968 - Successfully synced global commands
+2025-11-08 19:58:31,062 - Synced commands globally
+2025-11-08 19:58:31,063 - Removed music command 'play' (maintenance)
+2025-11-08 19:58:31,063 - Removed music command 'pause' (maintenance)
+2025-11-08 19:58:31,064 - Removed music command 'resume' (maintenance)
+2025-11-08 19:58:31,064 - Removed music command 'skip' (maintenance)
+2025-11-08 19:58:31,065 - Removed music command 'stop' (maintenance)
+2025-11-08 19:58:31,065 - Removed music command 'queue' (maintenance)
+2025-11-08 19:58:31,066 - Removed music command 'leave' (maintenance)
+2025-11-08 19:58:31,066 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 19:58:31,067 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 19:58:31,067 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 19:58:31,068 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 19:58:31,834 - Synced command removals to Discord (music commands hidden)
+2025-11-08 19:58:31,836 - Registered persistent GiftCodeView for button interactions
+2025-11-08 20:04:51,477 - Loaded playerinfo extension
+2025-11-08 20:05:01,120 - devx#5389 has connected to Discord!
+2025-11-08 20:05:01,122 - Skipping music cog load (file removed)
+2025-11-08 20:05:01,736 - Successfully synced global commands
+2025-11-08 20:06:01,768 - Synced commands globally
+2025-11-08 20:06:01,769 - Removed music command 'play' (maintenance)
+2025-11-08 20:06:01,770 - Removed music command 'pause' (maintenance)
+2025-11-08 20:06:01,770 - Removed music command 'resume' (maintenance)
+2025-11-08 20:06:01,770 - Removed music command 'skip' (maintenance)
+2025-11-08 20:06:01,771 - Removed music command 'stop' (maintenance)
+2025-11-08 20:06:01,771 - Removed music command 'queue' (maintenance)
+2025-11-08 20:06:01,771 - Removed music command 'leave' (maintenance)
+2025-11-08 20:06:01,772 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 20:06:01,772 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 20:06:01,773 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 20:06:01,774 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 20:06:02,459 - Synced command removals to Discord (music commands hidden)
+2025-11-08 20:06:02,462 - Registered persistent GiftCodeView for button interactions
+2025-11-08 20:06:15,055 - Error in on_ready: Task is already launched and is not completed.
+2025-11-08 20:14:44,978 - devx#5389 has connected to Discord!
+2025-11-08 20:14:44,979 - Health server task started on port 8080
+2025-11-08 20:14:44,979 - Uptime checker task started
+2025-11-08 20:14:44,980 - Giftcode poster task started
+2025-11-08 20:14:44,980 - Skipping music cog load (file removed)
+2025-11-08 20:14:45,611 - Successfully synced global commands
+2025-11-08 20:15:45,558 - Synced commands globally
+2025-11-08 20:15:45,559 - Removed music command 'play' (maintenance)
+2025-11-08 20:15:45,560 - Removed music command 'pause' (maintenance)
+2025-11-08 20:15:45,560 - Removed music command 'resume' (maintenance)
+2025-11-08 20:15:45,561 - Removed music command 'skip' (maintenance)
+2025-11-08 20:15:45,561 - Removed music command 'stop' (maintenance)
+2025-11-08 20:15:45,562 - Removed music command 'queue' (maintenance)
+2025-11-08 20:15:45,562 - Removed music command 'leave' (maintenance)
+2025-11-08 20:15:45,563 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 20:15:45,564 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 20:15:45,564 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 20:15:45,567 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 20:15:46,289 - Synced command removals to Discord (music commands hidden)
+2025-11-08 20:15:46,291 - Registered persistent GiftCodeView for button interactions
+2025-11-08 20:16:46,200 - Loaded playerinfo extension
+2025-11-08 20:56:34,490 - devx#5389 has connected to Discord!
+2025-11-08 20:56:34,490 - Health server task started on port 8080
+2025-11-08 20:56:34,491 - Uptime checker task started
+2025-11-08 20:56:34,491 - Giftcode poster task started
+2025-11-08 20:56:34,492 - Skipping music cog load (file removed)
+2025-11-08 20:56:35,261 - Successfully synced global commands
+2025-11-08 20:57:35,001 - Synced commands globally
+2025-11-08 20:57:35,004 - Removed music command 'play' (maintenance)
+2025-11-08 20:57:35,006 - Removed music command 'pause' (maintenance)
+2025-11-08 20:57:35,012 - Removed music command 'resume' (maintenance)
+2025-11-08 20:57:35,023 - Removed music command 'skip' (maintenance)
+2025-11-08 20:57:35,045 - Removed music command 'stop' (maintenance)
+2025-11-08 20:57:35,063 - Removed music command 'queue' (maintenance)
+2025-11-08 20:57:35,072 - Removed music command 'leave' (maintenance)
+2025-11-08 20:57:35,081 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 20:57:35,087 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 20:57:35,105 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 20:57:35,115 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 20:57:35,855 - Synced command removals to Discord (music commands hidden)
+2025-11-08 20:57:35,856 - Registered persistent GiftCodeView for button interactions
+2025-11-08 20:58:35,793 - Loaded playerinfo extension
+2025-11-08 21:47:04,312 - devx#5389 has connected to Discord!
+2025-11-08 21:47:04,312 - Health server task started on port 8080
+2025-11-08 21:47:04,313 - Uptime checker task started
+2025-11-08 21:47:04,313 - Giftcode poster task started
+2025-11-08 21:47:04,314 - Skipping music cog load (file removed)
+2025-11-08 21:47:06,640 - Successfully synced global commands
+2025-11-08 21:48:06,471 - Synced commands globally
+2025-11-08 21:48:06,473 - Removed music command 'play' (maintenance)
+2025-11-08 21:48:06,474 - Removed music command 'pause' (maintenance)
+2025-11-08 21:48:06,476 - Removed music command 'resume' (maintenance)
+2025-11-08 21:48:06,476 - Removed music command 'skip' (maintenance)
+2025-11-08 21:48:06,477 - Removed music command 'stop' (maintenance)
+2025-11-08 21:48:06,478 - Removed music command 'queue' (maintenance)
+2025-11-08 21:48:06,479 - Removed music command 'leave' (maintenance)
+2025-11-08 21:48:06,480 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 21:48:06,481 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 21:48:06,481 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 21:48:06,482 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 21:48:07,190 - Synced command removals to Discord (music commands hidden)
+2025-11-08 21:48:07,191 - Registered persistent GiftCodeView for button interactions
+2025-11-08 21:49:07,435 - Loaded playerinfo extension
+2025-11-08 22:12:23,104 - devx#5389 has connected to Discord!
+2025-11-08 22:12:23,105 - Health server task started on port 8080
+2025-11-08 22:12:23,106 - Uptime checker task started
+2025-11-08 22:12:23,108 - Giftcode poster task started
+2025-11-08 22:12:23,109 - Skipping music cog load (file removed)
+2025-11-08 22:12:23,804 - Successfully synced global commands
+2025-11-08 22:13:23,707 - Synced commands globally
+2025-11-08 22:13:23,707 - Removed music command 'play' (maintenance)
+2025-11-08 22:13:23,708 - Removed music command 'pause' (maintenance)
+2025-11-08 22:13:23,708 - Removed music command 'resume' (maintenance)
+2025-11-08 22:13:23,708 - Removed music command 'skip' (maintenance)
+2025-11-08 22:13:23,709 - Removed music command 'stop' (maintenance)
+2025-11-08 22:13:23,709 - Removed music command 'queue' (maintenance)
+2025-11-08 22:13:23,709 - Removed music command 'leave' (maintenance)
+2025-11-08 22:13:23,710 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 22:13:23,710 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 22:13:23,710 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 22:13:23,711 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 22:13:24,674 - Synced command removals to Discord (music commands hidden)
+2025-11-08 22:13:24,675 - Registered persistent GiftCodeView for button interactions
+2025-11-08 22:14:24,538 - Loaded playerinfo extension
+2025-11-08 23:02:34,481 - devx#5389 has connected to Discord!
+2025-11-08 23:02:34,481 - Skipping music cog load (file removed)
+2025-11-08 23:02:35,131 - Successfully synced global commands
+2025-11-08 23:03:35,204 - Synced commands globally
+2025-11-08 23:03:35,205 - Removed music command 'play' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'pause' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'resume' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'skip' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'stop' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'queue' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'leave' (maintenance)
+2025-11-08 23:03:35,205 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 23:03:35,206 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 23:03:35,206 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 23:03:35,206 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 23:03:35,811 - Synced command removals to Discord (music commands hidden)
+2025-11-08 23:03:35,812 - Registered persistent GiftCodeView for button interactions
+2025-11-08 23:03:47,089 - Error in on_ready: Task is already launched and is not completed.
+2025-11-08 23:15:37,751 - devx#5389 has connected to Discord!
+2025-11-08 23:15:37,752 - Health server task started on port 8080
+2025-11-08 23:15:37,753 - Uptime checker task started
+2025-11-08 23:15:37,754 - Giftcode poster task started
+2025-11-08 23:15:37,754 - Skipping music cog load (file removed)
+2025-11-08 23:15:38,472 - Successfully synced global commands
+2025-11-08 23:16:38,500 - Synced commands globally
+2025-11-08 23:16:38,501 - Removed music command 'play' (maintenance)
+2025-11-08 23:16:38,502 - Removed music command 'pause' (maintenance)
+2025-11-08 23:16:38,503 - Removed music command 'resume' (maintenance)
+2025-11-08 23:16:38,504 - Removed music command 'skip' (maintenance)
+2025-11-08 23:16:38,505 - Removed music command 'stop' (maintenance)
+2025-11-08 23:16:38,506 - Removed music command 'queue' (maintenance)
+2025-11-08 23:16:38,508 - Removed music command 'leave' (maintenance)
+2025-11-08 23:16:38,511 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 23:16:38,512 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 23:16:38,516 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 23:16:38,517 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 23:16:39,545 - Synced command removals to Discord (music commands hidden)
+2025-11-08 23:16:39,546 - Registered persistent GiftCodeView for button interactions
+2025-11-08 23:17:39,495 - Loaded playerinfo extension
+2025-11-08 23:40:23,901 - devx#5389 has connected to Discord!
+2025-11-08 23:40:23,902 - Health server task started on port 8080
+2025-11-08 23:40:23,903 - Uptime checker task started
+2025-11-08 23:40:23,904 - Giftcode poster task started
+2025-11-08 23:40:23,904 - Skipping music cog load (file removed)
+2025-11-08 23:40:24,470 - Successfully synced global commands
+2025-11-08 23:41:24,752 - Synced commands globally
+2025-11-08 23:41:24,753 - Removed music command 'play' (maintenance)
+2025-11-08 23:41:24,753 - Removed music command 'pause' (maintenance)
+2025-11-08 23:41:24,753 - Removed music command 'resume' (maintenance)
+2025-11-08 23:41:24,754 - Removed music command 'skip' (maintenance)
+2025-11-08 23:41:24,754 - Removed music command 'stop' (maintenance)
+2025-11-08 23:41:24,755 - Removed music command 'queue' (maintenance)
+2025-11-08 23:41:24,755 - Removed music command 'leave' (maintenance)
+2025-11-08 23:41:24,755 - Removed music command 'giftcode_check' (maintenance)
+2025-11-08 23:41:24,756 - Removed music command 'giftchannel' (maintenance)
+2025-11-08 23:41:24,757 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-08 23:41:24,757 - Removed music command 'show_timezone' (maintenance)
+2025-11-08 23:41:25,315 - Synced command removals to Discord (music commands hidden)
+2025-11-08 23:41:25,316 - Registered persistent GiftCodeView for button interactions
+2025-11-08 23:42:25,339 - Loaded playerinfo extension
+2025-11-09 04:24:58,714 - devx#5389 has connected to Discord!
+2025-11-09 04:24:58,714 - Skipping music cog load (file removed)
+2025-11-09 04:25:00,722 - Successfully synced global commands
+2025-11-09 04:26:00,276 - Synced commands globally
+2025-11-09 04:26:00,277 - Removed music command 'play' (maintenance)
+2025-11-09 04:26:00,277 - Removed music command 'pause' (maintenance)
+2025-11-09 04:26:00,277 - Removed music command 'resume' (maintenance)
+2025-11-09 04:26:00,278 - Removed music command 'skip' (maintenance)
+2025-11-09 04:26:00,278 - Removed music command 'stop' (maintenance)
+2025-11-09 04:26:00,278 - Removed music command 'queue' (maintenance)
+2025-11-09 04:26:00,279 - Removed music command 'leave' (maintenance)
+2025-11-09 04:26:00,279 - Removed music command 'giftcode_check' (maintenance)
+2025-11-09 04:26:00,279 - Removed music command 'giftchannel' (maintenance)
+2025-11-09 04:26:00,279 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-09 04:26:00,280 - Removed music command 'show_timezone' (maintenance)
+2025-11-09 04:26:00,864 - Synced command removals to Discord (music commands hidden)
+2025-11-09 04:26:00,865 - Registered persistent GiftCodeView for button interactions
+2025-11-09 04:26:11,511 - Error in on_ready: Task is already launched and is not completed.
+2025-11-09 11:29:11,224 - devx#5389 has connected to Discord!
+2025-11-09 11:29:11,224 - Skipping music cog load (file removed)
+2025-11-09 11:29:12,123 - Successfully synced global commands
+2025-11-09 11:30:12,121 - Synced commands globally
+2025-11-09 11:30:12,122 - Removed music command 'play' (maintenance)
+2025-11-09 11:30:12,123 - Removed music command 'pause' (maintenance)
+2025-11-09 11:30:12,123 - Removed music command 'resume' (maintenance)
+2025-11-09 11:30:12,124 - Removed music command 'skip' (maintenance)
+2025-11-09 11:30:12,124 - Removed music command 'stop' (maintenance)
+2025-11-09 11:30:12,124 - Removed music command 'queue' (maintenance)
+2025-11-09 11:30:12,125 - Removed music command 'leave' (maintenance)
+2025-11-09 11:30:12,125 - Removed music command 'giftcode_check' (maintenance)
+2025-11-09 11:30:12,126 - Removed music command 'giftchannel' (maintenance)
+2025-11-09 11:30:12,127 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-09 11:30:12,128 - Removed music command 'show_timezone' (maintenance)
+2025-11-09 11:30:12,754 - Synced command removals to Discord (music commands hidden)
+2025-11-09 11:30:12,755 - Registered persistent GiftCodeView for button interactions
+2025-11-09 11:30:25,322 - Error in on_ready: Task is already launched and is not completed.
+2025-11-09 11:42:25,400 - devx#5389 has connected to Discord!
+2025-11-09 11:42:25,400 - Skipping music cog load (file removed)
+2025-11-09 11:42:26,173 - Successfully synced global commands
+2025-11-09 11:43:26,038 - Synced commands globally
+2025-11-09 11:43:26,038 - Removed music command 'play' (maintenance)
+2025-11-09 11:43:26,038 - Removed music command 'pause' (maintenance)
+2025-11-09 11:43:26,039 - Removed music command 'resume' (maintenance)
+2025-11-09 11:43:26,039 - Removed music command 'skip' (maintenance)
+2025-11-09 11:43:26,039 - Removed music command 'stop' (maintenance)
+2025-11-09 11:43:26,040 - Removed music command 'queue' (maintenance)
+2025-11-09 11:43:26,040 - Removed music command 'leave' (maintenance)
+2025-11-09 11:43:26,040 - Removed music command 'giftcode_check' (maintenance)
+2025-11-09 11:43:26,041 - Removed music command 'giftchannel' (maintenance)
+2025-11-09 11:43:26,041 - Removed music command 'list_gift_channel' (maintenance)
+2025-11-09 11:43:26,041 - Removed music command 'show_timezone' (maintenance)
+2025-11-09 11:43:26,873 - Synced command removals to Discord (music commands hidden)
+2025-11-09 11:43:26,875 - Registered persistent GiftCodeView for button interactions
+2025-11-09 11:43:38,115 - Error in on_ready: Task is already launched and is not completed.

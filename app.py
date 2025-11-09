@@ -43,7 +43,7 @@ from api_manager import make_request, manager, make_image_request
 from angel_personality import get_system_prompt, angel_personality
 from user_mapping import get_known_user_name
 from gift_codes import get_active_gift_codes
-from reminder_system import ReminderSystem, set_user_timezone, get_user_timezone, TimeParser
+from reminder_system import ReminderSystem, set_user_timezone, get_user_timezone, TimeParser, REMINDER_IMAGES
 from event_tips import EVENT_TIPS, get_event_info
 from thinking_animation import ThinkingAnimation
 try:
@@ -478,8 +478,111 @@ intents.members = True
 intents.presences = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# --- Clean startup banner and logging ----------------------------------
+MAGNUS_ART = r'''
+
+  __  __          _____ _   _ _    _  _____ 
+ |  \/  |   /\   / ____| \ | | |  | |/ ____|
+ | \  / |  /  \ | |  __|  \| | |  | | (___  
+ | |\/| | / /\ \| | |_ | . ` | |  | |\___ \ 
+ | |  | |/ ____ \ |__| | |\  | |__| |____) |
+ |_|  |_/_/    \_\_____|_| \_|\____/|_____/ 
+'''                                            
+                                            
+
+def _print_startup_banner():
+    try:
+        ts = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print('\n' + MAGNUS_ART)
+        print(f"✨ MAGNUS — Clean Console • started at {ts}\n")
+    except Exception:
+        # best-effort; don't crash if printing fails
+        pass
+
+def setup_logging():
+    """Configure a compact, emoji-based console logger and reduce noise.
+
+    Returns a module logger (logging.getLogger(__name__)).
+    """
+    # try to enable colorama if available (Windows friendly)
+    try:
+        import colorama
+        colorama.init()
+        RESET = colorama.Style.RESET_ALL
+        COLORS = {
+            'DEBUG': colorama.Fore.CYAN,
+            'INFO': colorama.Fore.GREEN,
+            'WARNING': colorama.Fore.YELLOW,
+            'ERROR': colorama.Fore.RED,
+            'CRITICAL': colorama.Fore.MAGENTA,
+        }
+    except Exception:
+        RESET = '\x1b[0m'
+        COLORS = {
+            'DEBUG': '\x1b[36m',
+            'INFO': '\x1b[32m',
+            'WARNING': '\x1b[33m',
+            'ERROR': '\x1b[31m',
+            'CRITICAL': '\x1b[35m',
+        }
+
+    LEVEL_EMOJI = {
+        'DEBUG': '🔎',
+        'INFO': 'ℹ️',
+        'WARNING': '⚠️',
+        'ERROR': '❌',
+        'CRITICAL': '💥',
+    }
+
+    class CleanFormatter(logging.Formatter):
+        def format(self, record: logging.LogRecord) -> str:
+            ts = datetime.now().strftime('%H:%M:%S')
+            lvl = record.levelname
+            emoji = LEVEL_EMOJI.get(lvl, '')
+            color = COLORS.get(lvl, '')
+            name = record.name
+            # shorten common long logger names for readability
+            if name.startswith('discord'):
+                name = 'discord'
+            if name == '__main__' or name == __name__:
+                name = 'main'
+            message = super().format(record)
+            # Message payload may already include timestamps from libraries; keep message raw
+            return f"{color}{emoji} {ts} [{lvl}] {name}: {message}{RESET}"
+
+    # remove any pre-configured handlers (avoids duplicate lines)
+    root = logging.getLogger()
+    for h in list(root.handlers):
+        try:
+            root.removeHandler(h)
+        except Exception:
+            pass
+
+    import io
+    # Ensure console handler writes UTF-8 (Windows consoles often use cp1252 which can't encode emojis)
+    try:
+        utf8_stream = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace', line_buffering=True)
+        sh = logging.StreamHandler(stream=utf8_stream)
+    except Exception:
+        # Fallback to default stream handler
+        sh = logging.StreamHandler()
+    sh.setLevel(logging.INFO)
+    sh.setFormatter(CleanFormatter('%(message)s'))
+    root.addHandler(sh)
+    root.setLevel(logging.INFO)
+
+    # Silence noisy access-level loggers (you can adjust these if you want more detail)
+    for noisy in ('aiohttp.access', 'websockets.protocol', 'asyncio', 'urllib3'):
+        try:
+            logging.getLogger(noisy).setLevel(logging.WARNING)
+        except Exception:
+            pass
+
+    return logging.getLogger(__name__)
+
+
+_print_startup_banner()
+logger = setup_logging()
 
 # Logging: add file handlers for both human-readable and structured JSONL chat logs
 LOG_DIR = Path(__file__).parent / "logs"
@@ -491,7 +594,7 @@ except Exception:
 
 # Human-readable chat log (kept for quick inspection)
 chat_log_txt = LOG_DIR / 'chat_logs.txt'
-file_handler = logging.FileHandler(str(chat_log_txt))
+file_handler = logging.FileHandler(str(chat_log_txt), encoding='utf-8')
 file_handler.setLevel(logging.INFO)
 file_formatter = logging.Formatter('%(asctime)s - %(message)s')
 file_handler.setFormatter(file_formatter)
@@ -1703,8 +1806,8 @@ async def ask(interaction: discord.Interaction, question: str):
                     mention_type = "user"
 
                 # Create the reminder with determined mention type
-                success = await reminder_system.create_reminder(interaction, time_part, message_part, target_channel, mention=mention_type)
-                if success:
+                reminder_id = await reminder_system.create_reminder(interaction, time_part, message_part, target_channel, mention=mention_type)
+                if reminder_id:
                     # Stop the animation and delete the message before sending success
                     await thinking_animation.stop_thinking(interaction, delete_message=True)
                     await interaction.followup.send(f"✅ Reminder set for {time_part}: {message_part} in {target_channel.mention}")
@@ -2089,10 +2192,23 @@ async def storage_status(interaction: discord.Interaction):
 @app_commands.describe(
     time="When to remind you (e.g., '5 minutes', 'tomorrow 3pm IST', 'daily at 9am')",
     message="What to remind you about",
-    channel="Channel to send reminder in (required)"
+    channel="Channel to send reminder in (optional, defaults to current channel)",
+    image_preset="Optional preset image to use in the reminder embed",
+    image_url="Optional direct image URL to use in the reminder embed (overrides preset)",
+    thumbnail_url="Optional image URL to use as embed.thumbnail (overrides preset)",
+    author_name="Optional author header text for the embed",
+    author_icon_url="Optional URL for the author icon",
+    footer_text="Optional footer text for the embed",
+    footer_icon_url="Optional footer icon URL for the embed"
 )
 @app_commands.autocomplete(time=time_autocomplete)
-async def reminder(interaction: discord.Interaction, time: str, message: str, channel: discord.TextChannel):
+@app_commands.choices(
+    image_preset=[app_commands.Choice(name=k, value=k) for k in REMINDER_IMAGES.keys()]
+)
+async def reminder(interaction: discord.Interaction, time: str, message: str, channel: Optional[discord.TextChannel] = None,
+                   image_preset: str = None, image_url: str = None, thumbnail_url: str = None,
+                   author_name: str = None, author_icon_url: str = None, footer_text: str = None,
+                   footer_icon_url: str = None):
     # Defer only if the interaction hasn't already been acknowledged. Defer can raise
     # NotFound/HTTPException if the interaction is invalid or already responded to, so
     # catch and continue gracefully.
@@ -2103,7 +2219,7 @@ async def reminder(interaction: discord.Interaction, time: str, message: str, ch
         logger.warning(f"Could not defer interaction for /reminder: {e}. Continuing without defer.")
 
     try:
-        target_channel = channel
+        target_channel = channel or interaction.channel
 
         # Display the exact command as entered
         # Build a short command preview (don't send it here; create_reminder will reply)
@@ -2112,12 +2228,103 @@ async def reminder(interaction: discord.Interaction, time: str, message: str, ch
             command_text += f" channel: {channel.mention}"
         logger.debug(f"Creating reminder: {command_text}")
 
-        # Create the reminder
-        success = await reminder_system.create_reminder(interaction, time, message, target_channel)
+        # Determine image to use: explicit URL takes precedence over preset choice
+        chosen_image = None
+        try:
+            if image_url and isinstance(image_url, str) and image_url.strip():
+                # Basic validation — accept only http/https URLs
+                if image_url.strip().lower().startswith(('http://', 'https://')):
+                    chosen_image = image_url.strip()
+            elif image_preset:
+                chosen_image = REMINDER_IMAGES.get(image_preset)
+        except Exception:
+            chosen_image = None
 
-        if not success:
-            # Error message already sent by create_reminder
-            pass
+        # Create the reminder (explicit thumbnail/url/author/footer options are forwarded)
+        reminder_id = await reminder_system.create_reminder(
+            interaction, time, message, target_channel,
+            image_url=chosen_image,
+            thumbnail_url=thumbnail_url,
+            author_name=author_name,
+            author_icon_url=author_icon_url,
+            footer_text=footer_text,
+            footer_icon_url=footer_icon_url
+        )
+
+        # If creation failed, reminder_id will be False/None
+        if not reminder_id:
+            # Error message already sent by create_reminder in many cases
+            return
+
+        # Ask the user if they'd like to attach or pick an image (ephemeral, 2-minute window)
+        class ImageAttachView(discord.ui.View):
+            def __init__(self, bot, reminder_id, channel, user, *, timeout=120):
+                super().__init__(timeout=timeout)
+                self.bot = bot
+                self.reminder_id = reminder_id
+                self.channel = channel
+                self.user = user
+
+                # Add a select for presets dynamically
+                options = [discord.SelectOption(label=k, value=k) for k in REMINDER_IMAGES.keys()]
+                self.add_item(self.PresetSelect(options))
+                self.add_item(self.UploadButton())
+
+            class PresetSelect(discord.ui.Select):
+                def __init__(self, options):
+                    super().__init__(placeholder='Choose a preset image', min_values=1, max_values=1, options=options)
+
+                async def callback(self, interaction: discord.Interaction):
+                    parent: ImageAttachView = self.view  # type: ignore
+                    if interaction.user.id != parent.user.id:
+                        await interaction.response.send_message('This selection is not for you.', ephemeral=True)
+                        return
+                    choice = self.values[0]
+                    url = REMINDER_IMAGES.get(choice)
+                    try:
+                        ok = reminder_system.storage.update_reminder_fields(parent.reminder_id, {'image_url': url})
+                    except Exception:
+                        ok = False
+                    if ok:
+                        await interaction.response.send_message('✅ Preset image applied to your reminder.', ephemeral=True)
+                    else:
+                        await interaction.response.send_message('❌ Failed to apply preset image. Try uploading instead.', ephemeral=True)
+
+            class UploadButton(discord.ui.Button):
+                def __init__(self):
+                    super().__init__(label='Upload Image', style=discord.ButtonStyle.primary)
+
+                async def callback(self, interaction: discord.Interaction):
+                    parent: ImageAttachView = self.view  # type: ignore
+                    if interaction.user.id != parent.user.id:
+                        await interaction.response.send_message('This action is not for you.', ephemeral=True)
+                        return
+
+                    await interaction.response.send_message('Please upload an image in the same channel within 2 minutes (reply to any message). I will capture the first attachment you send.', ephemeral=True)
+
+                    def check(m: discord.Message):
+                        return m.author.id == parent.user.id and m.channel.id == parent.channel.id and len(m.attachments) > 0
+
+                    try:
+                        msg = await parent.bot.wait_for('message', check=check, timeout=120)
+                        att = msg.attachments[0]
+                        # Basic validation — prefer images
+                        url = att.url
+                        ok = reminder_system.storage.update_reminder_fields(parent.reminder_id, {'image_url': url})
+                        if ok:
+                            await interaction.followup.send('✅ Uploaded image saved to reminder.', ephemeral=True)
+                        else:
+                            await interaction.followup.send('❌ Failed to save uploaded image. Try again later.', ephemeral=True)
+                    except asyncio.TimeoutError:
+                        await interaction.followup.send('⌛ Time expired. Please run /reminder again to attach an image.', ephemeral=True)
+
+        view = ImageAttachView(bot, reminder_id, target_channel, interaction.user)
+        try:
+            await interaction.followup.send('Would you like to attach an image to this reminder? Pick a preset or upload now. This prompt expires in 2 minutes.', view=view, ephemeral=True)
+        except Exception as e:
+            logger.warning(f'Failed to send image attach prompt: {e}')
+
+        
 
     except Exception as e:
         logger.error(f"Error in remind command: {str(e)}")
@@ -2152,7 +2359,10 @@ async def reminderdashboard(interaction: discord.Interaction):
 
         async def callback(self, select_interaction: discord.Interaction):
             try:
-                chosen = int(self.values[0])
+                # Reminder IDs can be integers (SQLite) or string ObjectIds (Mongo).
+                # The select option value is the raw id as a string; pass it through and let
+                # the reminder system normalize/cast as needed.
+                chosen = self.values[0]
                 # Reuse existing helper to delete and respond
                 await reminder_system.delete_user_reminder(select_interaction, chosen)
             except Exception as e:

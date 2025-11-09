@@ -56,8 +56,43 @@ class ReminderStorageMongo:
     def add_reminder(self, user_id: str, channel_id: str, guild_id: str, message: str, reminder_time: datetime,
                      is_recurring: bool = False, recurrence_type: Optional[str] = None,
                      recurrence_interval: Optional[int] = None, original_pattern: Optional[str] = None,
-                     mention: str = 'everyone') -> str:
+                     mention: str = 'everyone', image_url: Optional[str] = None, thumbnail_url: Optional[str] = None,
+                     author_name: Optional[str] = None, author_icon_url: Optional[str] = None,
+                     footer_text: Optional[str] = None, footer_icon_url: Optional[str] = None) -> str:
         try:
+            # Deduplicate: if an active, unsent reminder for the same user/channel/time/message exists,
+            # update it with provided metadata instead of inserting a new document.
+            filt = {
+                'user_id': user_id,
+                'channel_id': channel_id,
+                'reminder_time': _to_iso(reminder_time),
+                'message': message,
+                'is_active': True,
+                'is_sent': False
+            }
+            existing = self.col.find_one(filt)
+            if existing:
+                updates = {}
+                if image_url is not None:
+                    updates['image_url'] = image_url
+                if thumbnail_url is not None:
+                    updates['thumbnail_url'] = thumbnail_url
+                if author_name is not None:
+                    updates['author_name'] = author_name
+                if author_icon_url is not None:
+                    updates['author_icon_url'] = author_icon_url
+                if footer_text is not None:
+                    updates['footer_text'] = footer_text
+                if footer_icon_url is not None:
+                    updates['footer_icon_url'] = footer_icon_url
+                if mention is not None:
+                    updates['mention'] = mention
+
+                if updates:
+                    self.col.update_one({'_id': existing['_id']}, {'$set': updates})
+                    return str(existing['_id'])
+                return str(existing['_id'])
+
             doc = {
                 'user_id': user_id,
                 'channel_id': channel_id,
@@ -72,6 +107,12 @@ class ReminderStorageMongo:
                 'recurrence_interval': recurrence_interval,
                 'original_time_pattern': original_pattern,
                 'mention': mention,
+                'image_url': image_url,
+                'thumbnail_url': thumbnail_url,
+                'author_name': author_name,
+                'author_icon_url': author_icon_url,
+                'footer_text': footer_text,
+                'footer_icon_url': footer_icon_url,
             }
             res = self.col.insert_one(doc)
             return str(res.inserted_id)
@@ -114,6 +155,20 @@ class ReminderStorageMongo:
             except Exception:
                 filt = {'_id': reminder_id}
             res = self.col.update_one(filt, {'$set': {'is_sent': True}})
+            return res.modified_count > 0
+        except PyMongoError:
+            return False
+
+    def update_reminder_fields(self, reminder_id, fields: dict) -> bool:
+        try:
+            try:
+                oid = ObjectId(reminder_id)
+                filt = {'_id': oid}
+            except Exception:
+                filt = {'_id': reminder_id}
+            # Only set keys present in fields
+            update = {'$set': {k: v for k, v in fields.items()}}
+            res = self.col.update_one(filt, update)
             return res.modified_count > 0
         except PyMongoError:
             return False
