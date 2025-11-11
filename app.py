@@ -182,7 +182,27 @@ except ImportError:
         # more conservatively when requests is missing.
         requests = None
 
-import discord
+# Ensure the Discord library is available. Some deployment environments
+# (buildpacks / auto venvs) may not run `pip install -r requirements.txt`
+# before executing `app.py`. Try to import and, if missing, install the
+# maintained `discord.py` package (the project expects `discord` module
+# provided by `discord.py` or compatible forks).
+try:
+    import discord
+except ImportError:
+    try:
+        print("Installing 'discord.py' package (required)...")
+        subprocess.check_call([
+            sys.executable, "-m", "pip", "install", "discord.py>=2.5.2"
+        ], timeout=600)
+        # Invalidate import caches and import again
+        import importlib
+        importlib.invalidate_caches()
+        import discord
+    except Exception:
+        # If installation fails, re-raise to preserve the original failure
+        raise
+
 from discord.ext import commands
 from discord import app_commands
 from dotenv import load_dotenv

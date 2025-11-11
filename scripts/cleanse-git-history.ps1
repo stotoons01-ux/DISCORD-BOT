@@ -15,14 +15,24 @@ Usage (PowerShell):
 This script assumes your repository path contains spaces and uses absolute Windows paths.
 #>
 
-$ErrorActionPreference = 'Stop'
-
 param(
-    [switch]$Push,
+    # Accept a loose value for Push (object) and normalize below so accidental empty-string
+    # or stray positional args won't cause a type conversion error when binding.
+    [object]$Push = $null,
     [string]$RemoteUrl = ''
 )
 
+# Normalize $Push into a strict boolean $PushRequested for later checks
+$PushRequested = $false
+if ($Push -is [System.Management.Automation.SwitchParameter]) {
+    $PushRequested = $Push.IsPresent
+} elseif ($null -ne $Push -and $Push -ne '') {
+    try { $PushRequested = [bool]$Push } catch { $PushRequested = $true }
+}
+
 function Write-Header($msg){ Write-Host "`n=== $msg`n" -ForegroundColor Cyan }
+
+$ErrorActionPreference = 'Stop'
 
 Write-Header "Preflight checks"
 
@@ -88,13 +98,12 @@ Write-Header "8) Next steps & safe push (manual confirmation required)"
 Write-Host "IMPORTANT: You MUST rotate/revoke exposed credentials (Discord token, Hugging Face tokens) before pushing cleaned history to GitHub."
 Write-Host "If you still need to rotate secrets, stop now and rotate them in provider dashboards."
 
-if (-not $Push) {
+if (-not $PushRequested) {
     Write-Host "The script stopped before pushing. To push the cleaned mirror run this script with -Push -RemoteUrl '<remote>'" -ForegroundColor Yellow
     Write-Host "Example: .\cleanse-git-history.ps1 -Push -RemoteUrl \"https://github.com/youruser/DISCORD-BOT.git\"" -ForegroundColor Cyan
     exit 0
 }
-
-if ($Push -and (-not $RemoteUrl)) {
+if ($PushRequested -and (-not $RemoteUrl)) {
     Write-Host "-Push was specified but -RemoteUrl is empty. Please pass the remote URL." -ForegroundColor Red
     exit 1
 }
