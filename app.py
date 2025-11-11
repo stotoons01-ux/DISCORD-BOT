@@ -207,9 +207,44 @@ except ImportError:
         import discord
         print("✓ discord.py installed successfully")
     except Exception as install_err:
-        # Last resort: print detailed error and exit gracefully
-        print(f"FATAL: Failed to install discord.py: {install_err}")
-        raise
+        # Try fallback: install from local requirements files if present
+        print(f"Warning: failed to install discord.py directly: {install_err}")
+        tried_reqs = False
+        try:
+            req_paths = [
+                "/app/requirements.txt",
+                os.path.join(os.path.dirname(__file__), "requirements.txt"),
+                "/app/DISCORD BOT/requirements.txt",
+                os.path.join(os.path.dirname(__file__), "DISCORD BOT", "requirements.txt"),
+            ]
+            for rp in req_paths:
+                try:
+                    if rp and os.path.exists(rp):
+                        print(f"Attempting to install from requirements file: {rp}")
+                        subprocess.check_call([
+                            sys.executable, "-m", "pip", "install", "--upgrade", "-r", rp
+                        ], timeout=1200, env=dict(os.environ, PIP_NO_CACHE_DIR="1"))
+                        tried_reqs = True
+                        break
+                except Exception as req_err:
+                    print(f"Attempt to install from {rp} failed: {req_err}")
+        except Exception as e:
+            print(f"Error while searching/installing requirements fallback: {e}")
+
+        if tried_reqs:
+            try:
+                if 'discord' in sys.modules:
+                    del sys.modules['discord']
+                importlib.invalidate_caches()
+                import discord
+                print("✓ discord.py installed via requirements.txt")
+            except Exception as final_err:
+                print(f"FATAL: discord still missing after requirements fallback: {final_err}")
+                raise
+        else:
+            # No requirements file found or all attempts failed; re-raise original error
+            print("FATAL: Failed to install discord.py and no usable requirements file found.")
+            raise
 
 from discord.ext import commands
 from discord import app_commands
