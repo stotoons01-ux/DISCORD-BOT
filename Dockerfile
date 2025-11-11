@@ -33,6 +33,20 @@ RUN pip install -r /app/requirements.txt
 # Copy application files
 COPY . /app
 
+# Create a repo venv at build time and install requirements into it.
+# Some deployment platforms (like Render) create a runtime venv named
+# `bot_venv` and re-exec the script inside it; creating and populating
+# the same venv at build time ensures installed packages are available
+# when the runtime re-execs into the venv.
+RUN python -m venv /app/bot_venv \
+    && /app/bot_venv/bin/python -m pip install --upgrade pip setuptools wheel \
+    && /app/bot_venv/bin/python -m pip install -r /app/requirements.txt || echo "No root requirements to install into bot_venv"
+
+# Also install subfolder requirements into the same venv if present
+RUN if [ -f "/app/DISCORD BOT/requirements.txt" ]; then \
+        /app/bot_venv/bin/python -m pip install -r "/app/DISCORD BOT/requirements.txt"; \
+    fi
+
 # If there's a requirements file inside the `DISCORD BOT` subfolder, install it as well.
 # This helps when the repository places dependencies inside that folder instead of root.
 RUN if [ -f "/app/DISCORD BOT/requirements.txt" ]; then \
