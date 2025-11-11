@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 from pathlib import Path
 
 # If the repository has a Python 3.11 venv at the repo root named `.venv311`,
@@ -192,15 +193,22 @@ try:
 except ImportError:
     try:
         print("Installing 'discord.py' package (required)...")
+        import subprocess
         subprocess.check_call([
-            sys.executable, "-m", "pip", "install", "discord.py>=2.5.2"
-        ], timeout=600)
-        # Invalidate import caches and import again
+            sys.executable, "-m", "pip", "install", "--upgrade", "--force-reinstall", "discord.py>=2.5.2"
+        ], timeout=600, env=dict(os.environ, PIP_NO_CACHE_DIR="1"))
+        # Reload sys.modules to ensure fresh import
+        import sys
+        if 'discord' in sys.modules:
+            del sys.modules['discord']
         import importlib
         importlib.invalidate_caches()
+        # Re-exec the import
         import discord
-    except Exception:
-        # If installation fails, re-raise to preserve the original failure
+        print("✓ discord.py installed successfully")
+    except Exception as install_err:
+        # Last resort: print detailed error and exit gracefully
+        print(f"FATAL: Failed to install discord.py: {install_err}")
         raise
 
 from discord.ext import commands
