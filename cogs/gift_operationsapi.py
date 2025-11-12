@@ -470,11 +470,10 @@ class GiftCodeAPI:
     async def add_giftcode(self, giftcode: str) -> bool:
         """Add a gift code to the API."""
         try: # Check if code already exists in our database
-            self.cursor.execute("SELECT validation_status FROM gift_codes WHERE giftcode = ?", (giftcode,))
-            result = self.cursor.fetchone()
+            status = self._get_gift_code_status(giftcode)
             
-            if result:
-                if result[0] in ['invalid', 'pending']:
+            if status:
+                if status in ['invalid', 'pending']:
                     return False
             
             exists_in_api = await self.check_giftcode(giftcode)
@@ -506,11 +505,14 @@ class GiftCodeAPI:
                                 result = json.loads(response_text)
                                 if result.get('success') == True:
                                     self.logger.info(f"Successfully added code {giftcode} to API")
-                                    self.cursor.execute(
-                                        "INSERT OR REPLACE INTO gift_codes (giftcode, date, validation_status) VALUES (?, ?, ?)", 
-                                        (giftcode, datetime.now().strftime("%Y-%m-%d"), "validated")
-                                    )
-                                    await self._safe_commit(self.conn, "add giftcode")
+                                    if self.mongo_enabled:
+                                        self.gift_codes_adapter.insert(giftcode, datetime.now().strftime("%Y-%m-%d"), "validated")
+                                    else:
+                                        self.cursor.execute(
+                                            "INSERT OR REPLACE INTO gift_codes (giftcode, date, validation_status) VALUES (?, ?, ?)", 
+                                            (giftcode, datetime.now().strftime("%Y-%m-%d"), "validated")
+                                        )
+                                        await self._safe_commit(self.conn, "add giftcode")
                                     return True
                                 else:
                                     self.logger.warning(f"API didn't confirm success for code {giftcode}: {response_text[:200]}")
@@ -525,8 +527,7 @@ class GiftCodeAPI:
                             self.logger.warning(f"Failed to add code {giftcode} to API: {response.status}, {response_text[:200]}")
                             if "invalid" in response_text.lower(): # Code was rejected as invalid by API, mark it as invalid locally
                                 self.logger.warning(f"Code {giftcode} marked invalid by API")
-                                self.cursor.execute("UPDATE gift_codes SET validation_status = 'invalid' WHERE giftcode = ?", (giftcode,))
-                                await self._safe_commit(self.conn, "mark code invalid")
+                                self._update_gift_code_status(giftcode, 'invalid')
                             backoff_time = await self._handle_api_error(response, response_text)
                             await asyncio.sleep(backoff_time)
                             return False
@@ -549,8 +550,7 @@ class GiftCodeAPI:
             exists_in_api = await self.check_giftcode(giftcode)
             if not exists_in_api: # Make sure we don't bother API with DELETE if it's not needed
                 self.logger.info(f"Code {giftcode} not found in API - no need to remove")
-                self.cursor.execute("UPDATE gift_codes SET validation_status = 'invalid' WHERE giftcode = ?", (giftcode,))
-                await self._safe_commit(self.conn, "mark code invalid")
+                self._update_gift_code_status(giftcode, 'invalid')
                 return True
             
             self.logger.info(f"Removing invalid code {giftcode} from API")
@@ -573,8 +573,7 @@ class GiftCodeAPI:
                                 result = json.loads(response_text)
                                 if result.get('success') == True:
                                     self.logger.info(f"Successfully removed code {giftcode} from API")
-                                    self.cursor.execute("UPDATE gift_codes SET validation_status = 'invalid' WHERE giftcode = ?", (giftcode,))
-                                    await self._safe_commit(self.conn, "remove giftcode")
+                                    self._update_gift_code_status(giftcode, 'invalid')
                                     return True
                                 else:
                                     self.logger.warning(f"API didn't confirm removal of code {giftcode}: {response_text[:200]}")
@@ -630,8 +629,8 @@ class GiftCodeAPI:
         """Validate all stored gift codes and clean invalid ones."""
         try:
             self.logger.info("Starting validation of all stored gift codes")
-            self.cursor.execute("SELECT giftcode FROM gift_codes WHERE validation_status != 'invalid'")
-            codes = self.cursor.fetchall()
+            codes_list = self._get_all_valid_gift_codes()
+            codes = [(c,) for c in codes_list]  # Convert to tuples to match cursor.fetchall() format
             
             if not codes:
                 self.logger.info("No codes to validate")
@@ -664,8 +663,7 @@ class GiftCodeAPI:
                                 await self.remove_giftcode(code, from_validation=True)
                             else:
                                 self.logger.info(f"Code {code} is invalid (status: {status}) but not in API - only updating local status")
-                                self.cursor.execute("UPDATE gift_codes SET validation_status = 'invalid' WHERE giftcode = ?", (code,))
-                                await self._safe_commit(self.conn, "mark code invalid")
+                                self._update_gift_code_status(code, 'invalid')
                             invalid_count += 1
                         else:
                             validated_count += 1
