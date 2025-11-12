@@ -118,6 +118,7 @@ from gift_codes import get_active_gift_codes
 from reminder_system import ReminderSystem, set_user_timezone, get_user_timezone, TimeParser, REMINDER_IMAGES
 from event_tips import EVENT_TIPS, get_event_info
 from thinking_animation import ThinkingAnimation
+from command_animator import animator
 try:
     from db.mongo_adapters import mongo_enabled, BirthdaysAdapter
 except Exception:
@@ -2477,6 +2478,9 @@ async def server_age(interaction: discord.Interaction, state_number: str):
 async def timeline(interaction: discord.Interaction):
     """Show the complete game timeline"""
     logger.info("Timeline command called")
+    
+    # Show loading animation
+    await animator.show_loading(interaction)
 
     try:
         # Create multiple embeds if needed (Discord has character limits)
@@ -2527,11 +2531,13 @@ async def timeline(interaction: discord.Interaction):
         source_embed.set_footer(text="Last updated: 2025-11-12")
         embeds.append(source_embed)
 
-        # Send embeds
+        # Stop animation and send embeds
+        await animator.stop_loading(interaction, delete=True)
         await interaction.response.send_message(embeds=embeds)
 
     except Exception as e:
         logger.error(f"Error in timeline command: {e}")
+        await animator.stop_loading(interaction, delete=True)
         await interaction.response.send_message(
             "❌ An error occurred while retrieving the timeline. Please try again.",
             ephemeral=True,
@@ -2804,12 +2810,15 @@ async def ask(interaction: discord.Interaction, question: str):
 @bot.tree.command(name="add_trait", description="Add a personality trait to your profile")
 @app_commands.describe(trait="The trait to add to your profile")
 async def add_trait(interaction: discord.Interaction, trait: str):
+    await animator.show_loading(interaction)
     try:
         user_id = str(interaction.user.id)
         angel_personality.add_user_trait(user_id, trait)
+        await animator.stop_loading(interaction, delete=True)
         await interaction.response.send_message(f"Added trait '{trait}' to your profile, {interaction.user.name}! Your Angel responses will now be more personalized.", ephemeral=True)
     except Exception as e:
         logger.error(f"Error in add_trait command: {str(e)}")
+        await animator.stop_loading(interaction, delete=True)
         await interaction.response.send_message("Sorry, there was an error adding your trait. Please try again.", ephemeral=True)
 
 
@@ -3391,8 +3400,10 @@ async def reminder(interaction: discord.Interaction, time: str, message: str, ch
 @bot.tree.command(name="reminderdashboard", description="Open interactive reminder dashboard (list/delete/set timezone)")
 async def reminderdashboard(interaction: discord.Interaction):
     """Interactive dashboard that consolidates list/delete/set-timezone into a single UI."""
-    # Build a view with buttons that open selects/modals as needed
-    class ReminderDeleteSelect(discord.ui.Select):
+    await animator.show_loading(interaction)
+    try:
+        # Build a view with buttons that open selects/modals as needed
+        class ReminderDeleteSelect(discord.ui.Select):
         def __init__(self, reminders_list: list):
             options = []
             # Build options as numeric index (02-style) with description showing ID and short message
@@ -3586,9 +3597,11 @@ async def reminderdashboard(interaction: discord.Interaction):
             inline=False,
         )
         embed.add_field(name="Tip", value="Select a reminder under Delete to remove it. Timezone selection changes how times are shown.", inline=False)
+        await animator.stop_loading(interaction, delete=True)
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
     except Exception as e:
         logger.error(f"Failed to send dashboard embed: {e}")
+        await animator.stop_loading(interaction, delete=True)
         try:
             await interaction.response.send_message('Open your Reminder Dashboard', view=view, ephemeral=True)
         except Exception:
@@ -3596,6 +3609,8 @@ async def reminderdashboard(interaction: discord.Interaction):
                 await interaction.followup.send('Failed to open reminder dashboard.', ephemeral=True)
             except Exception:
                 pass
+    except Exception:
+        await animator.stop_loading(interaction, delete=True)
 
 
 # /giftchannel command removed per user request. Previously allowed setting gift code posting channel.
@@ -3617,8 +3632,10 @@ async def reminderdashboard(interaction: discord.Interaction):
 @app_commands.default_permissions(administrator=True)
 async def giftcodesettings(interaction: discord.Interaction):
     await interaction.response.defer()
+    await animator.show_loading(interaction)
     try:
         if not interaction.guild:
+            await animator.stop_loading(interaction, delete=True)
             await interaction.followup.send("This command must be used in a server.", ephemeral=True)
             return
 
@@ -3715,10 +3732,12 @@ async def giftcodesettings(interaction: discord.Interaction):
         else:
             header.add_field(name="Configured Channel", value="Not configured", inline=False)
 
+        await animator.stop_loading(interaction, delete=True)
         await interaction.followup.send(embed=header, view=view)
 
     except Exception as e:
         logger.error(f"Error in giftcodesettings command: {e}")
+        await animator.stop_loading(interaction, delete=True)
         try:
             await interaction.followup.send("❌ Error opening gift code settings.", ephemeral=True)
         except Exception:
@@ -4165,34 +4184,36 @@ async def mostactive(interaction: discord.Interaction):
 
 @bot.tree.command(name="help", description="Show information about available commands")
 async def help_command(interaction: discord.Interaction):
-    embed = discord.Embed(
-        title="🤖 Bot Commands",
-        description=(
-            "**🎮 Games & Fun**\n"
-            "• **/dice** - Roll a six-sided dice (slash + message trigger)\n"
-            "• **/dicebattle [opponent]** - Challenge another player to a dice battle (interactive roll buttons)\n"
-            "• **/imagine [prompt]** - Generate an AI image from a prompt\n"
-            "• **/ask [question]** - Ask the bot a question or get help\n\n"
-            "**🎁 Gift Codes & Server Tools**\n"
-            "• **/giftcode** - Show active Whiteout Survival gift codes\n"
-            "• **/giftcodesettings** - Open the server gift code settings dashboard (admin)\n"
-            "• **/refresh** - Refresh cached alliance/gift code data from Sheets\n\n"
-            "**⏰ Reminders & Time**\n"
-            "• **/reminder [time] [message] [channel]** - Create a timed reminder\n"
-            "• **/reminderdashboard** - Open interactive reminder dashboard (list/delete/timezone)\n\n"
-            "**👥 Player & Server**\n"
-            "• **/serverstats** - View server statistics and charts\n"
-            "• **/mostactive** - Show top active users and activity graph\n\n"
-            "**🧭 Profile & Events**\n"
-            "• **/add_trait [trait]** - Add a personality trait to your profile\n"
-            "• **/event [name]** - Get event details (autocomplete supported)\n\n"
-            "**❓ Help**\n"
-            "• **/help** - Show this command list"
-        ),
-        color=0x1abc9c,
-    )
-    embed.set_thumbnail(url="https://i.postimg.cc/Fzq03CJf/a463d7c7-7fc7-47fc-b24d-1324383ee2ff-removebg-preview.png")
-    embed.set_footer(text="Type a command to get started!")
+    await animator.show_loading(interaction)
+    try:
+        embed = discord.Embed(
+            title="🤖 Bot Commands",
+            description=(
+                "**🎮 Games & Fun**\n"
+                "• **/dice** - Roll a six-sided dice (slash + message trigger)\n"
+                "• **/dicebattle [opponent]** - Challenge another player to a dice battle (interactive roll buttons)\n"
+                "• **/imagine [prompt]** - Generate an AI image from a prompt\n"
+                "• **/ask [question]** - Ask the bot a question or get help\n\n"
+                "**🎁 Gift Codes & Server Tools**\n"
+                "• **/giftcode** - Show active Whiteout Survival gift codes\n"
+                "• **/giftcodesettings** - Open the server gift code settings dashboard (admin)\n"
+                "• **/refresh** - Refresh cached alliance/gift code data from Sheets\n\n"
+                "**⏰ Reminders & Time**\n"
+                "• **/reminder [time] [message] [channel]** - Create a timed reminder\n"
+                "• **/reminderdashboard** - Open interactive reminder dashboard (list/delete/timezone)\n\n"
+                "**👥 Player & Server**\n"
+                "• **/serverstats** - View server statistics and charts\n"
+                "• **/mostactive** - Show top active users and activity graph\n\n"
+                "**🧭 Profile & Events**\n"
+                "• **/add_trait [trait]** - Add a personality trait to your profile\n"
+                "• **/event [name]** - Get event details (autocomplete supported)\n\n"
+                "**❓ Help**\n"
+                "• **/help** - Show this command list"
+            ),
+            color=0x1abc9c,
+        )
+        embed.set_thumbnail(url="https://i.postimg.cc/Fzq03CJf/a463d7c7-7fc7-47fc-b24d-1324383ee2ff-removebg-preview.png")
+        embed.set_footer(text="Type a command to get started!")
 
     class FeedbackModal(discord.ui.Modal, title="Your Feedback"):
         feedback = discord.ui.TextInput(
@@ -4281,6 +4302,7 @@ async def help_command(interaction: discord.Interaction):
 
     view = HelpView()
     try:
+        await animator.stop_loading(interaction, delete=True)
         if not interaction.response.is_done():
             # send initial response; get message via original_response()
             await interaction.response.send_message(embed=embed, view=view, ephemeral=False)
@@ -4298,6 +4320,7 @@ async def help_command(interaction: discord.Interaction):
                 logger.debug(f"Failed to register HelpView after followup: {reg_err}")
     except Exception as e:
         logger.error(f"Failed to send help embed: {e}")
+        await animator.stop_loading(interaction, delete=True)
         try:
             # Final attempt using followup
             sent = await interaction.followup.send(embed=embed, view=view, ephemeral=False, wait=True)

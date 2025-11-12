@@ -4367,3 +4367,46 @@ OSError: [Errno 22] Invalid argument
 2025-11-12 23:17:02,510 - Registered app commands: ['dice', 'birthday', 'debug_list_commands', 'debug_cogs', 'event', 'server_age', 'timeline', 'ask', 'add_trait', 'giftcode', 'refresh', 'storage_status', 'reminder', 'reminderdashboard', 'giftcodesettings', 'imagine', 'serverstats', 'mostactive', 'help', 'dicebattle', 'register_view', 'settings', 'playerinfo', 'w', 'channel', 'minister_add', 'minister_remove', 'minister_clear_all', 'minister_list']
 2025-11-12 23:17:22,194 - Server age command called with server_number: 3063
 2025-11-12 23:18:45,925 - Server age command called with server_number: 1
+2025-11-13 00:15:39,986 - devx#5389 has connected to Discord!
+2025-11-13 00:15:39,987 - Bot is currently a member of 3 guild(s): [(850787279664185434, "Mohit Raj's server"), (1133463326182080634, 'Face Swap'), (1147956569271697518, 'Mohit Raj')]
+2025-11-13 00:15:39,989 - [DB] ✅ MONGO_URI detected - Using MongoDB for ALL data persistence
+2025-11-13 00:15:39,989 - [DB] All alliance data, users, and configs will be saved to MongoDB
+2025-11-13 00:15:39,990 - [DB] Data will persist across bot restarts on Render
+2025-11-13 00:15:39,991 - Database tables verified/created
+2025-11-13 00:15:39,992 - Health server task started on port 8080
+2025-11-13 00:15:39,993 - Uptime checker task started
+2025-11-13 00:15:39,995 - Giftcode poster task started
+2025-11-13 00:15:39,996 - Skipping music cog load (file removed)
+2025-11-13 00:15:40,053 - Pre-loaded cogs.alliance extension before sync
+2025-11-13 00:15:41,435 - Pre-loaded cogs.gift_operations extension before sync
+2025-11-13 00:15:41,463 - Pre-loaded cogs.playerinfo extension before sync
+2025-11-13 00:15:42,068 - Successfully synced global commands
+2025-11-13 00:15:42,600 - Synced commands to guild 1147956569271697518
+2025-11-13 00:15:42,605 - Registered persistent GiftCodeView for button interactions
+2025-11-13 00:15:46,478 - Registered persistent view GiftCodeView for message 1437801623245160594 in Face Swap/general
+2025-11-13 00:15:49,340 - Registered persistent view GiftCodeView for message 1437801436304904354 in Mohit Raj/notes-resources
+2025-11-13 00:15:49,342 - Registered persistent view GiftCodeView for message 1437788706458177618 in Mohit Raj/notes-resources
+2025-11-13 00:15:49,343 - Registered persistent view GiftCodeView for message 1437788654079709214 in Mohit Raj/notes-resources
+2025-11-13 00:15:49,344 - Registered persistent view GiftCodeView for message 1437788577881653482 in Mohit Raj/notes-resources
+2025-11-13 00:15:49,345 - Registered persistent view GiftCodeView for message 1437749943950508044 in Mohit Raj/notes-resources
+2025-11-13 00:15:49,353 - Registered persistent view GiftCodeView for message 1437543290374197288 in Mohit Raj/notes-resources
+2025-11-13 00:15:51,400 - Registered persistent view GiftCodeView for message 1437752422696091658 in Mohit Raj/test
+2025-11-13 00:15:54,580 - Loaded cogs.other_features extension
+2025-11-13 00:15:54,588 - Loaded cogs.olddb
+2025-11-13 00:15:54,695 - Loaded cogs.control
+2025-11-13 00:15:54,732 - Loaded cogs.alliance_member_operations
+2025-11-13 00:15:54,752 - Loaded cogs.bot_operations
+2025-11-13 00:15:54,761 - Loaded cogs.logsystem
+2025-11-13 00:15:54,768 - Loaded cogs.support_operations
+2025-11-13 00:15:54,778 - Loaded cogs.changes
+2025-11-13 00:15:54,786 - Loaded cogs.w
+2025-11-13 00:15:54,791 - Loaded cogs.wel
+2025-11-13 00:15:54,814 - Loaded cogs.bear_trap
+2025-11-13 00:15:54,827 - Loaded cogs.id_channel
+2025-11-13 00:15:54,842 - Loaded cogs.backup_operations
+2025-11-13 00:15:54,851 - Loaded cogs.bear_trap_editor
+2025-11-13 00:15:55,145 - Loaded cogs.attendance
+2025-11-13 00:15:55,152 - Loaded cogs.attendance_report
+2025-11-13 00:15:55,268 - Loaded cogs.minister_schedule
+2025-11-13 00:15:55,278 - Loaded cogs.minister_menu
+2025-11-13 00:15:55,278 - Registered app commands: ['dice', 'birthday', 'debug_list_commands', 'debug_cogs', 'event', 'server_age', 'timeline', 'ask', 'add_trait', 'giftcode', 'refresh', 'storage_status', 'reminder', 'reminderdashboard', 'giftcodesettings', 'imagine', 'serverstats', 'mostactive', 'help', 'dicebattle', 'register_view', 'settings', 'playerinfo', 'w', 'channel', 'minister_add', 'minister_remove', 'minister_clear_all', 'minister_list']
