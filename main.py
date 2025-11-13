@@ -22,6 +22,34 @@ try:
     print("STARTUP DEBUG: DEV_GUILD_ID set?", bool(os.getenv('DEV_GUILD_ID')))
 except Exception as _:
     pass
+# Try to ensure `db.mongo_adapters` is importable in environments where
+# the package wasn't installed (e.g., Render builds without `pip install -e .`).
+try:
+    import db.mongo_adapters  # noqa: F401
+except Exception:
+    try:
+        import importlib.util
+        import types
+
+        db_pkg_name = 'db'
+        # Ensure a `db` package object exists in sys.modules
+        if db_pkg_name not in sys.modules:
+            pkg = types.ModuleType(db_pkg_name)
+            pkg.__path__ = [os.path.join(repo_root, 'db')]
+            sys.modules[db_pkg_name] = pkg
+
+        # Attempt to load the module file directly from the repo
+        module_path = os.path.join(repo_root, 'db', 'mongo_adapters.py')
+        if os.path.exists(module_path):
+            spec = importlib.util.spec_from_file_location('db.mongo_adapters', module_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)  # type: ignore
+            sys.modules['db.mongo_adapters'] = module
+            print('STARTUP DEBUG: loaded db.mongo_adapters from file')
+        else:
+            print('STARTUP DEBUG: db.mongo_adapters file not found at', module_path)
+    except Exception as e:
+        print('STARTUP DEBUG: failed to load db.mongo_adapters:', e)
 import shutil
 import stat
 

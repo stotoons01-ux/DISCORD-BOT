@@ -1300,29 +1300,10 @@ async def debug_cogs_wrapper(interaction: discord.Interaction):
 
 # /birthday_setchannel removed — notification channel is read from the BIRTHDAY_NOTIFY_CHANNEL env var
 
-@bot.event
-async def on_message(message: discord.Message):
-    """Minimal early on_message handler.
-
-    This handler no longer performs dice detection to avoid duplicate
-    triggers — the main comprehensive `on_message` later in the file
-    handles conversation, DMs, logging, and dice. Here we only pass
-    prefixed commands to the command processor.
-    """
-    try:
-        if message.author.bot:
-            return
-
-        # If user is invoking a prefixed command, let command processor handle it
-        content = (message.content or "").strip()
-        if content.startswith(bot.command_prefix):
-            await bot.process_commands(message)
-            return
-
-        # Otherwise, do nothing and allow other listeners/handlers to run.
-        return
-    except Exception as e:
-        logger.error(f"Unexpected error in on_message (early handler): {e}")
+# NOTE: The early `on_message` handler was removed to avoid overriding
+# the comprehensive `on_message` defined later in this file. The later
+# handler logs messages, triggers keyword-based behavior (giftcode/dice),
+# and calls `bot.process_commands(message)` so prefixed text commands work.
 
 
 # Reduce noise: silence informational logs from the gift_codes module (it's verbose)
@@ -1863,7 +1844,6 @@ async def on_message(message):
 
             # Quick deterministic handler: if user asks for current time in India, answer directly
             try:
-                import re
                 if re.search(r"\btime in india\b|what(?:'s| is) the time in india|current time in india", question, flags=re.I):
                     try:
                         from datetime import datetime
