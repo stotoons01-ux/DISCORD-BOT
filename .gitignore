@@ -8,3 +8,4 @@ version
 bot_venv
 .env
 .env.*.env
+.venv311/
