@@ -1,6 +1,13 @@
 import subprocess
 import sys
 import os
+from pathlib import Path
+
+# Ensure repository root is on sys.path so imports like `db.mongo_adapters`
+# work correctly in deployment environments (Render may set a different CWD).
+repo_root = str(Path(__file__).resolve().parent)
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
 import pprint
 
 # Startup debug: print working directory and a short sys.path preview so

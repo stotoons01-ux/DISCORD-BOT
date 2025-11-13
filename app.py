@@ -2,6 +2,11 @@ import os
 import sys
 import subprocess
 from pathlib import Path
+
+# Ensure repository root is on sys.path so modules like `db.mongo_adapters` can be imported
+repo_root = str(Path(__file__).resolve().parent)
+if repo_root not in sys.path:
+    sys.path.insert(0, repo_root)
 import importlib
 import time
 
