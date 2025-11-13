@@ -78,6 +78,68 @@ class Alliance(commands.Cog):
         """)
         self.conn.commit()
 
+        # Ensure alliancesettings exists in the alliance DB
+        try:
+            self.c.execute("""
+                CREATE TABLE IF NOT EXISTS alliancesettings (
+                    alliance_id INTEGER PRIMARY KEY,
+                    channel_id INTEGER,
+                    interval INTEGER
+                )
+            """)
+            self.conn.commit()
+        except Exception:
+            logger.debug("Failed to ensure alliancesettings table in alliance DB", exc_info=True)
+
+        # Ensure users table exists in users DB (used for member counts)
+        try:
+            self.c_users.execute("""
+                CREATE TABLE IF NOT EXISTS users (
+                    fid INTEGER PRIMARY KEY,
+                    nickname TEXT,
+                    furnace_lv INTEGER DEFAULT 0,
+                    kid INTEGER,
+                    stove_lv_content TEXT,
+                    alliance TEXT
+                )
+            """)
+            self.conn_users.commit()
+        except Exception:
+            logger.debug("Failed to ensure users table in users DB", exc_info=True)
+
+        # Ensure admin table exists in settings DB (used for permission checks)
+        try:
+            self.c_settings.execute("""
+                CREATE TABLE IF NOT EXISTS admin (
+                    id INTEGER PRIMARY KEY,
+                    is_initial INTEGER
+                )
+            """)
+            self.conn_settings.commit()
+        except Exception:
+            logger.debug("Failed to ensure admin table in settings DB", exc_info=True)
+
+        # Ensure giftcode tables exist in giftcode DB
+        try:
+            self.c_giftcode.execute("""
+                CREATE TABLE IF NOT EXISTS gift_codes (
+                    giftcode TEXT PRIMARY KEY,
+                    date TEXT,
+                    validation_status TEXT DEFAULT 'pending'
+                )
+            """)
+            self.c_giftcode.execute("""
+                CREATE TABLE IF NOT EXISTS user_giftcodes (
+                    fid INTEGER,
+                    giftcode TEXT,
+                    status TEXT,
+                    PRIMARY KEY (fid, giftcode)
+                )
+            """)
+            self.conn_giftcode.commit()
+        except Exception:
+            logger.debug("Failed to ensure giftcode tables", exc_info=True)
+
     def _check_and_add_column(self):
         self.c.execute("PRAGMA table_info(alliance_list)")
         columns = [info[1] for info in self.c.fetchall()]
