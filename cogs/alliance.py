@@ -849,12 +849,26 @@ class Alliance(commands.Cog):
                         await self._report_and_log_exception(interaction, e, label="other_features")
 
             except Exception as e:
+                # Avoid spamming additional interaction responses when Discord
+                # reports the interaction is already acknowledged or unknown
                 if not any(error_code in str(e) for error_code in ["10062", "40060"]):
                     print(f"Error processing interaction with custom_id '{custom_id}': {e}")
-                await interaction.response.send_message(
-                    "An error occurred while processing your request. Please try again.",
-                    ephemeral=True
-                )
+
+                # Safely notify the user: prefer response if not done, otherwise use followup.
+                try:
+                    if not interaction.response.is_done():
+                        await interaction.response.send_message(
+                            "An error occurred while processing your request. Please try again.",
+                            ephemeral=True
+                        )
+                    else:
+                        await interaction.followup.send(
+                            "An error occurred while processing your request. Please try again.",
+                            ephemeral=True
+                        )
+                except Exception:
+                    # Best-effort: if both response and followup fail, log and move on
+                    logger.exception("Failed to send error response for interaction")
 
     async def add_alliance(self, interaction: discord.Interaction):
         if interaction.guild is None:
