@@ -9,10 +9,11 @@ import discord
 
 from gift_codes import get_active_gift_codes
 try:
-    from db.mongo_adapters import mongo_enabled, GiftcodeStateAdapter
+    from db.mongo_adapters import mongo_enabled, GiftcodeStateAdapter, GiftCodesAdapter
 except Exception:
     mongo_enabled = lambda: False
     GiftcodeStateAdapter = None
+    GiftCodesAdapter = None
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +68,24 @@ class GiftCodePoster:
             for guild_id, codes in list(sent.items()):
                 normalized = [self._normalize_code(c) for c in (codes or []) if c]
                 self.state['sent'][str(guild_id)] = list(dict.fromkeys(normalized))
+        except Exception:
+            pass
+        # If Mongo is available, and we have a separate gift_codes collection,
+        # pull any globally recorded codes so they count as already-sent.
+        try:
+            if mongo_enabled() and GiftCodesAdapter is not None:
+                try:
+                    all_codes = GiftCodesAdapter.get_all() or []
+                    # get_all returns list of tuples like (code, date, status)
+                    global_codes = [self._normalize_code(t[0]) for t in all_codes if t and t[0]]
+                    if global_codes:
+                        self.state.setdefault('sent', {}).setdefault('global', [])
+                        # merge and dedupe
+                        existing = set(self.state['sent'].get('global', []))
+                        merged = list(dict.fromkeys([*existing, *global_codes]))
+                        self.state['sent']['global'] = merged
+                except Exception:
+                    pass
         except Exception:
             pass
         # Ensure initialized flag exists so we can detect first-run behavior
@@ -139,11 +158,29 @@ class GiftCodePoster:
                     await self._save_state()
                 except Exception as e2:
                     logger.error(f"Async fallback save also failed: {e2}")
+        # Also persist each new code into the Mongo `gift_codes` collection
+        try:
+            if mongo_enabled() and GiftCodesAdapter is not None:
+                from datetime import datetime as _dt
+                now = _dt.utcnow().isoformat()
+                for c in (codes or []):
+                    if not c:
+                        continue
+                    try:
+                        GiftCodesAdapter.insert(self._normalize_code(c), now, validation_status='posted')
+                    except Exception:
+                        # Non-fatal: continue on insert errors
+                        logger.debug(f"Failed to insert code into GiftCodesAdapter: {c}")
+        except Exception:
+            pass
 
     async def get_sent_set(self, guild_id: int):
         async with self.lock:
-            codes = self.state.setdefault('sent', {}).setdefault(str(guild_id), [])
-            return set(self._normalize_code(c) for c in (codes or []))
+            sent = self.state.setdefault('sent', {})
+            guild_codes = sent.setdefault(str(guild_id), [])
+            global_codes = sent.setdefault('global', [])
+            combined = list((guild_codes or []) + (global_codes or []))
+            return set(self._normalize_code(c) for c in combined if c)
 
 
 poster = GiftCodePoster()

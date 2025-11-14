@@ -1,7 +1,15 @@
 import os
+import sys
 import logging
 from datetime import datetime
 from typing import Dict, Any, Optional
+
+# Ensure the project root (the directory that contains the `db` package)
+# is on sys.path so imports like `db.mongo_adapters` work regardless of
+# the current working directory (some hosts run with a different cwd).
+proj_root = os.path.dirname(__file__)
+if proj_root not in sys.path:
+    sys.path.insert(0, proj_root)
 
 # Try to import the real mongo adapters from the packaged `db` package.
 # If that fails (running from a different working dir), provide safe

@@ -1070,7 +1070,28 @@ class BirthdayModal(discord.ui.Modal, title="Add / Update Birthday"):
             # Otherwise save (this allows overwriting when target_user is set — e.g., admin use)
             set_birthday(user_id, d, m)
 
-            await interaction.response.send_message(f"Saved birthday for <@{user_id}>: {d}/{m}", ephemeral=True)
+            # Build a human-friendly date string, e.g. "Feitan's birthday is on 1st November"
+            try:
+                import calendar
+
+                def _ordinal(n: int) -> str:
+                    if 10 <= (n % 100) <= 20:
+                        suffix = 'th'
+                    else:
+                        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')
+                    return f"{n}{suffix}"
+
+                def _month_name(m: int) -> str:
+                    return calendar.month_name[m] if 1 <= m <= 12 else str(m)
+
+                display_user = self.target_user if self.target_user is not None else user
+                pretty_date = f"{_ordinal(d)} {_month_name(m)}"
+                friendly_message = f"{display_user.display_name}'s birthday is on {pretty_date}"
+            except Exception:
+                # Fallback to simple numeric representation
+                friendly_message = f"Saved birthday for <@{user_id}>: {d}/{m}"
+
+            await interaction.response.send_message(friendly_message, ephemeral=True)
 
             # Notify configured channel (per-guild or env fallback) with a detailed embed
             try:
@@ -1093,6 +1114,11 @@ class BirthdayModal(discord.ui.Modal, title="Add / Update Birthday"):
                         # If target_user differs, show target
                         if self.target_user is not None:
                             info_embed.add_field(name="Target User", value=f"{self.target_user.mention} ({self.target_user.id})", inline=True)
+                        # Add a human-friendly description and keep numeric fields for precision
+                        try:
+                            info_embed.description = f"{user.display_name}'s birthday is on {_ordinal(d)} {_month_name(m)}"
+                        except Exception:
+                            info_embed.description = f"Birthday: {d}/{m}"
                         info_embed.add_field(name="Day", value=str(d), inline=True)
                         info_embed.add_field(name="Month", value=str(m), inline=True)
                         info_embed.add_field(name="Action", value=status, inline=True)
