@@ -3683,7 +3683,19 @@ async def reminderdashboard(interaction: discord.Interaction):
         
         # Stop loading animation and send dashboard in one go
         await animator.stop_loading(interaction, delete=True)
-        await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+        # If the interaction was already deferred (show_thinking uses defer),
+        # we must use followup.send instead of response.send_message.
+        try:
+            if not interaction.response.is_done():
+                await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
+            else:
+                await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+        except Exception:
+            # Fallback to followup if response path fails for any reason
+            try:
+                await interaction.followup.send(embed=embed, view=view, ephemeral=True)
+            except Exception:
+                raise
     except Exception as e:
         logger.error(f"Failed to send dashboard embed: {e}")
         try:
