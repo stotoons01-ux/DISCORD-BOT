@@ -23,5 +23,5 @@ setup(
         'google-auth-oauthlib==1.1.0',
         'numpy==1.24.4',
     ],
-    python_requires='>=3.10,<3.11',
+    python_requires='>=3.10,<4',
 )
