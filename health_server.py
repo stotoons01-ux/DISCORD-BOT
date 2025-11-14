@@ -3,6 +3,9 @@ from aiohttp import web
 from datetime import datetime
 import logging
 import asyncio
+import os
+
+_LOGGER = logging.getLogger(__name__)
 
 logger = logging.getLogger(__name__)
 
@@ -19,10 +22,45 @@ async def start_health_server():
         return web.Response(text='OK', content_type='text/plain')
 
     async def handle_health(request):
-        return web.json_response({
+        # Basic status
+        resp = {
             'status': 'ok',
             'time': datetime.utcnow().isoformat()
-        })
+        }
+
+        # Report whether pymongo is installed and its version
+        try:
+            import pymongo
+            resp['pymongo_installed'] = True
+            resp['pymongo_version'] = getattr(pymongo, '__version__', None)
+        except Exception:
+            resp['pymongo_installed'] = False
+            resp['pymongo_version'] = None
+
+        # If MONGO_URI is set, try a quick ping in an executor to avoid blocking
+        mongo_uri = os.environ.get('MONGO_URI')
+        resp['mongo_uri_present'] = bool(mongo_uri)
+        if mongo_uri and resp['pymongo_installed']:
+            loop = asyncio.get_event_loop()
+
+            def _ping_mongo():
+                try:
+                    # Import lazily to avoid import-time pymongo dependency elsewhere
+                    from db.mongo_client_wrapper import get_mongo_client
+                    client = get_mongo_client(mongo_uri, connect_timeout_ms=2000)
+                    # quick ping
+                    client.admin.command('ping')
+                    return {'ok': True}
+                except Exception as e:
+                    return {'ok': False, 'error': str(e)}
+
+            try:
+                ping_result = await loop.run_in_executor(None, _ping_mongo)
+                resp['mongo_ping'] = ping_result
+            except Exception as e:
+                resp['mongo_ping'] = {'ok': False, 'error': str(e)}
+
+        return web.json_response(resp)
 
     app.add_routes([
         web.get('/', handle_root),
