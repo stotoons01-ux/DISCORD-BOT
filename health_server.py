@@ -55,11 +55,11 @@ async def start_health_server():
                 except Exception as e:
                     return {'ok': False, 'error': str(e)}
 
-                    try:
-                        ping_result = await loop.run_in_executor(None, _ping_mongo)
-                        resp['mongo_ping'] = ping_result
-                    except Exception as e:
-                        resp['mongo_ping'] = {'ok': False, 'error': str(e)}
+            try:
+                ping_result = await loop.run_in_executor(None, _ping_mongo)
+                resp['mongo_ping'] = ping_result
+            except Exception as e:
+                resp['mongo_ping'] = {'ok': False, 'error': str(e)}
 
             # Add diagnostic info about import resolution and sys.path so Render logs
             # can show why `db.mongo_adapters` might not be importable.
