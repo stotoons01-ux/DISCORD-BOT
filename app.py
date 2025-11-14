@@ -3680,20 +3680,22 @@ async def reminderdashboard(interaction: discord.Interaction):
             inline=False,
         )
         embed.add_field(name="Tip", value="Select a reminder under Delete to remove it. Timezone selection changes how times are shown.", inline=False)
+        
+        # Stop loading animation and send dashboard in one go
         await animator.stop_loading(interaction, delete=True)
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True)
     except Exception as e:
         logger.error(f"Failed to send dashboard embed: {e}")
-        await animator.stop_loading(interaction, delete=True)
         try:
-            await interaction.response.send_message('Open your Reminder Dashboard', view=view, ephemeral=True)
-        except Exception:
-            try:
+            # Try to respond with fallback message if interaction hasn't been responded to yet
+            if not interaction.response.is_done():
+                await animator.stop_loading(interaction, delete=True)
+                await interaction.response.send_message('Open your Reminder Dashboard', view=view, ephemeral=True)
+            else:
+                # If already responded, use followup
                 await interaction.followup.send('Failed to open reminder dashboard.', ephemeral=True)
-            except Exception:
-                pass
-    finally:
-        await animator.stop_loading(interaction, delete=True)
+        except Exception as e2:
+            logger.error(f"Failed to send fallback dashboard message: {e2}")
 
 
 # /giftchannel command removed per user request. Previously allowed setting gift code posting channel.
