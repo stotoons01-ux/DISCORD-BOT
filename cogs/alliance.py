@@ -9,6 +9,13 @@ import os
 import traceback
 
 logger = logging.getLogger(__name__)
+try:
+    from db.mongo_adapters import mongo_enabled, AllianceMetadataAdapter, AllianceMembersAdapter, UserProfilesAdapter
+except Exception:
+    mongo_enabled = lambda: False
+    AllianceMetadataAdapter = None
+    AllianceMembersAdapter = None
+    UserProfilesAdapter = None
 
 class Alliance(commands.Cog):
     def __init__(self, bot, conn):
@@ -27,6 +34,164 @@ class Alliance(commands.Cog):
 
         self._create_table()
         self._check_and_add_column()
+
+    # --------------------- Mongo admin helpers ---------------------
+    def _load_admins_from_mongo(self) -> dict:
+        """Return a mapping of admin user_id -> is_initial when Mongo is enabled."""
+        try:
+            if not mongo_enabled() or AllianceMetadataAdapter is None:
+                return {}
+            data = AllianceMetadataAdapter.get_metadata('admin_list')
+            if not data:
+                return {}
+            # Expecting a dict-like mapping of string user_id -> int flag
+            if isinstance(data, dict):
+                return {int(k): int(v) for k, v in data.items()}
+            return {}
+        except Exception:
+            return {}
+
+    def _get_admin_count(self) -> int:
+        if mongo_enabled():
+            return len(self._load_admins_from_mongo())
+        try:
+            self.c_settings.execute("SELECT COUNT(*) FROM admin")
+            return int(self.c_settings.fetchone()[0])
+        except Exception:
+            return 0
+
+    def _is_admin(self, user_id: int) -> tuple:
+        """Return (exists: bool, is_initial: int|None)."""
+        if mongo_enabled():
+            admins = self._load_admins_from_mongo()
+            val = admins.get(int(user_id))
+            return (val is not None, int(val) if val is not None else None)
+        try:
+            self.c_settings.execute("SELECT id, is_initial FROM admin WHERE id = ?", (user_id,))
+            admin = self.c_settings.fetchone()
+            if admin is None:
+                return (False, None)
+            return (True, admin[1])
+        except Exception:
+            return (False, None)
+
+    def _add_admin(self, user_id: int, is_initial: int = 1) -> bool:
+        if mongo_enabled():
+            try:
+                admins = self._load_admins_from_mongo()
+                admins[str(int(user_id))] = int(is_initial)
+                return AllianceMetadataAdapter.set_metadata('admin_list', admins)
+            except Exception:
+                return False
+        try:
+            self.c_settings.execute("INSERT INTO admin (id, is_initial) VALUES (?, ?)", (user_id, is_initial))
+            self.conn_settings.commit()
+            return True
+        except Exception:
+            return False
+
+    # --------------------- Mongo alliances helpers ---------------------
+    def _load_alliances_from_mongo(self) -> list:
+        """Return list of tuples (alliance_id:int, name:str, discord_server_id:int)"""
+        try:
+            if not mongo_enabled() or AllianceMetadataAdapter is None:
+                return []
+            data = AllianceMetadataAdapter.get_metadata('alliances') or {}
+            result = []
+            for k, v in data.items():
+                try:
+                    aid = int(k)
+                    name = v.get('name')
+                    dsid = int(v.get('discord_server_id')) if v.get('discord_server_id') is not None else None
+                    result.append((aid, name, dsid))
+                except Exception:
+                    continue
+            # sort by alliance_id
+            return sorted(result, key=lambda x: x[0])
+        except Exception:
+            return []
+
+    def _load_alliancesettings_from_mongo(self) -> dict:
+        """Return mapping alliance_id -> {'channel_id':..., 'interval':...} or empty dict"""
+        try:
+            if not mongo_enabled() or AllianceMetadataAdapter is None:
+                return {}
+            data = AllianceMetadataAdapter.get_metadata('alliancesettings') or {}
+            # ensure proper types
+            out = {}
+            for k, v in data.items():
+                try:
+                    aid = int(k)
+                    ch = int(v.get('channel_id')) if v.get('channel_id') is not None else None
+                    interval = int(v.get('interval')) if v.get('interval') is not None else 0
+                    out[aid] = {'channel_id': ch, 'interval': interval}
+                except Exception:
+                    continue
+            return out
+        except Exception:
+            return {}
+
+    def _save_alliance_to_mongo(self, alliance_id: int, name: str, discord_server_id: int | None) -> bool:
+        try:
+            if not mongo_enabled() or AllianceMetadataAdapter is None:
+                return False
+            alliances = AllianceMetadataAdapter.get_metadata('alliances') or {}
+            alliances[str(int(alliance_id))] = {'name': name, 'discord_server_id': int(discord_server_id) if discord_server_id is not None else None}
+            return AllianceMetadataAdapter.set_metadata('alliances', alliances)
+        except Exception:
+            return False
+
+    def _save_alliancesettings_to_mongo(self, alliance_id: int, channel_id: int | None, interval: int) -> bool:
+        try:
+            if not mongo_enabled() or AllianceMetadataAdapter is None:
+                return False
+            settings = AllianceMetadataAdapter.get_metadata('alliancesettings') or {}
+            settings[str(int(alliance_id))] = {'channel_id': int(channel_id) if channel_id is not None else None, 'interval': int(interval)}
+            return AllianceMetadataAdapter.set_metadata('alliancesettings', settings)
+        except Exception:
+            return False
+
+    def _delete_alliance_from_mongo(self, alliance_id: int) -> bool:
+        try:
+            if not mongo_enabled() or AllianceMetadataAdapter is None:
+                return False
+            alliances = AllianceMetadataAdapter.get_metadata('alliances') or {}
+            settings = AllianceMetadataAdapter.get_metadata('alliancesettings') or {}
+            alliances.pop(str(int(alliance_id)), None)
+            settings.pop(str(int(alliance_id)), None)
+            ok1 = AllianceMetadataAdapter.set_metadata('alliances', alliances)
+            ok2 = AllianceMetadataAdapter.set_metadata('alliancesettings', settings)
+            return bool(ok1 and ok2)
+        except Exception:
+            return False
+
+    def _get_next_alliance_id(self) -> int:
+        try:
+            if mongo_enabled() and AllianceMetadataAdapter is not None:
+                alliances = AllianceMetadataAdapter.get_metadata('alliances') or {}
+                if not alliances:
+                    return 1
+                nums = [int(k) for k in alliances.keys() if str(k).isdigit()]
+                return max(nums) + 1 if nums else 1
+            # fallback to sqlite max(alliance_id)+1
+            self.c.execute("SELECT MAX(alliance_id) FROM alliance_list")
+            r = self.c.fetchone()
+            if r and r[0]:
+                return int(r[0]) + 1
+            return 1
+        except Exception:
+            return 1
+
+    def _member_count_for_alliance(self, alliance_id: int) -> int:
+        try:
+            if mongo_enabled() and AllianceMembersAdapter is not None:
+                docs = AllianceMembersAdapter.get_all_members() or []
+                return sum(1 for d in docs if str(d.get('alliance')) == str(alliance_id) or d.get('alliance') == alliance_id)
+            # sqlite fallback
+            self.c_users.execute("SELECT COUNT(*) FROM users WHERE alliance = ?", (alliance_id,))
+            return int(self.c_users.fetchone()[0])
+        except Exception:
+            return 0
 
     async def _report_and_log_exception(self, interaction: discord.Interaction, exc: Exception, label: str = "general"):
         """Persist full traceback for debugging and notify the invoking user with a truncated traceback.
@@ -154,42 +319,45 @@ class Alliance(commands.Cog):
             return
 
         user_id = interaction.user.id
-        self.c_settings.execute("SELECT id, is_initial FROM admin WHERE id = ?", (user_id,))
-        admin = self.c_settings.fetchone()
-
-        if admin is None:
+        is_admin, is_initial = self._is_admin(user_id)
+        if not is_admin:
             await interaction.response.send_message("You do not have permission to view alliances.", ephemeral=True)
             return
-
-        is_initial = admin[1]
         guild_id = interaction.guild.id
 
         try:
-            if is_initial == 1:
-                query = """
-                    SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval
-                    FROM alliance_list a
-                    LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
-                    ORDER BY a.alliance_id ASC
-                """
-                self.c.execute(query)
+            alliances = []
+            if mongo_enabled():
+                settings_map = self._load_alliancesettings_from_mongo()
+                raw = self._load_alliances_from_mongo()
+                if is_initial == 1:
+                    alliances = [(aid, name, settings_map.get(aid, {}).get('interval', 0)) for (aid, name, _dsid) in raw]
+                else:
+                    alliances = [(aid, name, settings_map.get(aid, {}).get('interval', 0)) for (aid, name, dsid) in raw if dsid == guild_id]
             else:
-                query = """
-                    SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval
-                    FROM alliance_list a
-                    LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
-                    WHERE a.discord_server_id = ?
-                    ORDER BY a.alliance_id ASC
-                """
-                self.c.execute(query, (guild_id,))
-
-            alliances = self.c.fetchall()
+                if is_initial == 1:
+                    query = """
+                        SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval
+                        FROM alliance_list a
+                        LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
+                        ORDER BY a.alliance_id ASC
+                    """
+                    self.c.execute(query)
+                else:
+                    query = """
+                        SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval
+                        FROM alliance_list a
+                        LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
+                        WHERE a.discord_server_id = ?
+                        ORDER BY a.alliance_id ASC
+                    """
+                    self.c.execute(query, (guild_id,))
+                alliances = self.c.fetchall()
 
             alliance_list = ""
             for alliance_id, name, interval in alliances:
                 
-                self.c_users.execute("SELECT COUNT(*) FROM users WHERE alliance = ?", (alliance_id,))
-                member_count = self.c_users.fetchone()[0]
+                member_count = self._member_count_for_alliance(alliance_id)
                 
                 interval_text = f"{interval} minutes" if interval > 0 else "No automatic control"
                 alliance_list += f"🛡️ **{alliance_id}: {name}**\n👥 Members: {member_count}\n⏱️ Control Interval: {interval_text}\n\n"
@@ -211,11 +379,16 @@ class Alliance(commands.Cog):
             )
 
     async def alliance_autocomplete(self, interaction: discord.Interaction, current: str):
-        self.c.execute("SELECT alliance_id, name FROM alliance_list")
-        alliances = self.c.fetchall()
+        if mongo_enabled() and AllianceMetadataAdapter is not None:
+            raw = self._load_alliances_from_mongo()
+            alliances = [(aid, name) for (aid, name, _dsid) in raw]
+        else:
+            self.c.execute("SELECT alliance_id, name FROM alliance_list")
+            alliances = self.c.fetchall()
+
         return [
             app_commands.Choice(name=f"{name} (ID: {alliance_id})", value=str(alliance_id))
-            for alliance_id, name in alliances if current.lower() in name.lower()
+            for alliance_id, name in alliances if current.lower() in (name or '').lower()
         ][:25]
 
     @app_commands.command(name="settings", description="Open settings menu.")
@@ -231,18 +404,13 @@ class Alliance(commands.Cog):
                     )
                     return
                 
-            self.c_settings.execute("SELECT COUNT(*) FROM admin")
-            admin_count = self.c_settings.fetchone()[0]
+            admin_count = self._get_admin_count()
 
             user_id = interaction.user.id
 
             if admin_count == 0:
-                self.c_settings.execute("""
-                    INSERT INTO admin (id, is_initial) 
-                    VALUES (?, 1)
-                """, (user_id,))
-                self.conn_settings.commit()
-
+                # Add the invoking user as the initial/global admin (persisted to Mongo if enabled)
+                added = self._add_admin(user_id, 1)
                 first_use_embed = discord.Embed(
                     title="🎉 First Time Setup",
                     description=(
@@ -252,14 +420,12 @@ class Alliance(commands.Cog):
                     ),
                     color=discord.Color.green()
                 )
+                # Notify regardless of persistence success (best-effort)
                 await interaction.response.send_message(embed=first_use_embed, ephemeral=True)
-                
                 await asyncio.sleep(3)
-                
-            self.c_settings.execute("SELECT id, is_initial FROM admin WHERE id = ?", (user_id,))
-            admin = self.c_settings.fetchone()
 
-            if admin is None:
+            is_admin, is_initial = self._is_admin(user_id)
+            if not is_admin:
                 await interaction.response.send_message(
                     "You do not have permission to access this menu.", 
                     ephemeral=True
@@ -383,10 +549,9 @@ class Alliance(commands.Cog):
 
             custom_id = interaction.data.get("custom_id")
             user_id = interaction.user.id
-            self.c_settings.execute("SELECT id, is_initial FROM admin WHERE id = ?", (user_id,))
-            admin = self.c_settings.fetchone()
+            is_admin, is_initial = self._is_admin(user_id)
 
-            if admin is None:
+            if not is_admin:
                 # Interaction may already be acknowledged elsewhere; try response first,
                 # then fallback to followup to avoid HTTP 40060 (already acknowledged).
                 try:
@@ -428,21 +593,21 @@ class Alliance(commands.Cog):
                         emoji="➕",
                         style=discord.ButtonStyle.success, 
                         custom_id="add_alliance", 
-                        disabled=admin[1] != 1
+                        disabled=is_initial != 1
                     ))
                     view.add_item(discord.ui.Button(
                         label="Edit Alliance", 
                         emoji="✏️",
                         style=discord.ButtonStyle.primary, 
                         custom_id="edit_alliance", 
-                        disabled=admin[1] != 1
+                        disabled=is_initial != 1
                     ))
                     view.add_item(discord.ui.Button(
                         label="Delete Alliance", 
                         emoji="🗑️",
                         style=discord.ButtonStyle.danger, 
                         custom_id="delete_alliance", 
-                        disabled=admin[1] != 1
+                        disabled=is_initial != 1
                     ))
                     view.add_item(discord.ui.Button(
                         label="View Alliances", 
@@ -466,19 +631,24 @@ class Alliance(commands.Cog):
                     await interaction.response.edit_message(embed=embed, view=view)
 
                 elif custom_id == "edit_alliance":
-                    if admin[1] != 1:
+                    if is_initial != 1:
                         await interaction.response.send_message("You do not have permission to perform this action.", ephemeral=True)
                         return
                     await self.edit_alliance(interaction)
 
                 elif custom_id == "check_alliance":
-                    self.c.execute("""
-                        SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval
-                        FROM alliance_list a
-                        LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
-                        ORDER BY a.name
-                    """)
-                    alliances = self.c.fetchall()
+                    if mongo_enabled() and AllianceMetadataAdapter is not None:
+                        settings_map = self._load_alliancesettings_from_mongo()
+                        raw = self._load_alliances_from_mongo()
+                        alliances = [(aid, name, settings_map.get(aid, {}).get('interval', 0)) for (aid, name, _dsid) in raw]
+                    else:
+                        self.c.execute("""
+                            SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval
+                            FROM alliance_list a
+                            LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
+                            ORDER BY a.name
+                        """)
+                        alliances = self.c.fetchall()
 
                     if not alliances:
                         await interaction.response.send_message("No alliances found to check.", ephemeral=True)
@@ -541,13 +711,18 @@ class Alliance(commands.Cog):
 
                                 # Queue all alliance operations at once
                                 queued_alliances = []
+                                settings_map = self._load_alliancesettings_from_mongo() if mongo_enabled() else None
                                 for index, (alliance_id, name, _) in enumerate(alliances):
                                     try:
-                                        self.c.execute("""
-                                            SELECT channel_id FROM alliancesettings WHERE alliance_id = ?
-                                        """, (alliance_id,))
-                                        channel_data = self.c.fetchone()
-                                        channel = self.bot.get_channel(channel_data[0]) if channel_data else select_interaction.channel
+                                        if settings_map is not None:
+                                            ch_id = settings_map.get(alliance_id, {}).get('channel_id')
+                                            channel = self.bot.get_channel(ch_id) if ch_id else select_interaction.channel
+                                        else:
+                                            self.c.execute("""
+                                                SELECT channel_id FROM alliancesettings WHERE alliance_id = ?
+                                            """, (alliance_id,))
+                                            channel_data = self.c.fetchone()
+                                            channel = self.bot.get_channel(channel_data[0]) if channel_data else select_interaction.channel
                                         
                                         await control_cog.login_handler.queue_operation({
                                             'type': 'alliance_control',
@@ -634,20 +809,31 @@ class Alliance(commands.Cog):
                             
                             else:
                                 alliance_id = int(selected_value)
-                                self.c.execute("""
-                                    SELECT a.name, s.channel_id 
-                                    FROM alliance_list a
-                                    LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
-                                    WHERE a.alliance_id = ?
-                                """, (alliance_id,))
-                                alliance_data = self.c.fetchone()
+                                if mongo_enabled():
+                                    alliances_map = AllianceMetadataAdapter.get_metadata('alliances') or {}
+                                    settings_map = self._load_alliancesettings_from_mongo()
+                                    a_doc = alliances_map.get(str(alliance_id))
+                                    if not a_doc:
+                                        await select_interaction.response.send_message("Alliance not found.", ephemeral=True)
+                                        return
+                                    alliance_name = a_doc.get('name')
+                                    channel_id = settings_map.get(alliance_id, {}).get('channel_id')
+                                    channel = self.bot.get_channel(channel_id) if channel_id else select_interaction.channel
+                                else:
+                                    self.c.execute("""
+                                        SELECT a.name, s.channel_id 
+                                        FROM alliance_list a
+                                        LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
+                                        WHERE a.alliance_id = ?
+                                    """, (alliance_id,))
+                                    alliance_data = self.c.fetchone()
 
-                                if not alliance_data:
-                                    await select_interaction.response.send_message("Alliance not found.", ephemeral=True)
-                                    return
+                                    if not alliance_data:
+                                        await select_interaction.response.send_message("Alliance not found.", ephemeral=True)
+                                        return
 
-                                alliance_name, channel_id = alliance_data
-                                channel = self.bot.get_channel(channel_id) if channel_id else select_interaction.channel
+                                    alliance_name, channel_id = alliance_data
+                                    channel = self.bot.get_channel(channel_id) if channel_id else select_interaction.channel
                                 
                                 status_embed = discord.Embed(
                                     title="🔍 Alliance Control",
@@ -786,13 +972,13 @@ class Alliance(commands.Cog):
                                 logger.exception("Failed to send error response for Gift Operations")
 
                 elif custom_id == "add_alliance":
-                    if admin[1] != 1:
+                    if is_initial != 1:
                         await interaction.response.send_message("You do not have permission to perform this action.", ephemeral=True)
                         return
                     await self.add_alliance(interaction)
 
                 elif custom_id == "delete_alliance":
-                    if admin[1] != 1:
+                    if is_initial != 1:
                         await interaction.response.send_message("You do not have permission to perform this action.", ephemeral=True)
                         return
                     await self.delete_alliance(interaction)
@@ -895,61 +1081,88 @@ class Alliance(commands.Cog):
                 color=discord.Color.blue()
             )
 
-            async def channel_select_callback(select_interaction: discord.Interaction):
-                try:
-                    self.c.execute("SELECT alliance_id FROM alliance_list WHERE name = ?", (alliance_name,))
-                    existing_alliance = self.c.fetchone()
-                    
-                    if existing_alliance:
+                async def channel_select_callback(select_interaction: discord.Interaction):
+                    try:
+                        # Check if alliance already exists (Mongo first, then sqlite)
+                        existing_alliance = None
+                        if mongo_enabled() and AllianceMetadataAdapter is not None:
+                            alliances_map = AllianceMetadataAdapter.get_metadata('alliances') or {}
+                            if any(v.get('name') == alliance_name for v in alliances_map.values()):
+                                existing_alliance = True
+                        else:
+                            self.c.execute("SELECT alliance_id FROM alliance_list WHERE name = ?", (alliance_name,))
+                            existing_alliance = self.c.fetchone()
+
+                        if existing_alliance:
+                            error_embed = discord.Embed(
+                                title="Error",
+                                description="An alliance with this name already exists.",
+                                color=discord.Color.red()
+                            )
+                            await select_interaction.response.edit_message(embed=error_embed, view=None)
+                            return
+
+                        channel_id = int(select_interaction.data["values"][0])
+
+                        # Save alliance to Mongo or SQLite
+                        if mongo_enabled() and AllianceMetadataAdapter is not None:
+                            alliance_id = self._get_next_alliance_id()
+                            ok1 = self._save_alliance_to_mongo(alliance_id, alliance_name, interaction.guild.id)
+                            ok2 = self._save_alliancesettings_to_mongo(alliance_id, channel_id, interval)
+                            if not (ok1 and ok2):
+                                raise Exception('Failed to save alliance to MongoDB')
+                        else:
+                            self.c.execute("INSERT INTO alliance_list (name, discord_server_id) VALUES (?, ?)", 
+                                           (alliance_name, interaction.guild.id))
+                            alliance_id = self.c.lastrowid
+                            self.c.execute("INSERT INTO alliancesettings (alliance_id, channel_id, interval) VALUES (?, ?, ?)", 
+                                           (alliance_id, channel_id, interval))
+                            self.conn.commit()
+
+                        # Legacy giftcodecontrol table (still in SQLite for now)
+                        try:
+                            self.c_giftcode.execute("""
+                                INSERT INTO giftcodecontrol (alliance_id, status) 
+                                VALUES (?, 1)
+                            """, (alliance_id,))
+                            self.conn_giftcode.commit()
+                        except Exception:
+                            # not critical; ignore if table missing or insert fails
+                            pass
+
+                        result_embed = discord.Embed(
+                            title="✅ Alliance Successfully Created",
+                            description="The alliance has been created with the following details:",
+                            color=discord.Color.green()
+                        )
+                        
+                        info_section = (
+                            f"**🛡️ Alliance Name**\n{alliance_name}\n\n"
+                            f"**🔢 Alliance ID**\n{alliance_id}\n\n"
+                            f"**📢 Channel**\n<#{channel_id}>\n\n"
+                            f"**⏱️ Control Interval**\n{interval} minutes"
+                        )
+                        result_embed.add_field(name="Alliance Details", value=info_section, inline=False)
+                        
+                        result_embed.set_footer(text="Alliance settings have been successfully saved")
+                        result_embed.timestamp = discord.utils.utcnow()
+                        
+                        await select_interaction.response.edit_message(embed=result_embed, view=None)
+
+                    except Exception as e:
                         error_embed = discord.Embed(
                             title="Error",
-                            description="An alliance with this name already exists.",
+                            description=f"Error creating alliance: {str(e)}",
                             color=discord.Color.red()
                         )
-                        await select_interaction.response.edit_message(embed=error_embed, view=None)
-                        return
-
-                    channel_id = int(select_interaction.data["values"][0])
-
-                    self.c.execute("INSERT INTO alliance_list (name, discord_server_id) VALUES (?, ?)", 
-                                 (alliance_name, interaction.guild.id))
-                    alliance_id = self.c.lastrowid
-                    self.c.execute("INSERT INTO alliancesettings (alliance_id, channel_id, interval) VALUES (?, ?, ?)", 
-                                 (alliance_id, channel_id, interval))
-                    self.conn.commit()
-
-                    self.c_giftcode.execute("""
-                        INSERT INTO giftcodecontrol (alliance_id, status) 
-                        VALUES (?, 1)
-                    """, (alliance_id,))
-                    self.conn_giftcode.commit()
-
-                    result_embed = discord.Embed(
-                        title="✅ Alliance Successfully Created",
-                        description="The alliance has been created with the following details:",
-                        color=discord.Color.green()
-                    )
-                    
-                    info_section = (
-                        f"**🛡️ Alliance Name**\n{alliance_name}\n\n"
-                        f"**🔢 Alliance ID**\n{alliance_id}\n\n"
-                        f"**📢 Channel**\n<#{channel_id}>\n\n"
-                        f"**⏱️ Control Interval**\n{interval} minutes"
-                    )
-                    result_embed.add_field(name="Alliance Details", value=info_section, inline=False)
-                    
-                    result_embed.set_footer(text="Alliance settings have been successfully saved")
-                    result_embed.timestamp = discord.utils.utcnow()
-                    
-                    await select_interaction.response.edit_message(embed=result_embed, view=None)
-
-                except Exception as e:
-                    error_embed = discord.Embed(
-                        title="Error",
-                        description=f"Error creating alliance: {str(e)}",
-                        color=discord.Color.red()
-                    )
-                    await select_interaction.response.edit_message(embed=error_embed, view=None)
+                        try:
+                            await select_interaction.response.edit_message(embed=error_embed, view=None)
+                        except Exception:
+                            # fallback to responding
+                            try:
+                                await select_interaction.response.send_message(embed=error_embed, ephemeral=True)
+                            except Exception:
+                                logger.exception("Failed to notify user about alliance creation error")
 
             channels = interaction.guild.text_channels
             view = PaginatedChannelView(channels, channel_select_callback)
@@ -971,13 +1184,17 @@ class Alliance(commands.Cog):
             await modal.interaction.response.send_message(embed=error_embed, ephemeral=True)
 
     async def edit_alliance(self, interaction: discord.Interaction):
-        self.c.execute("""
-            SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval, COALESCE(s.channel_id, 0) as channel_id 
-            FROM alliance_list a 
-            LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
-            ORDER BY a.alliance_id ASC
-        """)
-        alliances = self.c.fetchall()
+        if mongo_enabled() and AllianceMetadataAdapter is not None:
+            settings_map = self._load_alliancesettings_from_mongo()
+            alliances = [(aid, name, settings_map.get(aid, {}).get('interval', 0), settings_map.get(aid, {}).get('channel_id', 0)) for aid, name, _ in self._load_alliances_from_mongo()]
+        else:
+            self.c.execute("""
+                SELECT a.alliance_id, a.name, COALESCE(s.interval, 0) as interval, COALESCE(s.channel_id, 0) as channel_id 
+                FROM alliance_list a 
+                LEFT JOIN alliancesettings s ON a.alliance_id = s.alliance_id
+                ORDER BY a.alliance_id ASC
+            """)
+            alliances = self.c.fetchall()
         
         if not alliances:
             no_alliance_embed = discord.Embed(
@@ -1073,22 +1290,26 @@ class Alliance(commands.Cog):
                 await interaction.response.edit_message(embed=embed, view=self)
 
         async def select_callback(select_interaction: discord.Interaction):
-            try:
-                alliance_id = int(select_interaction.data["values"][0])
-                alliance_data = next(a for a in alliances if a[0] == alliance_id)
-                
-                self.c.execute("""
-                    SELECT interval, channel_id 
-                    FROM alliancesettings 
-                    WHERE alliance_id = ?
-                """, (alliance_id,))
-                settings_data = self.c.fetchone()
-                
-                modal = AllianceModal(
-                    title="Edit Alliance",
-                    default_name=alliance_data[1],
-                    default_interval=str(settings_data[0] if settings_data else 0)
-                )
+                try:
+                    alliance_id = int(select_interaction.data["values"][0])
+                    alliance_data = next(a for a in alliances if a[0] == alliance_id)
+
+                    if mongo_enabled() and AllianceMetadataAdapter is not None:
+                        settings_map = self._load_alliancesettings_from_mongo()
+                        settings_data = (settings_map.get(alliance_id, {}).get('interval', 0), settings_map.get(alliance_id, {}).get('channel_id', 0))
+                    else:
+                        self.c.execute("""
+                            SELECT interval, channel_id 
+                            FROM alliancesettings 
+                            WHERE alliance_id = ?
+                        """, (alliance_id,))
+                        settings_data = self.c.fetchone()
+
+                    modal = AllianceModal(
+                        title="Edit Alliance",
+                        default_name=alliance_data[1],
+                        default_interval=str(settings_data[0] if settings_data else 0)
+                    )
                 await select_interaction.response.send_modal(modal)
                 await modal.wait()
 
@@ -1113,22 +1334,29 @@ class Alliance(commands.Cog):
                         try:
                             channel_id = int(channel_interaction.data["values"][0])
 
-                            self.c.execute("UPDATE alliance_list SET name = ? WHERE alliance_id = ?", 
-                                          (alliance_name, alliance_id))
-                            
-                            if settings_data:
-                                self.c.execute("""
-                                    UPDATE alliancesettings 
-                                    SET channel_id = ?, interval = ? 
-                                    WHERE alliance_id = ?
-                                """, (channel_id, interval, alliance_id))
+                            if mongo_enabled() and AllianceMetadataAdapter is not None:
+                                # Update name and settings in Mongo
+                                ok1 = self._save_alliance_to_mongo(alliance_id, alliance_name, interaction.guild.id)
+                                ok2 = self._save_alliancesettings_to_mongo(alliance_id, channel_id, interval)
+                                if not (ok1 and ok2):
+                                    raise Exception('Failed to update alliance in MongoDB')
                             else:
-                                self.c.execute("""
-                                    INSERT INTO alliancesettings (alliance_id, channel_id, interval)
-                                    VALUES (?, ?, ?)
-                                """, (alliance_id, channel_id, interval))
-                            
-                            self.conn.commit()
+                                self.c.execute("UPDATE alliance_list SET name = ? WHERE alliance_id = ?", 
+                                              (alliance_name, alliance_id))
+                                
+                                if settings_data:
+                                    self.c.execute("""
+                                        UPDATE alliancesettings 
+                                        SET channel_id = ?, interval = ? 
+                                        WHERE alliance_id = ?
+                                    """, (channel_id, interval, alliance_id))
+                                else:
+                                    self.c.execute("""
+                                        INSERT INTO alliancesettings (alliance_id, channel_id, interval)
+                                        VALUES (?, ?, ?)
+                                    """, (alliance_id, channel_id, interval))
+                                
+                                self.conn.commit()
 
                             result_embed = discord.Embed(
                                 title="✅ Alliance Successfully Updated",
@@ -1208,9 +1436,13 @@ class Alliance(commands.Cog):
 
     async def delete_alliance(self, interaction: discord.Interaction):
         try:
-            self.c.execute("SELECT alliance_id, name FROM alliance_list ORDER BY name")
-            alliances = self.c.fetchall()
-            
+            if mongo_enabled() and AllianceMetadataAdapter is not None:
+                raw = self._load_alliances_from_mongo()
+                alliances = [(aid, name) for (aid, name, _dsid) in raw]
+            else:
+                self.c.execute("SELECT alliance_id, name FROM alliance_list ORDER BY name")
+                alliances = self.c.fetchall()
+
             if not alliances:
                 no_alliance_embed = discord.Embed(
                     title="❌ No Alliances Found",
@@ -1222,8 +1454,7 @@ class Alliance(commands.Cog):
 
             alliance_members = {}
             for alliance_id, _ in alliances:
-                self.c_users.execute("SELECT COUNT(*) FROM users WHERE alliance = ?", (alliance_id,))
-                member_count = self.c_users.fetchone()[0]
+                member_count = self._member_count_for_alliance(alliance_id)
                 alliance_members[alliance_id] = member_count
 
             items_per_page = 25
@@ -1271,29 +1502,50 @@ class Alliance(commands.Cog):
         try:
             alliance_id = int(interaction.data["values"][0])
             
-            self.c.execute("SELECT name FROM alliance_list WHERE alliance_id = ?", (alliance_id,))
-            alliance_data = self.c.fetchone()
-            
-            if not alliance_data:
-                await interaction.response.send_message("Alliance not found.", ephemeral=True)
-                return
-            
-            alliance_name = alliance_data[0]
+            if mongo_enabled() and AllianceMetadataAdapter is not None:
+                alliances_map = AllianceMetadataAdapter.get_metadata('alliances') or {}
+                settings_map = self._load_alliancesettings_from_mongo()
+                a_doc = alliances_map.get(str(alliance_id))
+                if not a_doc:
+                    await interaction.response.send_message("Alliance not found.", ephemeral=True)
+                    return
+                alliance_name = a_doc.get('name')
+                settings_count = 1 if settings_map.get(alliance_id) else 0
+                users_count = self._member_count_for_alliance(alliance_id)
+            else:
+                self.c.execute("SELECT name FROM alliance_list WHERE alliance_id = ?", (alliance_id,))
+                alliance_data = self.c.fetchone()
+                
+                if not alliance_data:
+                    await interaction.response.send_message("Alliance not found.", ephemeral=True)
+                    return
+                
+                alliance_name = alliance_data[0]
 
-            self.c.execute("SELECT COUNT(*) FROM alliancesettings WHERE alliance_id = ?", (alliance_id,))
-            settings_count = self.c.fetchone()[0]
+                self.c.execute("SELECT COUNT(*) FROM alliancesettings WHERE alliance_id = ?", (alliance_id,))
+                settings_count = self.c.fetchone()[0]
 
-            self.c_users.execute("SELECT COUNT(*) FROM users WHERE alliance = ?", (alliance_id,))
-            users_count = self.c_users.fetchone()[0]
+                self.c_users.execute("SELECT COUNT(*) FROM users WHERE alliance = ?", (alliance_id,))
+                users_count = self.c_users.fetchone()[0]
 
-            self.c_settings.execute("SELECT COUNT(*) FROM adminserver WHERE alliances_id = ?", (alliance_id,))
-            admin_server_count = self.c_settings.fetchone()[0]
+            # For legacy adminserver/giftcode tables, still query sqlite if present
+            try:
+                self.c_settings.execute("SELECT COUNT(*) FROM adminserver WHERE alliances_id = ?", (alliance_id,))
+                admin_server_count = self.c_settings.fetchone()[0]
+            except Exception:
+                admin_server_count = 0
 
-            self.c_giftcode.execute("SELECT COUNT(*) FROM giftcode_channel WHERE alliance_id = ?", (alliance_id,))
-            gift_channels_count = self.c_giftcode.fetchone()[0]
+            try:
+                self.c_giftcode.execute("SELECT COUNT(*) FROM giftcode_channel WHERE alliance_id = ?", (alliance_id,))
+                gift_channels_count = self.c_giftcode.fetchone()[0]
+            except Exception:
+                gift_channels_count = 0
 
-            self.c_giftcode.execute("SELECT COUNT(*) FROM giftcodecontrol WHERE alliance_id = ?", (alliance_id,))
-            gift_code_control_count = self.c_giftcode.fetchone()[0]
+            try:
+                self.c_giftcode.execute("SELECT COUNT(*) FROM giftcodecontrol WHERE alliance_id = ?", (alliance_id,))
+                gift_code_control_count = self.c_giftcode.fetchone()[0]
+            except Exception:
+                gift_code_control_count = 0
 
             confirm_embed = discord.Embed(
                 title="⚠️ Confirm Alliance Deletion",
@@ -1318,29 +1570,74 @@ class Alliance(commands.Cog):
             
             async def confirm_callback(button_interaction: discord.Interaction):
                 try:
-                    self.c.execute("DELETE FROM alliance_list WHERE alliance_id = ?", (alliance_id,))
-                    alliance_count = self.c.rowcount
-                    
-                    self.c.execute("DELETE FROM alliancesettings WHERE alliance_id = ?", (alliance_id,))
-                    admin_settings_count = self.c.rowcount
-                    
-                    self.conn.commit()
+                    if mongo_enabled() and AllianceMetadataAdapter is not None:
+                        # Remove alliance metadata
+                        ok = self._delete_alliance_from_mongo(alliance_id)
+                        alliance_count = 1 if ok else 0
 
-                    self.c_users.execute("DELETE FROM users WHERE alliance = ?", (alliance_id,))
-                    users_count_deleted = self.c_users.rowcount
-                    self.conn_users.commit()
+                        # Remove member docs associated with this alliance (if any)
+                        users_deleted = 0
+                        try:
+                            docs = AllianceMembersAdapter.get_all_members() or []
+                            for d in docs:
+                                try:
+                                    fid = d.get('fid') or d.get('id') or d.get('_id')
+                                    if str(d.get('alliance')) == str(alliance_id) or d.get('alliance') == alliance_id:
+                                        if AllianceMembersAdapter.delete_member(str(fid)):
+                                            users_deleted += 1
+                                except Exception:
+                                    continue
+                        except Exception:
+                            users_deleted = 0
+                        users_count_deleted = users_deleted
 
-                    self.c_settings.execute("DELETE FROM adminserver WHERE alliances_id = ?", (alliance_id,))
-                    admin_server_count = self.c_settings.rowcount
-                    self.conn_settings.commit()
+                        # Legacy sqlite cleanup for related tables (best-effort)
+                        try:
+                            self.c_settings.execute("DELETE FROM adminserver WHERE alliances_id = ?", (alliance_id,))
+                            admin_server_count = self.c_settings.rowcount
+                            self.conn_settings.commit()
+                        except Exception:
+                            admin_server_count = 0
 
-                    self.c_giftcode.execute("DELETE FROM giftcode_channel WHERE alliance_id = ?", (alliance_id,))
-                    gift_channels_count = self.c_giftcode.rowcount
+                        try:
+                            self.c_giftcode.execute("DELETE FROM giftcode_channel WHERE alliance_id = ?", (alliance_id,))
+                            gift_channels_count = self.c_giftcode.rowcount
+                        except Exception:
+                            gift_channels_count = 0
 
-                    self.c_giftcode.execute("DELETE FROM giftcodecontrol WHERE alliance_id = ?", (alliance_id,))
-                    gift_code_control_count = self.c_giftcode.rowcount
-                    
-                    self.conn_giftcode.commit()
+                        try:
+                            self.c_giftcode.execute("DELETE FROM giftcodecontrol WHERE alliance_id = ?", (alliance_id,))
+                            gift_code_control_count = self.c_giftcode.rowcount
+                        except Exception:
+                            gift_code_control_count = 0
+                        try:
+                            self.conn_giftcode.commit()
+                        except Exception:
+                            pass
+                    else:
+                        self.c.execute("DELETE FROM alliance_list WHERE alliance_id = ?", (alliance_id,))
+                        alliance_count = self.c.rowcount
+                        
+                        self.c.execute("DELETE FROM alliancesettings WHERE alliance_id = ?", (alliance_id,))
+                        admin_settings_count = self.c.rowcount
+                        
+                        self.conn.commit()
+
+                        self.c_users.execute("DELETE FROM users WHERE alliance = ?", (alliance_id,))
+                        users_count_deleted = self.c_users.rowcount
+                        self.conn_users.commit()
+
+                        self.c_settings.execute("DELETE FROM adminserver WHERE alliances_id = ?", (alliance_id,))
+                        admin_server_count = self.c_settings.rowcount
+                        self.conn_settings.commit()
+
+                        self.c_giftcode.execute("DELETE FROM giftcode_channel WHERE alliance_id = ?", (alliance_id,))
+                        gift_channels_count = self.c_giftcode.rowcount
+
+                        self.c_giftcode.execute("DELETE FROM giftcodecontrol WHERE alliance_id = ?", (alliance_id,))
+                        gift_code_control_count = self.c_giftcode.rowcount
+                        
+                        self.conn_giftcode.commit()
 
                     cleanup_embed = discord.Embed(
                         title="✅ Alliance Successfully Deleted",
@@ -1650,25 +1947,27 @@ class MemberOperationsView(discord.ui.View):
         self.cog = cog
 
     async def get_admin_alliances(self, user_id, guild_id):
-        self.cog.c_settings.execute("SELECT id, is_initial FROM admin WHERE id = ?", (user_id,))
-        admin = self.cog.c_settings.fetchone()
-        
-        if admin is None:
+        is_admin, is_initial = self.cog._is_admin(user_id)
+        if not is_admin:
             return []
-            
-        is_initial = admin[1]
-        
-        if is_initial == 1:
-            self.cog.c.execute("SELECT alliance_id, name FROM alliance_list ORDER BY name")
+
+        if mongo_enabled() and AllianceMetadataAdapter is not None:
+            raw = self.cog._load_alliances_from_mongo()
+            if is_initial == 1:
+                return [(aid, name) for (aid, name, _dsid) in raw]
+            else:
+                return [(aid, name) for (aid, name, dsid) in raw if dsid == guild_id]
         else:
-            self.cog.c.execute("""
-                SELECT alliance_id, name 
-                FROM alliance_list 
-                WHERE discord_server_id = ? 
-                ORDER BY name
-            """, (guild_id,))
-            
-        return self.cog.c.fetchall()
+            if is_initial == 1:
+                self.cog.c.execute("SELECT alliance_id, name FROM alliance_list ORDER BY name")
+            else:
+                self.cog.c.execute("""
+                    SELECT alliance_id, name 
+                    FROM alliance_list 
+                    WHERE discord_server_id = ? 
+                    ORDER BY name
+                """, (guild_id,))
+            return self.cog.c.fetchall()
 
     @discord.ui.button(label="Add Member", emoji="➕", style=discord.ButtonStyle.primary, custom_id="add_member")
     async def add_member_button(self, interaction: discord.Interaction, button: discord.ui.Button):
