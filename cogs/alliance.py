@@ -73,6 +73,10 @@ class Alliance(commands.Cog):
                 CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     fid TEXT,
+                    nickname TEXT,
+                    furnace_lv INTEGER DEFAULT 0,
+                    kid INTEGER,
+                    stove_lv_content TEXT,
                     alliance INTEGER
                 )
             """)
