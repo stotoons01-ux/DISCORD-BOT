@@ -305,8 +305,12 @@ def _log_tasks_and_tracebacks():
     """Return a short diagnostic string of currently running asyncio tasks and their stacks."""
     out_lines = []
     try:
-        loop = asyncio.get_event_loop()
-        tasks = list(asyncio.all_tasks(loop))
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            # No running loop available (signal handler may run outside loop); avoid deprecation
+            loop = None
+        tasks = list(asyncio.all_tasks(loop)) if loop is not None else []
         out_lines.append(f"Active asyncio tasks: {len(tasks)}")
         for t in tasks[:50]:
             out_lines.append(f"- Task: {t.get_name() if hasattr(t, 'get_name') else repr(t)} state={t._state if hasattr(t, '_state') else 'unknown'}")
@@ -349,9 +353,19 @@ def _signal_handler(signum, frame):
         b = globals().get('bot')
         if b is not None and hasattr(b, 'close'):
             # schedule close on loop
-            loop = asyncio.get_event_loop()
             try:
-                loop.create_task(b.close())
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                loop = None
+            try:
+                if loop is not None:
+                    loop.create_task(b.close())
+                else:
+                    # No running loop; try synchronous close
+                    try:
+                        b.close()
+                    except Exception:
+                        pass
             except Exception:
                 try:
                     b.close()
@@ -1554,10 +1568,15 @@ def asyncio_exception_handler(loop, context):
     logger.critical(f"Asyncio exception: {msg}")
 
 try:
-    loop = asyncio.get_event_loop()
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        # No running loop yet; create one and set it to avoid DeprecationWarning
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
     loop.set_exception_handler(asyncio_exception_handler)
 except Exception:
-    # In case event loop isn't set up yet
+    # If anything goes wrong, skip setting the handler now
     pass
 
 # Signal handlers to log terminations

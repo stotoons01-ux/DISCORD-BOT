@@ -42,7 +42,11 @@ async def start_health_server():
         mongo_uri = os.environ.get('MONGO_URI')
         resp['mongo_uri_present'] = bool(mongo_uri)
         if mongo_uri and resp['pymongo_installed']:
-            loop = asyncio.get_event_loop()
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                # Extremely unlikely inside request handler, but be safe
+                loop = None
 
             def _ping_mongo():
                 try:
@@ -56,7 +60,15 @@ async def start_health_server():
                     return {'ok': False, 'error': str(e)}
 
             try:
-                ping_result = await loop.run_in_executor(None, _ping_mongo)
+                if loop is not None:
+                    ping_result = await loop.run_in_executor(None, _ping_mongo)
+                else:
+                    # Fallback: run in default executor via asyncio.to_thread if available
+                    try:
+                        ping_result = await asyncio.to_thread(_ping_mongo)
+                    except AttributeError:
+                        # Python <3.9 fallback
+                        ping_result = await asyncio.get_event_loop().run_in_executor(None, _ping_mongo)
                 resp['mongo_ping'] = ping_result
             except Exception as e:
                 resp['mongo_ping'] = {'ok': False, 'error': str(e)}
